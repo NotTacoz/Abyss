@@ -14,11 +14,11 @@ function App() {
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://youtube.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          piss and
+          hey guys. check out this awesome thing i found!
         </a>
       </header>
     </div>
