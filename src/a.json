@@ -1,0 +1,69 @@
+{
+    "accountName": "benjamingriff_24",
+    "tweetContents":{
+        "1": {
+            "tweetName": "Ben Griffiths",
+            "timeTweeted": 1179982123,
+            "tweetContent": "Hi Twitter!",
+            "attachedFiles": false,
+            "likes": 3,
+            "retweets": 0
+        },
+        "2": {
+            "tweetName": "Ben Griffiths",
+            "timeTweeted": 1185233559,
+            "tweetContent": "Invested in some 'bitcoin', hope this will become big soon",
+            "attachedFiles": false,
+            "likes": 4,
+            "retweets": 1
+        },
+        "3": {
+            "tweetName": "Ben Griffiths",
+            "timeTweeted": 1189636959,
+            "tweetContent": "Rewatching Fast and Furious, \nI forgot how much I absolutely enjoyed the show!",
+            "attachedFiles": false,
+            "likes": 13,
+            "retweets": 3
+        },
+        "4": {
+            "tweetName": "Reply: Ben Griffiths",
+            "timeTweeted": 1189637196,
+            "tweetContent": "It would be *amazing* if Dwayne Johnson could star in this show",
+            "attachedFiles": "https://en.wikipedia.org/wiki/File:Dwayne_Johnson_2,_2013.jpg",
+            "likes": 3,
+            "retweets": 0
+        },
+        "5": {
+            "tweetName": "Ben Griffiths",
+            "timeTweeted": 1198451606,
+            "tweetContent": "Merry Christmas Twitter!",
+            "attachedFiles": false,
+            "likes": 3,
+            "retweets": 0
+        },
+        "6": {
+            "tweetName": "Retweet: Dwayne 'The Rock' Johnson",
+            "timeTweeted": 1199038543,
+            "tweetContent": "Great work! 👍",
+            "attachedFiles": false,
+            "likes": 1,
+            "retweets": 0
+        },
+        "7": {
+            "tweetName": "benjamin griffiths #bobross",
+            "timeTweeted": 1199038543,
+            "tweetContent": "Happy New Year Twitter!",
+            "attachedFiles": false,
+            "likes": 1,
+            "retweets": 0
+        },
+        "8": {
+            "tweetName": "benjamin griffiths",
+            "timeTweeted": 1209773271,
+            "tweetContent": "#Golfing",
+            "attachedFiles": "http://secure.golfchannel.com/sites/default/files/2020/03/19/golf_swing_stock_1920.jpg",
+            "likes": 1,
+            "retweets": 0
+        }
+    }
+}
