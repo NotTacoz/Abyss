@@ -1,38 +1,118 @@
-.App {
-  text-align: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+html {
+  background-color: rgba(50,50,69,1);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Heading {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+a:link {
+  color: #61dafb;
+  text-decoration-line: None;
+}
+
+h1 {
+  font-weight: 600;
+}
+h2 {
+  font-weight: 550;
+}
+h3 {
+  font-weight: 500;
+}
+h4 {
+  font-weight: 450;
+}
+h5 {
+  font-weight: 400;
+}
+h6 {
+  font-weight: 350;
+}
+p {
+  font-weight: 350;
+}
+
+hr {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+
+/* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(40,40,59,1);
+  opacity: 1;
+}
+
+div.transbox{
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Starlink_Mission_%2847926144123%29.jpg/300px-Starlink_Mission_%2847926144123%29.jpg");
+  background-repeat: no-repeat;
+  opacity: 1;
+} 
+
+.sidebar:img {
+  opacity: 50%;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: rgb(220, 220, 220);
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  color: white;
+  font-weight: 500;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 300px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
   }
-  to {
-    transform: rotate(360deg);
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
   }
 }

@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 /*
 import * as firebase from 'firebase';
 
-const config = {
+const config = {fafaffff
   apiKey: 'AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs',
   authDomain: 'genshin-mains.firebaseapp.com',
   databaseURL: 'https://genshin-mains-default-rtdb.firebaseio.com',
