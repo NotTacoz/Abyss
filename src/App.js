@@ -8,6 +8,7 @@ function App() {
   return (
     <div>
       <div className="sidebar">
+        <div className="text-center mt-10 mb-12"><div className="inline-flex"><h1 className="">Genshin</h1> <h1 className="text-red-500">Mains</h1></div></div>
         <a className="active" href="#home">Home</a>
         <a href="#news">News</a>
         <a href="#contact">Contact</a>
@@ -30,7 +31,14 @@ function App() {
           </div>
           <hr></hr>
           <div>
-            f
+            Actions
+            <div>
+              <ul>
+                <li><a href="#" className="button special">Default</a></li>
+                <li><a href="#" className="button">Default</a></li>
+                <li><a href="#" className="button alt">Default</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
