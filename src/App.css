@@ -94,11 +94,13 @@ div.transbox{
 .sidebar a.active {
   background-color: rgb(206, 64, 73);
   color: white;
+  opacity: 90%;
 }
 
 /* Links on mouse-over */
 .sidebar a:hover:not(.active) {
   color: white;
+  opacity: 1;
   font-weight: 500;
 }
 

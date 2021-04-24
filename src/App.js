@@ -3,16 +3,18 @@
 /* eslint-disable semi */
 // import logo from './logo.svg';
 import './App.css';
+import { Link } from 'gatsby'
 
 function App() {
   return (
     <div>
       <div className="sidebar">
         <div className="text-center mt-10 mb-12"><div className="inline-flex"><h1 className="">Genshin</h1> <h1 className="text-red-500">Mains</h1></div></div>
-        <a className="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+        <a Link to='/'>Home</a>
+        <a Link to='/'>News</a>
+        <a Link to='/'>Contact</a>
+        <a Link to='/'>About</a>
+        <a Link to='/login'>Login</a>
       </div>
       <div className="content">
         <div>
