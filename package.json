@@ -53,5 +53,10 @@
     "eslint-plugin-react": "^7.23.2",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "craco.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
