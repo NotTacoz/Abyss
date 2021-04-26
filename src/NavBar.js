@@ -46,6 +46,36 @@ function NavBar () {
           </div>
         </div>
       </div>
+      <div className="navbar p-0 justify-center">
+        <div className="text-center mt-2 mb-2 z-10">
+          <div>
+            <Link to='/' className="sidebarContent activeContent m-0 items-stretch" style={{ color: 'white' }}>
+              <div className="inline-flex ">
+                <img className="h-8 p-0" alt="Home" src={Home} />
+              </div>
+            </Link>
+            <Link to='/' className="sidebarContent m-0 items-stretch">
+              <div className="inline-flex">
+                <img className="h-8 p-0" alt="Home" src={Home} />
+              </div>
+            </Link>
+            <Link to='/' className="sidebarContent m-0 items-stretch">
+              <div className="inline-flex">
+                <img className="h-8 p-0" alt="Home" src={Home} />
+              </div>
+            </Link>
+            <Link to='/' className="sidebarContent m-0 items-stretch">
+              <div className="inline-flex">
+                <img className="h-8 p-0" alt="Home" src={Home} />
+              </div>
+            </Link>
+            <Link to='/login' className="sidebarContent m-0 items-stretch">
+              <div className="inline-flex">
+                <img className="h-8 p-0" alt="Login" src={Login} />
+              </div></Link>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

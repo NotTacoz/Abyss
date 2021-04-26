@@ -117,23 +117,31 @@ div.content {
   height: 1000px;
 }
 
+.navbar {
+  display: none;
+  background-color: rgba(25,25,45,1);
+}
+
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 768px) {
   .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
+    display: none;
+  }
+  .navbar {
+    display: flex;
   }
   .sidebarContent {float: left;}
   div.content {margin-left: 0;}
 }
 
+stretch-items {
+  
+}
+
 /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
 @media screen and (max-width: 400px) {
   .sidebar{
-    text-align: center;
-    float: none;
-    height: 25%;
+
   }
 }
 
