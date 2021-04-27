@@ -4,7 +4,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import Home from './Home'
-import Login from './Login'
+import Login from './login'
 import NavBar from './NavBar'
 // eslint-disable-next-line no-unused-vars
 import { Route, Link } from 'react-router-dom'
