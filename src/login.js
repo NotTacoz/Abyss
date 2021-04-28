@@ -62,7 +62,7 @@ function Login () {
           <IfFirebaseAuthedAnd
             filter={({ providerId }) => providerId !== 'anonymous'}
           >
-            {({ providerId }) => { 
+            {({ providerId }) => {
               return <div>You are authenticated with {providerId}</div>
             }}
           </IfFirebaseAuthedAnd>

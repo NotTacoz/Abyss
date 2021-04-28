@@ -133,15 +133,8 @@ div.content {
   div.content {margin-left: 0;}
 }
 
-stretch-items {
-  
-}
-
 /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
 @media screen and (max-width: 400px) {
-  .sidebar{
-
-  }
 }
 
 /* Button */
@@ -361,5 +354,4 @@ button.special:active,
   z-index: -1;
   background-size: contain;
   opacity: 0.4;
-  overflow: ;
 }

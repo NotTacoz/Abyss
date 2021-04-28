@@ -3,6 +3,7 @@ import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import Home from './img/sidebarbuttons/Home.png'
 import Login from './img/sidebarbuttons/Login.png'
+
 function NavBar () {
   return (
     <div>
@@ -14,7 +15,7 @@ function NavBar () {
               <h1 className="text-red-500">Mains</h1>
           </div>
           <div>
-            <Link to='/' className="sidebarContent activeContent" style={{ color: 'white' }}>
+            <Link to='/' className="sidebarContent" style={{ color: 'white' }}>
               <div className="inline-flex">
                 <img className="h-8 pr-3" alt="Home" src={Home} />
                 <a className=""> Home</a>
