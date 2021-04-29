@@ -1,0 +1,13 @@
+name: Auto Format your mom
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prettier
+        run: npx prettier --print-width 300 --no-bracket-spacing --jsx-bracket-same-line --write .
