@@ -13,11 +13,11 @@ function NavBar () {
         {/* <div className="sidebar-bg"></div> */}
         <div className="text-center mt-10 mb-12 z-10">
           <div className="inline-flex mb-8">
-              <h1 className="">Genshin</h1>
+              <h1 className="text-white">Genshin</h1>
               <h1 className="text-red-500">Mains</h1>
           </div>
           <div>
-            <NavLink to='/home' className="sidebarContent" activeClassName="activeContent">
+            <NavLink exact to='/' className="sidebarContent" activeClassName="activeContent">
               <div className="inline-flex">
                 <img className="h-8 pr-3" alt="Home" src={Home} />
                 <a className=""> Home</a>

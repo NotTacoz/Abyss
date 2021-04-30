@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
+html {
   background-color: rgba(30,30,50,1);
   min-height: 100vh;
   display: block;
@@ -114,6 +114,8 @@ div.transbox{
 div.content {
   margin-left: 280px;
   padding: 5px 16px;
+  background-color: rgba(30,30,50,1);
+  color: white;
 }
 
 .navbar {

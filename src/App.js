@@ -2,30 +2,30 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable semi */
 // import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Home from './Home'
 import Login from './login'
+// eslint-disable-next-line no-unused-vars
 import NavBar from './navBar'
 // eslint-disable-next-line no-unused-vars
 import NotFoundPage from './notFound'
 // eslint-disable-next-line no-unused-vars
 import { Redirect, Route, Switch, BrowserRouter, Link } from 'react-router-dom';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <div className="App">
-          <NavBar />
-          <Route exact path="/" component={ Home } />
-          <Route exact path="/home" component={ Home } />
-          <Route exact path="/login" component={ Login } />
-          <Route path="/404" component={NotFoundPage} />
-          <Redirect to="/404" />
-        </div>
-      </Switch>
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <NavBar />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route component={NotFoundPage} />
+          </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
