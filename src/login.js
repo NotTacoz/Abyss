@@ -1,8 +1,11 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import {
   FirebaseAuthProvider,
+  // eslint-disable-next-line no-unused-vars
   FirebaseAuthConsumer,
   IfFirebaseAuthed,
   IfFirebaseAuthedAnd
@@ -30,15 +33,7 @@ function Login () {
         >
           Sign In with Google
         </button>
-        <button
-          data-testid="signin-anon"
-          onClick={() => {
-            firebase.auth().signInAnonymously()
-          }}
-        >
-          Sign In Anonymously
-        </button>
-        <FirebaseAuthConsumer>
+        {/* <FirebaseAuthConsumer>
           {({ isSignedIn, user, providerId }) => {
             return (
               <pre style={{ height: 300, overflow: 'auto' }}>
@@ -46,22 +41,18 @@ function Login () {
               </pre>
             )
           }}
-        </FirebaseAuthConsumer>
+        </FirebaseAuthConsumer> */}
         <div>
           <IfFirebaseAuthed>
-            {() => {
-              return <div><p>You are authenticated</p><button
-          onClick={() => {
-            firebase.auth().signOut()
-          }}
-        >
-          Sign Out
-        </button></div>
-            }}
+              {() => {
+                return <div>
+                  <p>You are authenticated</p>
+                  <button onClick={() => { firebase.auth().signOut() }}>
+            Sign Out
+          </button></div>
+              }}
           </IfFirebaseAuthed>
-          <IfFirebaseAuthedAnd
-            filter={({ providerId }) => providerId !== 'anonymous'}
-          >
+          <IfFirebaseAuthedAnd filter={({ providerId }) => providerId !== 'anonymous'}>
             {({ providerId }) => {
               return <div>You are authenticated with {providerId}</div>
             }}
