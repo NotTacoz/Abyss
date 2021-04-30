@@ -5,17 +5,26 @@
 import './App.css';
 import Home from './Home'
 import Login from './login'
-import NavBar from './NavBar'
+import NavBar from './navBar'
 // eslint-disable-next-line no-unused-vars
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NotFoundPage from './notFound'
+// eslint-disable-next-line no-unused-vars
+import { Redirect, Route, Switch, BrowserRouter, Link } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <Route exact path="/home" component={ Home } />
-      <Route exact path="/login" component={ Login } />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <div className="App">
+          <NavBar />
+          <Route exact path="/" component={ Home } />
+          <Route exact path="/home" component={ Home } />
+          <Route exact path="/login" component={ Login } />
+          <Route path="/404" component={NotFoundPage} />
+          <Redirect to="/404" />
+        </div>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
