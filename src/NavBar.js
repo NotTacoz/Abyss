@@ -52,7 +52,7 @@ function NavBar () {
       <div className="navbar p-0 justify-center">
         <div className="text-center mt-2 mb-2 z-10">
           <div>
-            <NavLink to='/home' className="sidebarContent m-0 items-stretch" activeClassName="activeContent">
+            <NavLink to='/s' className="sidebarContent m-0 items-stretch" activeClassName="activeContent">
               <div className="inline-flex">
                 <img className="h-8 p-0" alt="Home" src={Home} />
               </div>
