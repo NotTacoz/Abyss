@@ -357,3 +357,10 @@ button.special:active,
   background-size: contain;
   opacity: 0.4;
 }
+
+.center {
+  border: 5px solid rgba(20,20,40,1);
+  text-align: center;
+  display: inline-block;
+  width: 60%;
+}
