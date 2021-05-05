@@ -4,10 +4,10 @@
 // import logo from './logo.svg';
 import React from 'react';
 import './App.css';
-import Home from './Home'
-import Login from './login'
+import Home from './components/Home'
+import Login from './components/login'
 // eslint-disable-next-line no-unused-vars
-import NavBar from './navBar'
+import NavBar from './components/NavBar'
 // eslint-disable-next-line no-unused-vars
 import NotFoundPage from './notFound'
 // eslint-disable-next-line no-unused-vars
