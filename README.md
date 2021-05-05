@@ -1,16 +1,15 @@
-# 🚀 Abyss 🚀
+<a href="https://dogehouse.tv"><p align="center">
+<img height=100 src=""/>
 
-The open source project that will revolutionise Gaming Social Media
-
-## ❓ What is Abyss? ❓
-
-It's simple - Abyss is the name of my upcoming project - The Social Media for gamers
-
-### This is so epic gamers
-
-this is so poggers and you should star it so i can flex on all of my non coder friends
-
-### this was built by react and tailwindcss
-i am so cool i used reactjs
-
-okay thats it
+</p></a>
+<p align="center">
+  <strong>Revolutionary Social Media for Gamers🚀</strong>
+</p>
+<p align="center">
+  <a href="https://discord.gg/">
+    <img src="https://img.shields.io/discord/810571477316403233?style=for-the-badge" alt="discord - users online" />
+  </a>
+  <a href="https://dogehouse.tv">
+    <img src="https://img.shields.io/endpoint?color=FD4D4D&style=for-the-badge&url=https%3A%2F%2Fapi.dogegarden.net%2Fv1%2Fshields" alt="dogehouse - users online" />
+  </a>
+</p>
