@@ -6,7 +6,7 @@
   <strong>Revolutionary Social Media for Gamers</strong>
 </p>
 <p align="center">
-  <a href="">
+  <a>
     <img src="https://img.shields.io/github/stars/NotTacoz/Abyss?style=for-the-badge" alt="discord - users online" />
   </a>
 </p>
