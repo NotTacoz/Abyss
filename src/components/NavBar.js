@@ -4,7 +4,7 @@ import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Route, NavLink } from 'react-router-dom'
 import Home from './../img/sidebarbuttons/Home.png'
-import Login from './../img/sidebarbuttons/Login.png'
+import Character from './../img/sidebarbuttons/Character.png'
 
 function NavBar () {
   return (
@@ -41,10 +41,10 @@ function NavBar () {
                 <a className=""> About</a>
               </div>
             </NavLink>
-            <NavLink to='/login' className="sidebarContent" activeClassName="activeContent">
+            <NavLink to='/account' className="sidebarContent" activeClassName="activeContent">
               <div className="inline-flex">
-                <img className="h-8 pr-3" alt="Login" src={Login} />
-                <a className=""> Login</a>
+                <img className="h-8 pr-3" alt="Character" src={Character} />
+                <a className=""> Account</a>
               </div></NavLink>
           </div>
         </div>
@@ -72,9 +72,9 @@ function NavBar () {
                 <img className="h-8 p-0" alt="Home" src={Home} />
               </div>
             </NavLink>
-            <NavLink to='/login' className="sidebarContent m-0 items-stretch" activeClassName="activeContent">
+            <NavLink to='/account' className="sidebarContent m-0 items-stretch" activeClassName="activeContent">
               <div className="inline-flex">
-                <img className="h-8 p-0" alt="Login" src={Login} />
+                <img className="h-8 p-0" alt="Character" src={Character} />
               </div></NavLink>
           </div>
         </div>

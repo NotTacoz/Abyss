@@ -22,7 +22,7 @@ const config = {
   measurementId: 'G-00DBVS0PXW'
 }
 
-function Login () {
+function Account () {
   return (
     <div className="content">
       <FirebaseAuthProvider {...config} firebase={firebase}>
@@ -54,4 +54,4 @@ function Login () {
   )
 }
 
-export default Login
+export default Account
