@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Link } from 'react-router-dom'
