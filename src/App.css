@@ -18,7 +18,27 @@ html {
 
 a:link:not(.sidebarContent) {
   color: #61dafb;
-  text-decoration-line: None;
+}
+
+a:link:not(.sidebarContent) {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+a:visited:not(.sidebarContent) {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+a:hover:not(.sidebarContent) {
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:active:not(.sidebarContent) {
+  color: #61dafb;
+  text-decoration: none;
 }
 
 h1 {
