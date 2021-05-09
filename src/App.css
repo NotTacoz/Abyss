@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  background-color: rgba(30,30,50,1);
+  background-color: rgba(30, 30, 50, 1);
   min-height: 100vh;
   display: block;
   flex-direction: column;
@@ -57,7 +57,6 @@ hr {
   border-radius: 5px;
 }
 
-
 /* The side navigation menu */
 .sidebar {
   margin: 0;
@@ -66,15 +65,15 @@ hr {
   position: fixed;
   height: 100%;
   overflow: auto;
-  background-color: rgba(25,25,45,1);
+  background-color: rgba(25, 25, 45, 1);
   opacity: 1;
 }
 
-div.transbox{
+div.transbox {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Starlink_Mission_%2847926144123%29.jpg/300px-Starlink_Mission_%2847926144123%29.jpg");
   background-repeat: no-repeat;
   opacity: 1;
-} 
+}
 
 .sidebar:img {
   opacity: 50%;
@@ -101,7 +100,6 @@ div.transbox{
   opacity: 1;
 }
 
-
 /* Links on mouse-over */
 .sidebarContent:hover {
   color: white;
@@ -114,13 +112,13 @@ div.transbox{
 div.content {
   margin-left: 280px;
   padding: 5px 16px;
-  background-color: rgba(30,30,50,1);
+  background-color: rgba(30, 30, 50, 1);
   color: white;
 }
 
 .navbar {
   display: none;
-  background-color: rgba(25,25,45,1);
+  background-color: rgba(25, 25, 45, 1);
 }
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
@@ -131,8 +129,12 @@ div.content {
   .navbar {
     display: flex;
   }
-  .sidebarContent {float: left;}
-  div.content {margin-left: 0;}
+  .sidebarContent {
+    float: left;
+  }
+  div.content {
+    margin-left: 0;
+  }
 }
 
 /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
@@ -146,26 +148,26 @@ input[type="reset"],
 input[type="button"],
 button,
 .button {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    border-radius: 5px;
-    border: 0;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: 300;
-    height: 2.85rem;
-    line-height: 2.95rem;
-    padding: 0 1.5rem;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    white-space: nowrap;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 300;
+  height: 2.85rem;
+  line-height: 2.95rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 input[type="submit"].icon,
@@ -173,7 +175,7 @@ input[type="reset"].icon,
 input[type="button"].icon,
 button.icon,
 .button.icon {
-    padding-left: 1.35rem;
+  padding-left: 1.35rem;
 }
 
 input[type="submit"].icon:before,
@@ -181,7 +183,7 @@ input[type="reset"].icon:before,
 input[type="button"].icon:before,
 button.icon:before,
 .button.icon:before {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 input[type="submit"].fit,
@@ -189,9 +191,9 @@ input[type="reset"].fit,
 input[type="button"].fit,
 button.fit,
 .button.fit {
-    display: block;
-    margin: 0 0 1rem 0;
-    width: 100%;
+  display: block;
+  margin: 0 0 1rem 0;
+  width: 100%;
 }
 
 input[type="submit"].small,
@@ -199,7 +201,7 @@ input[type="reset"].small,
 input[type="button"].small,
 button.small,
 .button.small {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 input[type="submit"].big,
@@ -207,7 +209,7 @@ input[type="reset"].big,
 input[type="button"].big,
 button.big,
 .button.big {
-    font-size: 1.35rem;
+  font-size: 1.35rem;
 }
 
 input[type="submit"].disabled,
@@ -220,22 +222,22 @@ button.disabled,
 button:disabled,
 .button.disabled,
 .button:disabled {
-    -moz-pointer-events: none;
-    -webkit-pointer-events: none;
-    -ms-pointer-events: none;
-    pointer-events: none;
-    opacity: 0.25;
+  -moz-pointer-events: none;
+  -webkit-pointer-events: none;
+  -ms-pointer-events: none;
+  pointer-events: none;
+  opacity: 0.25;
 }
 
 @media screen and (max-width: 480px) {
-    input[type="submit"],
-    input[type="reset"],
-    input[type="button"],
-    button,
-    .button {
-        padding: 0;
-        width: 100%;
-    }
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"],
+  button,
+  .button {
+    padding: 0;
+    width: 100%;
+  }
 }
 
 input[type="submit"],
@@ -243,8 +245,8 @@ input[type="reset"],
 input[type="button"],
 button,
 .button {
-    background-color: white;
-    color: #000 !important;
+  background-color: white;
+  color: #000 !important;
 }
 
 input[type="submit"]:hover,
@@ -252,7 +254,7 @@ input[type="reset"]:hover,
 input[type="button"]:hover,
 button:hover,
 .button:hover {
-    background-color: rgb(240, 240, 250);
+  background-color: rgb(240, 240, 250);
 }
 
 input[type="submit"]:active,
@@ -260,7 +262,7 @@ input[type="reset"]:active,
 input[type="button"]:active,
 button:active,
 .button:active {
-    background-color: #e5e5e5;
+  background-color: #e5e5e5;
 }
 
 input[type="submit"].alt,
@@ -268,9 +270,9 @@ input[type="reset"].alt,
 input[type="button"].alt,
 button.alt,
 .button.alt {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
-    color: rgb(255, 255, 255) !important;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+  color: rgb(255, 255, 255) !important;
 }
 
 input[type="submit"].alt:hover,
@@ -278,7 +280,7 @@ input[type="reset"].alt:hover,
 input[type="button"].alt:hover,
 button.alt:hover,
 .button.alt:hover {
-    background-color: rgba(75, 75, 125, 0.2);
+  background-color: rgba(75, 75, 125, 0.2);
 }
 
 input[type="submit"].alt:active,
@@ -286,7 +288,7 @@ input[type="reset"].alt:active,
 input[type="button"].alt:active,
 button.alt:active,
 .button.alt:active {
-    background-color: rgba(75, 75, 125, 0.3);
+  background-color: rgba(75, 75, 125, 0.3);
 }
 
 input[type="submit"].alt.icon:before,
@@ -294,7 +296,7 @@ input[type="reset"].alt.icon:before,
 input[type="button"].alt.icon:before,
 button.alt.icon:before,
 .button.alt.icon:before {
-    color: #bbb;
+  color: #bbb;
 }
 
 input[type="submit"].special,
@@ -330,10 +332,10 @@ button.special:active,
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgba(30,30,50,1); 
+  background: rgba(30, 30, 50, 1);
   display: initial;
-} 
- 
+}
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(70, 70, 90);
@@ -346,8 +348,8 @@ button.special:active,
 }
 
 .sidebar-bg {
-  background: url('img/sidebarbg.png') no-repeat bottom;
-  content: '';
+  background: url("img/sidebarbg.png") no-repeat bottom;
+  content: "";
   top: 0px;
   left: 0px;
   width: 100%;
@@ -359,7 +361,7 @@ button.special:active,
 }
 
 .center {
-  border: 5px solid rgba(20,20,40,1);
+  border: 5px solid rgba(20, 20, 40, 1);
   text-align: center;
   display: inline-block;
   width: 60%;
