@@ -7,18 +7,19 @@ class NotFoundPage extends React.Component {
   render() {
     return (
       <div className="content">
-        <div className="center m-auto">
-          <h2>404</h2>
-          <h1>Page Not Found</h1>
-          <p>You are a dissapointment.</p>
-          <h3>Why am you so stupid? Why did try breaking the website?</h3>
-          <p>
-            because you are unable to actually manage anything with your monkey
-            brain of yours. Go away and play with lego or something. I
-            absolutely hate that you tried to find a way to break my website
+        <div className="pt-12">
+          <img
+            className="w-60 mx-auto"
+            src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngmart.com%2Ffiles%2F11%2FFacepalm-PNG-Transparent-Image.png&f=1&nofb=1"
+            alt="facepalm"
+          />
+          <h1 className="text-center text-red-500">404</h1>
+          <p className="text-center">What. The. Actual. Hell.</p>
+          <p className="text-center font-bold">Did you just try to break my website!!</p>
+          <p className="text-center">
+            I am <strong>disappointed</strong>. But perhaps, I am not{" "}
+            <strong>surpised</strong> <a href="https://www.youtube.com/watch?time_continue=1&v=j5a0jTc9S10&feature=emb_title" target="_blank" rel="noreferrer">.</a>
           </p>
-          <h3>But if you misspelled</h3>
-          <p>thats ok! we all make mistakes :)</p>
         </div>
       </div>
     );
