@@ -381,8 +381,8 @@ button.special:active,
 }
 
 .center {
-  border: 5px solid rgba(20, 20, 40, 1);
-  text-align: center;
+  border: none;
   display: inline-block;
   width: 60%;
+  justify-content: center;
 }

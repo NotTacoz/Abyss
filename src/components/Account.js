@@ -12,7 +12,7 @@ import {
   IfFirebaseAuthedAnd,
   IfFirebaseUnAuthed,
 } from "@react-firebase/auth";
-import { FirestoreProvider } from "@react-firebase/firestore";
+//import { FirestoreProvider } from "@react-firebase/firestore";
 const config = {
   apiKey: "AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs",
   authDomain: "genshin-mains.firebaseapp.com",
@@ -27,44 +27,42 @@ const config = {
 function Account() {
   return (
     <div className="content">
-      <FirestoreProvider {...config} firebase={firebase}>
-        <FirebaseAuthProvider {...config} firebase={firebase}>
-          <IfFirebaseUnAuthed>
-            <button
-              className="button special"
-              onClick={() => {
-                const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-                firebase.auth().signInWithPopup(googleAuthProvider);
-              }}
-            >
-              Sign In with Google
-            </button>
-          </IfFirebaseUnAuthed>
-          <IfFirebaseAuthed>
-            {() => {
-              return (
-                <div>
-                  <p>You are authenticated</p>
-                  <button
-                    onClick={() => {
-                      firebase.auth().signOut();
-                    }}
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              );
+      <FirebaseAuthProvider {...config} firebase={firebase}>
+        <IfFirebaseUnAuthed>
+          <button
+            className="button special"
+            onClick={() => {
+              const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+              firebase.auth().signInWithPopup(googleAuthProvider);
             }}
-          </IfFirebaseAuthed>
-          <IfFirebaseAuthedAnd
-            filter={({ providerId }) => providerId !== "anonymous"}
           >
-            {({ providerId }) => {
-              return <div>You are authenticated with {providerId}</div>;
-            }}
-          </IfFirebaseAuthedAnd>
-        </FirebaseAuthProvider>
-      </FirestoreProvider>
+            Sign In with Google
+          </button>
+        </IfFirebaseUnAuthed>
+        <IfFirebaseAuthed>
+          {() => {
+            return (
+              <div>
+                <p>You are authenticated</p>
+                <button
+                  onClick={() => {
+                    firebase.auth().signOut();
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            );
+          }}
+        </IfFirebaseAuthed>
+        <IfFirebaseAuthedAnd
+          filter={({ providerId }) => providerId !== "anonymous"}
+        >
+          {({ providerId }) => {
+            return <div>You are authenticated with {providerId}</div>;
+          }}
+        </IfFirebaseAuthedAnd>
+      </FirebaseAuthProvider>
     </div>
   );
 }
