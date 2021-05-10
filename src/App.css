@@ -82,11 +82,12 @@ hr {
   margin: 0;
   padding: 0;
   width: 280px;
-  position: fixed;
+  position: absolute;
   height: 100%;
   overflow: auto;
   background-color: rgba(25, 25, 45, 1);
   opacity: 1;
+  transition: left 0.3s ease-in-out;
 }
 
 div.transbox {
