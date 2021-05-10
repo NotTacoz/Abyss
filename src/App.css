@@ -368,7 +368,7 @@ button.special:active,
   background: rgb(60, 60, 80);
 }
 
-.sidebar-bg {
+/* .sidebar-bg {
   background: url("img/sidebarbg.png") no-repeat bottom;
   content: "";
   top: 0px;
@@ -379,7 +379,7 @@ button.special:active,
   z-index: -1;
   background-size: contain;
   opacity: 0.4;
-}
+} */
 
 .center {
   border: none;

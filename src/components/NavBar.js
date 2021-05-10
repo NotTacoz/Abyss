@@ -12,7 +12,6 @@ class NavBar extends React.Component {
     return (
       <div>
         <div className="sidebar">
-          {/* <div className="sidebar-bg"></div> */}
           <div className="text-center mt-10 mb-12 z-10">
             <div className="inline-flex mb-8">
               <h1 className="text-white">Abyss</h1>
