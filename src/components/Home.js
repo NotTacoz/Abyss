@@ -2,10 +2,16 @@
 import React from "react";
 // eslint-disable-next-line no-unused-vars
 import $ from "jquery";
+import {Helmet} from "react-helmet";
 
-function Home() {
+class Home extends React.Component {
+  render() {
   return (
     <div className="content">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Abyss | Home</title>
+      </Helmet>
       <div>
         <h1>Heading 1</h1>
         <h2>Heading 2</h2>
@@ -61,6 +67,7 @@ function Home() {
       </div>
     </div>
   );
+  }
 }
 
 export default Home;

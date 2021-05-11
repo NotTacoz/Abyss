@@ -33,7 +33,6 @@ a:visited:not(.sidebarContent) {
 a:hover:not(.sidebarContent) {
   color: #61dafb;
   text-decoration: none;
-  font-weight: 500;
 }
 
 a:active:not(.sidebarContent) {
