@@ -1,9 +1,9 @@
-<a href="https://dogehouse.tv"><p align="center">
+<a href=""><p align="center">
 <img height=100 src=""/>
 
 </p></a>
 <p align="center">
-  <strong>Revolutionary Social Media for Gamers</strong>
+  <strong></strong>
 </p>
 <p align="center">
   <a>
