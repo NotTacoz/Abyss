@@ -36,7 +36,7 @@ class NavBar extends React.Component {
               >
                 <div className="inline-flex">
                   <img className="h-8 pr-3" alt="Home" src={Home} />
-                  <a className=""> Explore</a>
+                  <a className=""> Popular</a>
                 </div>
               </NavLink>
               <NavLink
@@ -67,6 +67,16 @@ class NavBar extends React.Component {
                 <div className="inline-flex">
                   <img className="h-8 pr-3" alt="Home" src={Home} />
                   <a className=""> Settings</a>
+                </div>
+              </NavLink>
+              <NavLink
+                to="/new"
+                className="sidebarContent bg-green-500 bg-opacity-60"
+                activeClassName="activeContent"
+              >
+                <div className="inline-flex">
+                  <img className="h-8 pr-3" alt="Home" src={Home} />
+                  <a className=""> New</a>
                 </div>
               </NavLink>
             </div>
