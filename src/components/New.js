@@ -14,8 +14,8 @@ const config = {
     measurementId: "G-00DBVS0PXW",
 };
 
-function Name() {
-    return <div className="content">A</div>;
+function New() {
+    return <div className="content">New post</div>;
 }
 
-export default Name;
+export default New;

@@ -6,6 +6,10 @@ import React from "react";
 import { Route, NavLink } from "react-router-dom";
 import Home from "./../img/sidebarbuttons/Home.png";
 import Account from "./../img/sidebarbuttons/Account.png";
+import New from "./../img/sidebarbuttons/New.png";
+import Notifications from "./../img/sidebarbuttons/Notifications.png";
+import Popular from "./../img/sidebarbuttons/Popular.png";
+import Settings from "./../img/sidebarbuttons/Settings.png";
 
 class NavBar extends React.Component {
   render() {
@@ -35,7 +39,7 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Home" src={Home} />
+                  <img className="h-8 pr-3" alt="Popular" src={Popular} />
                   <a className=""> Popular</a>
                 </div>
               </NavLink>
@@ -45,7 +49,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Home" src={Home} />
+                  <img
+                    className="h-8 pr-3"
+                    alt="Notifications"
+                    src={Notifications}
+                  />
                   <a className=""> Notifications</a>
                 </div>
               </NavLink>
@@ -65,18 +73,18 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Home" src={Home} />
+                  <img className="h-8 pr-3" alt="Settings" src={Settings} />
                   <a className=""> Settings</a>
                 </div>
               </NavLink>
               <NavLink
                 to="/new"
-                className="sidebarContent bg-green-500 bg-opacity-60"
+                className="sidebarContent"
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Home" src={Home} />
-                  <a className=""> New</a>
+                  <img className="h-8 pr-3" alt="New" src={New} />
+                  <a className=""> New Post</a>
                 </div>
               </NavLink>
             </div>

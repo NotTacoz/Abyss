@@ -6,10 +6,13 @@ import React from "react";
 import "./App.css";
 import Home from "./components/Home";
 import Account from "./components/Account";
-// eslint-disable-next-line no-unused-vars
 import NavBar from "./components/NavBar";
-// eslint-disable-next-line no-unused-vars
 import NotFoundPage from "./components/NotFound";
+import NewPost from "./components/New";
+import Notifications from "./components/Notifications";
+import Popular from "./components/Popular";
+import Settings from "./components/Settings";
+
 // eslint-disable-next-line no-unused-vars
 import { Redirect, Route, Switch, BrowserRouter, Link } from "react-router-dom";
 
@@ -21,6 +24,10 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/account" component={Account} />
+          <Route exact path="/account" component={NewPost} />
+          <Route exact path="/account" component={Notifications} />
+          <Route exact path="/account" component={Popular} />
+          <Route exact path="/account" component={Settings} />
           <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
