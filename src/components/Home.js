@@ -13,16 +13,9 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs",
-  authDomain: "genshin-mains.firebaseapp.com",
-  databaseURL: "https://genshin-mains-default-rtdb.firebaseio.com",
-  projectId: "genshin-mains",
-  storageBucket: "genshin-mains.appspot.com",
-  messagingSenderId: "82953203784",
-  appId: "1:82953203784:web:b825c166d63766c475287d",
-  measurementId: "G-00DBVS0PXW",
-});
+import config from "../firebase"
+
+firebase.initializeApp(config);
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -44,11 +37,27 @@ function Home() {
 }
 
 function Timeline() {
-  return <div>Actual Timeline content</div>;
+  return (
+    <div>
+      Actual Timeline content
+      <a
+        className="button special"
+        onClick={() => {
+          testbtn();
+        }}
+      >
+        Special
+      </a>
+    </div>
+  );
 }
 
 function SignIn() {
-  return <div>Visit Account Page to sign in</div>;
+  window.location.href = "/account";
+}
+
+function testbtn() {
+  console.log("your mum");
 }
 
 export default Home;

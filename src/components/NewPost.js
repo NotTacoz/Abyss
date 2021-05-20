@@ -13,16 +13,16 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-function Notifications() {
-  return (
-    <div className="content">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Abyss | Notifications</title>
-      </Helmet>
-      Notifications
-    </div>
-  );
+function NewPost() {
+    return (
+        <div className="content">
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>Abyss | New Post</title>
+        </Helmet>
+        New Post
+        </div>
+    );
 }
 
-export default Notifications;
+export default NewPost;

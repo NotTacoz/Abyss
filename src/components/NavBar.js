@@ -34,7 +34,7 @@ class NavBar extends React.Component {
                 </div>
               </NavLink>
               <NavLink
-                to="/explore"
+                to="/popular"
                 className="sidebarContent"
                 activeClassName="activeContent"
               >
@@ -78,7 +78,7 @@ class NavBar extends React.Component {
                 </div>
               </NavLink>
               <NavLink
-                to="/new"
+                to="/newpost"
                 className="sidebarContent"
                 activeClassName="activeContent"
               >

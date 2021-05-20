@@ -35,6 +35,10 @@ class Account extends React.Component {
         </Helmet>
         <FirebaseAuthProvider {...config} firebase={firebase}>
           <IfFirebaseUnAuthed>
+            <div>
+              <h2>You are not signed in, please sign in to continue</h2>
+              <br />
+            </div>
             <button
               className="button special"
               onClick={() => {

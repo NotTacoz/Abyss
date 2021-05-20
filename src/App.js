@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable space-before-function-paren */
 /* eslint-disable semi */
@@ -8,13 +9,25 @@ import Home from "./components/Home";
 import Account from "./components/Account";
 import NavBar from "./components/NavBar";
 import NotFoundPage from "./components/NotFound";
-import NewPost from "./components/New";
+import NewPost from "./components/NewPost";
 import Notifications from "./components/Notifications";
 import Popular from "./components/Popular";
 import Settings from "./components/Settings";
 
+import $ from "jquery";
+import { Helmet } from "react-helmet";
+
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/analytics";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
 // eslint-disable-next-line no-unused-vars
 import { Redirect, Route, Switch, BrowserRouter, Link } from "react-router-dom";
+
 
 class App extends React.Component {
   render() {
@@ -24,10 +37,10 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/account" component={Account} />
-          <Route exact path="/account" component={NewPost} />
-          <Route exact path="/account" component={Notifications} />
-          <Route exact path="/account" component={Popular} />
-          <Route exact path="/account" component={Settings} />
+          <Route exact path="/newpost" component={NewPost} />
+          <Route exact path="/notifications" component={Notifications} />
+          <Route exact path="/popular" component={Popular} />
+          <Route exact path="/settings" component={Settings} />
           <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>

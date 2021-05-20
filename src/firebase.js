@@ -1,6 +1,4 @@
-import firebase from "firebase/app";
-
-const app = firebase.initializeapp({
+const config = {
   apiKey: "AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs",
   authDomain: "genshin-mains.firebaseapp.com",
   databaseURL: "https://genshin-mains-default-rtdb.firebaseio.com",
@@ -9,6 +7,6 @@ const app = firebase.initializeapp({
   messagingSenderId: "82953203784",
   appId: "1:82953203784:web:b825c166d63766c475287d",
   measurementId: "G-00DBVS0PXW",
-});
+}
 
-export default app;
+export default config;

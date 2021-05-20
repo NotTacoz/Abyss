@@ -1,9 +1,19 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import firebase from "firebase/app";
+// eslint-disable-next-line no-unused-vars
+import $ from "jquery";
+import { Helmet } from "react-helmet";
 
-const config = {
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/analytics";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
+firebase.initializeApp({
     apiKey: "AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs",
     authDomain: "genshin-mains.firebaseapp.com",
     databaseURL: "https://genshin-mains-default-rtdb.firebaseio.com",
@@ -12,10 +22,18 @@ const config = {
     messagingSenderId: "82953203784",
     appId: "1:82953203784:web:b825c166d63766c475287d",
     measurementId: "G-00DBVS0PXW",
-};
+});
 
 function Name() {
-    return <div className="content">A</div>;
+    return (
+        <div className="content">
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>Abyss | Name</title>
+        </Helmet>
+        Name
+        </div>
+    );
 }
 
 export default Name;
