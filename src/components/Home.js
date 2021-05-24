@@ -14,12 +14,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import config from "../firebase"
+import { useGetData } from "../hooks/useGetData";
 
-firebase.initializeApp(config);
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
+const db = firebase.firestore();
+
+const FireStoreData = () => {
+  const [documents] = useGetData()
+};
 
 function Home() {
   const [user] = useAuthState(auth);
@@ -31,33 +36,90 @@ function Home() {
         <title>Abyss | Home</title>
       </Helmet>
 
-      <section>{user ? <Timeline /> : <SignIn />}</section>
+      <section>
+        {user ? <Timeline /> : <SignIn />}
+      </section>
     </div>
   );
 }
 
+function makeId(length) {
+  let result = [];
+  for (let i = 0; i < length; i++) {
+    result.push("0123456789"[Math.floor(Math.random() * 10)]);
+  }
+  return result.join("");
+}
+
+function toTime(date) {
+  let timestamp = date.toDate();
+  return `${timestamp.getDate()} ${
+    [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ][timestamp.getMonth()]
+  } ${timestamp.getFullYear()} ${
+    timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
+  }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
+    timestamp.getHours() > 11 ? "PM" : "AM"
+  }`;
+}
+
 function Timeline() {
+  const [value, setValue] = React.useState("");
+  const getValue = (event) => {
+    setValue(event.target.value);
+  };
+
+  const addValue = () => {
+    db.doc("values/" + makeId(10))
+      .set({
+        value: value,
+        user: auth.currentUser.uid,
+        time: new Date(),
+      })
+      .then(function () {
+        console.log("Value successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing Value: ", error);
+      });
+  };
+  const [documents] = useGetData();
+
   return (
     <div>
       Actual Timeline content
-      <a
-        className="button special"
-        onClick={() => {
-          testbtn();
-        }}
-      >
-        Special
-      </a>
+      <input onBlur={getValue} type="text" />
+      <button type="button" onClick={addValue}>
+        Add
+      </button>
+      <div>
+        <span>Values</span>
+        {documents.map((documents) => (
+          <div key={documents.id}>
+            <div>
+              Document: {documents.id} Value: {documents.value.value}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 function SignIn() {
   window.location.href = "/account";
-}
-
-function testbtn() {
-  console.log("your mum");
 }
 
 export default Home;

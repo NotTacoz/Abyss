@@ -104,21 +104,12 @@ class NavBar extends React.Component {
                 </div>
               </NavLink>
               <NavLink
-                to="/explore"
-                className="sidebarContent m-0 items-stretch"
-                activeClassName="activeContent"
-              >
-                <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Explore" src={Home} />
-                </div>
-              </NavLink>
-              <NavLink
                 to="/notifications"
                 className="sidebarContent m-0 items-stretch"
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Notifications" src={Home} />
+                  <img className="h-8 p-0" alt="Notifications" src={Notifications} />
                 </div>
               </NavLink>
               <NavLink
@@ -136,7 +127,16 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Settings" src={Home} />
+                  <img className="h-8 p-0" alt="Settings" src={Settings} />
+                </div>
+              </NavLink>
+                            <NavLink
+                to="/newpost"
+                className="sidebarContent m-0 items-stretch"
+                activeClassName="activeContent"
+              >
+                <div className="inline-flex">
+                  <img className="h-8 p-0" alt="New Post" src={New} />
                 </div>
               </NavLink>
             </div>
