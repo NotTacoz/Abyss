@@ -386,3 +386,7 @@ button.special:active,
   width: 60%;
   justify-content: center;
 }
+
+input {
+  background-color: rgba(45, 45, 65, 1);
+}

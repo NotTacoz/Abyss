@@ -13,9 +13,8 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import config from "../firebase"
+import config from "../firebase";
 import { useGetData } from "../hooks/useGetData";
-
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -23,7 +22,7 @@ const analytics = firebase.analytics();
 const db = firebase.firestore();
 
 const FireStoreData = () => {
-  const [documents] = useGetData()
+  const [documents] = useGetData();
 };
 
 function Home() {
@@ -36,9 +35,7 @@ function Home() {
         <title>Abyss | Home</title>
       </Helmet>
 
-      <section>
-        {user ? <Timeline /> : <SignIn />}
-      </section>
+      <section>{user ? <Timeline /> : <SignIn />}</section>
     </div>
   );
 }
@@ -89,7 +86,7 @@ function Timeline() {
         time: new Date(),
       })
       .then(function () {
-        console.log("Value successfully written!");
+        //console.log("Value successfully written!");
       })
       .catch(function (error) {
         console.error("Error writing Value: ", error);
@@ -100,6 +97,7 @@ function Timeline() {
   return (
     <div>
       Actual Timeline content
+      <br />
       <input onBlur={getValue} type="text" />
       <button type="button" onClick={addValue}>
         Add
@@ -119,7 +117,20 @@ function Timeline() {
 }
 
 function SignIn() {
-  window.location.href = "/account";
+  return (
+    <div>
+      <h2>😨You need to be signed in to visit this content😔</h2>
+      <br />
+      <button className="button special" onClick={SignInBtn}>
+        Sign in 🔒
+      </button>
+    </div>
+  );
 }
+
+function SignInBtn() {
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(googleAuthProvider);
+};
 
 export default Home;
