@@ -13,27 +13,109 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-firebase.initializeApp({
-    apiKey: "AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs",
-    authDomain: "genshin-mains.firebaseapp.com",
-    databaseURL: "https://genshin-mains-default-rtdb.firebaseio.com",
-    projectId: "genshin-mains",
-    storageBucket: "genshin-mains.appspot.com",
-    messagingSenderId: "82953203784",
-    appId: "1:82953203784:web:b825c166d63766c475287d",
-    measurementId: "G-00DBVS0PXW",
-});
+import config from "../firebase";
+import { useGetData } from "../hooks/useGetData";
+
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+const analytics = firebase.analytics();
+const db = firebase.firestore();
+
+const FireStoreData = () => {
+  const [documents] = useGetData();
+};
 
 function Name() {
-    return (
-        <div className="content">
-        <Helmet>
-            <meta charSet="utf-8" />
-            <title>Abyss | Name</title>
-        </Helmet>
-        Name
-        </div>
-    );
+  const [user] = useAuthState(auth);
+
+  return (
+    <div className="content">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Abyss | Name</title>
+      </Helmet>
+
+      <section>{user ? <Timeline /> : <SignIn />}</section>
+    </div>
+  );
+}
+
+function makeId(length) {
+  let result = [];
+  for (let i = 0; i < length; i++) {
+    result.push("0123456789"[Math.floor(Math.random() * 10)]);
+  }
+  return result.join("");
+}
+
+function toTime(date) {
+  let timestamp = date.toDate();
+  return `${timestamp.getDate()} ${
+    [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ][timestamp.getMonth()]
+  } ${timestamp.getFullYear()} ${
+    timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
+  }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
+    timestamp.getHours() > 11 ? "PM" : "AM"
+  }`;
+}
+
+function Timeline() {
+  const [value, setValue] = React.useState("");
+  const getValue = (event) => {
+    setValue(event.target.value);
+  };
+
+  const addValue = () => {
+    db.doc("values/" + makeId(10))
+      .set({
+        value: value,
+        user: auth.currentUser.uid,
+        time: new Date(),
+      })
+      .then(function () {
+        //console.log("Value successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing Value: ", error);
+      });
+  };
+  const [documents] = useGetData();
+
+  return (
+    <div>
+      Actual Timeline content
+    </div>
+  );
+}
+
+function SignIn() {
+  return (
+    <div>
+      <h2>😨You need to be signed in to visit this content😔</h2>
+      <br />
+      <button className="button special" onClick={SignInBtn}>
+        Sign in 🔒
+      </button>
+    </div>
+  );
+}
+
+function SignInBtn() {
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(googleAuthProvider);
 }
 
 export default Name;

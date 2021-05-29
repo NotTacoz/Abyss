@@ -94,16 +94,35 @@ function Timeline() {
   };
   const [documents] = useGetData();
 
+  var randomnum = Math.floor(Math.random() * 7);
+  var placeholdertext = "Write something here!";
+  if (randomnum === 0) {
+  } else if (randomnum === 1) {
+    placeholdertext = "What's happening?";
+  } else if (randomnum === 2) {
+    placeholdertext = "😂🤣😎🙄😪😍";
+  } else if (randomnum === 3) {
+    placeholdertext = "Twitter looks different today...";
+  } else if (randomnum === 4) {
+    placeholdertext = "github.com/NotTacoz/Abyss";
+  }
+
   return (
-    <div>
-      Actual Timeline content
-      <br />
-      <input onBlur={getValue} type="text" />
-      <button type="button" onClick={addValue}>
-        Add
-      </button>
+    <div className="">
+      <div className="inputdiv">
+        <input
+          onBlur={getValue}
+          placeholder={placeholdertext}
+          className="w-96 h-12 pl-6"
+          type="text"
+        />
+        <br />
+        <button type="button" className="special" onClick={addValue}>
+          Add
+        </button>
+      </div>
       <div>
-        <span>Values</span>
+        <br />
         {documents.map((documents) => (
           <div key={documents.id}>
             <div>
@@ -131,6 +150,6 @@ function SignIn() {
 function SignInBtn() {
   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(googleAuthProvider);
-};
+}
 
 export default Home;

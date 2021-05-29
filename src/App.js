@@ -9,7 +9,6 @@ import Home from "./components/Home";
 import Account from "./components/Account";
 import NavBar from "./components/NavBar";
 import NotFoundPage from "./components/NotFound";
-import NewPost from "./components/NewPost";
 import Notifications from "./components/Notifications";
 import Popular from "./components/Popular";
 import Settings from "./components/Settings";
@@ -37,7 +36,6 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/account" component={Account} />
-          <Route exact path="/newpost" component={NewPost} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/popular" component={Popular} />
           <Route exact path="/settings" component={Settings} />

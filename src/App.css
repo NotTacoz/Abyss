@@ -131,7 +131,7 @@ div.transbox {
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
   margin-left: 280px;
-  padding: 5px 16px;
+  padding: 0px;
   background-color: rgba(30, 30, 50, 1);
   color: white;
 }
@@ -387,6 +387,15 @@ button.special:active,
   justify-content: center;
 }
 
+.inputdiv {
+  padding: 0px;
+  margin: 0px;
+}
+
 input {
-  background-color: rgba(45, 45, 65, 1);
+  background-color: rgba(25, 25, 45, 0);
+}
+
+input:focus {
+  outline: none;
 }

@@ -6,7 +6,6 @@ import React from "react";
 import { Route, NavLink } from "react-router-dom";
 import Home from "./../img/sidebarbuttons/Home.png";
 import Account from "./../img/sidebarbuttons/Account.png";
-import New from "./../img/sidebarbuttons/New.png";
 import Notifications from "./../img/sidebarbuttons/Notifications.png";
 import Popular from "./../img/sidebarbuttons/Popular.png";
 import Settings from "./../img/sidebarbuttons/Settings.png";
@@ -77,16 +76,6 @@ class NavBar extends React.Component {
                   <a className=""> Settings</a>
                 </div>
               </NavLink>
-              <NavLink
-                to="/newpost"
-                className="sidebarContent"
-                activeClassName="activeContent"
-              >
-                <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="New" src={New} />
-                  <a className=""> New Post</a>
-                </div>
-              </NavLink>
             </div>
           </div>
         </div>
@@ -104,12 +93,25 @@ class NavBar extends React.Component {
                 </div>
               </NavLink>
               <NavLink
+                to="/popular"
+                className="sidebarContent m-0 items-stretch"
+                activeClassName="activeContent"
+              >
+                <div className="inline-flex">
+                  <img className="h-8 p-0" alt="Popular" src={Popular} />
+                </div>
+              </NavLink>
+              <NavLink
                 to="/notifications"
                 className="sidebarContent m-0 items-stretch"
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Notifications" src={Notifications} />
+                  <img
+                    className="h-8 p-0"
+                    alt="Notifications"
+                    src={Notifications}
+                  />
                 </div>
               </NavLink>
               <NavLink
@@ -128,15 +130,6 @@ class NavBar extends React.Component {
               >
                 <div className="inline-flex">
                   <img className="h-8 p-0" alt="Settings" src={Settings} />
-                </div>
-              </NavLink>
-                            <NavLink
-                to="/newpost"
-                className="sidebarContent m-0 items-stretch"
-                activeClassName="activeContent"
-              >
-                <div className="inline-flex">
-                  <img className="h-8 p-0" alt="New Post" src={New} />
                 </div>
               </NavLink>
             </div>
