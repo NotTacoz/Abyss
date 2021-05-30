@@ -100,26 +100,24 @@ function Timeline() {
   } else if (randomnum === 1) {
     placeholdertext = "What's happening?";
   } else if (randomnum === 2) {
-    placeholdertext = "😂🤣😎🙄😪😍";
+    placeholdertext = "Hello World!";
   } else if (randomnum === 3) {
     placeholdertext = "Twitter looks different today...";
-  } else if (randomnum === 4) {
-    placeholdertext = "github.com/NotTacoz/Abyss";
   }
 
   return (
     <div className="">
       <div className="inputdiv">
+        <button type="button" className="special" onClick={addValue}>
+          Post
+        </button>
+        <br />
         <input
           onBlur={getValue}
           placeholder={placeholdertext}
           className="w-96 h-12 pl-6"
           type="text"
         />
-        <br />
-        <button type="button" className="special" onClick={addValue}>
-          Add
-        </button>
       </div>
       <div>
         <br />

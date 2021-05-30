@@ -10,7 +10,6 @@ import Account from "./components/Account";
 import NavBar from "./components/NavBar";
 import NotFoundPage from "./components/NotFound";
 import Notifications from "./components/Notifications";
-import Popular from "./components/Popular";
 import Settings from "./components/Settings";
 
 import $ from "jquery";
@@ -37,7 +36,6 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/account" component={Account} />
           <Route exact path="/notifications" component={Notifications} />
-          <Route exact path="/popular" component={Popular} />
           <Route exact path="/settings" component={Settings} />
           <Route component={NotFoundPage} />
         </Switch>

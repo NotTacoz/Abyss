@@ -134,6 +134,7 @@ div.content {
   padding: 0px;
   background-color: rgba(30, 30, 50, 1);
   color: white;
+  justify-content: center;
 }
 
 .navbar {
@@ -256,7 +257,7 @@ button:disabled,
   button,
   .button {
     padding: 0;
-    width: 100%;
+    width: 25%;
   }
 }
 
