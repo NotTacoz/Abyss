@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 import NotFoundPage from "./components/NotFound";
 import Notifications from "./components/Notifications";
 import Settings from "./components/Settings";
+import NewPost from "./components/NewPost";
 
 import $ from "jquery";
 import { Helmet } from "react-helmet";
@@ -37,6 +38,7 @@ class App extends React.Component {
           <Route exact path="/account" component={Account} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/settings" component={Settings} />
+          <Route exact path="/new" component={NewPost} />
           <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>

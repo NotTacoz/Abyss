@@ -25,14 +25,14 @@ const FireStoreData = () => {
   const [documents] = useGetData();
 };
 
-function Home() {
+function NewPost() {
   const [user] = useAuthState(auth);
 
   return (
     <div className="content">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Abyss | Home</title>
+        <title>Abyss | New</title>
       </Helmet>
 
       <section>{user ? <Timeline /> : <SignIn />}</section>
@@ -94,17 +94,30 @@ function Timeline() {
   };
   const [documents] = useGetData();
 
+  var randomnum = Math.floor(Math.random() * 7);
+  var placeholdertext = "Write something here!";
+  if (randomnum === 0) {
+  } else if (randomnum === 1) {
+    placeholdertext = "What's happening?";
+  } else if (randomnum === 2) {
+    placeholdertext = "Hello World!";
+  } else if (randomnum === 3) {
+    placeholdertext = "Twitter looks different today...";
+  }
+
   return (
     <div className="">
-      <div>
+      <div className="inputdiv">
+        <button type="button" className="special" onClick={addValue}>
+          Post
+        </button>
         <br />
-        {documents.map((documents) => (
-          <div key={documents.id}>
-            <div>
-              Document: {documents.id} Value: {documents.value.value}
-            </div>
-          </div>
-        ))}
+        <input
+          onBlur={getValue}
+          placeholder={placeholdertext}
+          className="w-96 h-12 pl-6"
+          type="text"
+        />
       </div>
     </div>
   );
@@ -127,4 +140,4 @@ function SignInBtn() {
   firebase.auth().signInWithPopup(googleAuthProvider);
 }
 
-export default Home;
+export default NewPost;
