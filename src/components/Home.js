@@ -97,7 +97,6 @@ function Timeline() {
   return (
     <div className="">
       <div>
-        <br />
         {documents.map((documents) => (
           <div key={documents.id}>
             <div>
@@ -105,6 +104,30 @@ function Timeline() {
             </div>
           </div>
         ))}
+      </div>
+      {/* mockup */}
+      <div className="absolute w-96 max-w-sm">
+        <div className="grid">
+          <div className="flex">
+            <img
+              className="w-12 mt-1 rounded-full"
+              src="https://pbs.twimg.com/profile_images/1312578814971576328/ul3_sosR_400x400.png"
+              alt="pfpBob"
+            />
+            <span className="pl-3 font-bold">
+              Tacoz <span className="font-light opacity-70">@Awesome · 2h</span>
+            </span>
+          </div>
+          <span className="ml-16 -mt-6 mb-2">
+            COME ON AUSTRALIA WE ALMOST AT 0!!!!!!!!!!!!!
+          </span>
+          <img
+            draggable="true"
+            alt="ExamplePicture"
+            src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
+            className="rounded-3xl max-w-sm ml-16"
+          />
+        </div>
       </div>
     </div>
   );

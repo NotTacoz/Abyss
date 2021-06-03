@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 
 html {
   background-color: rgba(30, 30, 50, 1);
@@ -8,6 +9,7 @@ html {
   display: block;
   flex-direction: column;
   color: white;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .Heading {
@@ -132,6 +134,8 @@ div.transbox {
 div.content {
   margin-left: 280px;
   padding: 0px;
+  padding-left: 36px;
+  padding-top: 12px;
   background-color: rgba(30, 30, 50, 1);
   color: white;
   justify-content: center;

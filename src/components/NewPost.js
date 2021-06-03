@@ -111,6 +111,7 @@ function Timeline() {
         <button type="button" className="special" onClick={addValue}>
           Post
         </button>
+        <input type="file" id="myFile" name="filename" />
         <br />
         <input
           onBlur={getValue}
