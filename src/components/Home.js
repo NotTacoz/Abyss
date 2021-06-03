@@ -134,20 +134,7 @@ function Timeline() {
 }
 
 function SignIn() {
-  return (
-    <div>
-      <h2>😨You need to be signed in to visit this content😔</h2>
-      <br />
-      <button className="button special" onClick={SignInBtn}>
-        Sign in 🔒
-      </button>
-    </div>
-  );
-}
-
-function SignInBtn() {
-  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(googleAuthProvider);
+  window.location.href = "/account";
 }
 
 export default Home;

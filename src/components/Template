@@ -32,10 +32,10 @@ function Name() {
     <div className="content">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Abyss | Name</title>
+        <title>Abyss | Home</title>
       </Helmet>
 
-      <section>{user ? <Timeline /> : <SignIn />}</section>
+      <section>{user ? <Content /> : <SignIn />}</section>
     </div>
   );
 }
@@ -72,7 +72,7 @@ function toTime(date) {
   }`;
 }
 
-function Timeline() {
+function Content() {
   const [value, setValue] = React.useState("");
   const getValue = (event) => {
     setValue(event.target.value);
@@ -95,27 +95,14 @@ function Timeline() {
   const [documents] = useGetData();
 
   return (
-    <div>
-      Actual Timeline content
+    <div className="">
+      content
     </div>
   );
 }
 
 function SignIn() {
-  return (
-    <div>
-      <h2>😨You need to be signed in to visit this content😔</h2>
-      <br />
-      <button className="button special" onClick={SignInBtn}>
-        Sign in 🔒
-      </button>
-    </div>
-  );
-}
-
-function SignInBtn() {
-  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(googleAuthProvider);
+  window.location.href = "/account";
 }
 
 export default Name;
