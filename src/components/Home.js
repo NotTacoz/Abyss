@@ -15,6 +15,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import config from "../firebase";
 import { useGetData } from "../hooks/useGetData";
+import { userInfo } from "os";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -92,6 +93,25 @@ function Timeline() {
         console.error("Error writing Value: ", error);
       });
   };
+
+  db.doc("users/" + auth.currentUser.uid)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        // userInfo data yay
+        const userInfo = doc.data();
+        // console.log(userInfo);
+        // console.log(userInfo.email);
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch((error) => {
+      // console.log("Error getting document:", error);
+    });
+
+  console.log(userInfo);
+
   const [documents] = useGetData();
 
   return (
