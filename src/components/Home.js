@@ -15,6 +15,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import config from "../firebase";
 import { useGetData } from "../hooks/useGetData";
+import { UserGetData } from "../hooks/UserGetData";
 import { userInfo } from "os";
 
 const auth = firebase.auth();
@@ -24,6 +25,7 @@ const db = firebase.firestore();
 
 const FireStoreData = () => {
   const [documents] = useGetData();
+  const [userInfo] = UserGetData();
 };
 
 function Home() {
@@ -94,25 +96,37 @@ function Timeline() {
       });
   };
 
-  db.doc("users/" + auth.currentUser.uid)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        // userInfo data yay
-        const userInfo = doc.data();
-        // console.log(userInfo);
-        // console.log(userInfo.email);
-      } else {
-        console.log("No such document!");
-      }
-    })
-    .catch((error) => {
-      // console.log("Error getting document:", error);
-    });
+  // db.doc("users/" + auth.currentUser.uid)
+  //   .get()
+  //   .then((doc) => {
+  //     if (doc.exists) {
+  //       // userInfo data collect
+  //       const userInfo = doc.data();
+  //       // console.log(userInfo);
+  //       // console.log(userInfo.email);
+  //     } else {
+  //       console.log("No such document!");
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error getting document:", error);
+  //   });
 
-  console.log(userInfo);
+  const uid = auth.currentUser.uid;
 
+  const [userInfo] = UserGetData();
   const [documents] = useGetData();
+
+  var i;
+  if (userInfo !== undefined) {
+    for (i = 0; i in userInfo; i++) {
+      if (userInfo[i].id === uid) {
+        const SessionUserData = userInfo[i].value;
+        console.log(SessionUserData);
+      }
+    }
+  }
+
 
   return (
     <div className="">

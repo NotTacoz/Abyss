@@ -23,8 +23,7 @@ class NavbarNotSignedIn extends React.Component {
             <div>
               <NavLink
                 to="/account"
-                className="sidebarContent"
-                activeClassName="activeContent"
+                className="sidebarContent activeContent"
               >
                 <div className="inline-flex">
                   <img className="h-8 pr-3" alt="Account" src={Account} />
@@ -39,8 +38,7 @@ class NavbarNotSignedIn extends React.Component {
             <div>
               <NavLink
                 to="/account"
-                className="sidebarContent m-0 items-stretch"
-                activeClassName="activeContent"
+                className="sidebarContent m-0 items-stretch activeContent"
               >
                 <div className="inline-flex">
                   <img className="h-8 p-0" alt="Account" src={Account} />

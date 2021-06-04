@@ -28,6 +28,27 @@ const FireStoreData = () => {
 function Account() {
   const [user] = useAuthState(auth);
 
+  const userInfo = () => {
+    if (auth.currentUser != null) {
+      db.doc("users/" + auth.currentUser.uid)
+        .set({
+          username: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+          photoUrl: auth.currentUser.photoURL,
+          emailVerified: auth.currentUser.emailVerified,
+          userid: auth.currentUser.uid,
+          time: new Date(),
+        })
+        .then(function () {
+          //console.log("Value successfully written!");
+        })
+        .catch(function (error) {
+          console.error("Error writing Value: ", error);
+        });
+    }
+  };
+  userInfo();
+
   return (
     <div className="content">
       <Helmet>
@@ -78,26 +99,6 @@ function Timeline() {
     setValue(event.target.value);
   };
 
-  const userInfo = () => {
-    if (auth.currentUser != null) {
-      db.doc("users/" + auth.currentUser.uid)
-        .set({
-          username: auth.currentUser.displayName,
-          email: auth.currentUser.email,
-          photoUrl: auth.currentUser.photoURL,
-          emailVerified: auth.currentUser.emailVerified,
-          userid: auth.currentUser.uid,
-          time: new Date(),
-        })
-        .then(function () {
-          //console.log("Value successfully written!");
-        })
-        .catch(function (error) {
-          console.error("Error writing Value: ", error);
-        });
-    }
-  };
-  userInfo();
   const addValue = () => {
     db.doc("values/" + makeId(10))
       .set({

@@ -60,8 +60,7 @@ function Signin() {
     <BrowserRouter>
       <NavbarNotSignedIn />
       <Switch>
-        <Route exact path="/account" component={Account} />
-        <Route component={NotFoundPage} />
+        <Route component={Account} />
       </Switch>
     </BrowserRouter>
   );
