@@ -121,26 +121,87 @@ function Timeline() {
   if (userInfo !== undefined) {
     for (i = 0; i in userInfo; i++) {
       if (userInfo[i].id === uid) {
-        const SessionUserData = userInfo[i].value;
-        console.log(SessionUserData);
+        var SessionUserData = userInfo[i].value;
       }
     }
   }
 
+  function getUserName(fuid) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i].id === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value.username;
+        }
+      }
+    }
+  }
+  function getDisplayName(fuid) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i].id === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value.displayName;
+        }
+      }
+    }
+  }
+  function getProfilePic(fuid) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i].id === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value.photoUrl;
+        }
+      }
+    }
+  }
+
+  // console.log(getUserName(auth.currentUser.uid))
 
   return (
     <div className="">
       <div>
         {documents.map((documents) => (
           <div key={documents.id}>
-            <div>
-              Document: {documents.id} Value: {documents.value.value}
+            {/* <div>
+              <img
+                className="w-12 mt-1 rounded-full"
+                src={getProfilePic(documents.value.user)}
+                alt="pfpBob"
+              />
+              Username: {getDisplayName(documents.value.user)} Document:{" "}
+              {documents.id} Value: {documents.value.value}
+            </div> */}
+            <div className="w-96 max-w-sm">
+              <div className="grid">
+                <div className="flex">
+                  <img
+                    className="w-12 mt-1 rounded-full"
+                    src={getProfilePic(documents.value.user)}
+                    alt="pfp"
+                  />
+                  <span className="pl-3 font-bold">
+                    {getDisplayName(documents.value.user)}{" "}
+                    <span className="font-light opacity-70">@{getUserName(documents.value.user)} · 2h</span>
+                  </span>
+                </div>
+                <span className="ml-16 -mt-6 mb-2">
+                  {documents.value.value}
+                </span>
+                {/* <img
+                  draggable="true"
+                  alt="ExamplePicture"
+                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
+                  className="rounded-3xl max-w-sm ml-16"
+                /> */}
+              </div>
             </div>
           </div>
         ))}
       </div>
       {/* mockup */}
-      <div className="absolute w-96 max-w-sm">
+      {/* <div className="absolute w-96 max-w-sm">
         <div className="grid">
           <div className="flex">
             <img
@@ -162,7 +223,7 @@ function Timeline() {
             className="rounded-3xl max-w-sm ml-16"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

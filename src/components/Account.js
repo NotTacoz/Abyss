@@ -32,7 +32,8 @@ function Account() {
     if (auth.currentUser != null) {
       db.doc("users/" + auth.currentUser.uid)
         .set({
-          username: auth.currentUser.displayName,
+          displayName: auth.currentUser.displayName,
+          username: (auth.currentUser.displayName).split(" ").join(""),
           email: auth.currentUser.email,
           photoUrl: auth.currentUser.photoURL,
           emailVerified: auth.currentUser.emailVerified,
