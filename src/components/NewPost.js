@@ -79,7 +79,9 @@ function Timeline() {
   };
 
   const addValue = () => {
-    db.doc("values/" + makeId(10))
+    document.getElementById("newPostInput").value = "";
+    if (value !== "") {
+      db.doc("values/" + makeId(10))
       .set({
         value: value,
         user: auth.currentUser.uid,
@@ -91,6 +93,7 @@ function Timeline() {
       .catch(function (error) {
         console.error("Error writing Value: ", error);
       });
+    }
   };
   const [documents] = useGetData();
 
@@ -114,6 +117,7 @@ function Timeline() {
         {/* <input type="file" id="myFile" name="filename" /> */}
         <br />
         <input
+          id="newPostInput"
           onBlur={getValue}
           placeholder={placeholdertext}
           className="w-96 h-12 pl-6"

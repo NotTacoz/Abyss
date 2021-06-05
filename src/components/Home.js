@@ -58,7 +58,7 @@ function toTime(date) {
     timestamp.getDate() === currentDate.getDate() &&
     timestamp.getDay === currentDate.getDay
   ) {
-    return `${
+    return `Today at ${
       timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
     }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
       timestamp.getHours() > 11 ? "PM" : "AM"
