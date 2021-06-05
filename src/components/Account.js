@@ -114,6 +114,7 @@ function Timeline() {
   };
 
   const addValue = () => {
+    setValue("")
     db.doc("values/" + makeId(10))
       .set({
         value: value,
