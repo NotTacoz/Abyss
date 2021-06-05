@@ -30,19 +30,56 @@ function Account() {
 
   const userInfo = () => {
     if (auth.currentUser != null) {
-      db.doc("users/" + auth.currentUser.uid)
-        .set({
-          displayName: auth.currentUser.displayName,
-          username: (auth.currentUser.displayName).split(" ").join(""),
-          email: auth.currentUser.email,
-          photoUrl: auth.currentUser.photoURL,
-          emailVerified: auth.currentUser.emailVerified,
-          userid: auth.currentUser.uid,
-          time: new Date(),
-        })
-        .then(function () {
+      db.doc("users/" + auth.currentUser.uid).get()
+        .then(
           //console.log("Value successfully written!");
-        })
+          (doc) => {
+            if (doc.exists) {
+              // do nothing :)
+            }else {
+              db.doc("takenUsernames/" + auth.currentUser.displayName.split(" ").join("")).get()
+              .then(
+                (doc) => {
+                  if (doc.exists) {
+                    var randomNumGen = ("0123456789"[Math.floor(Math.random() * 15)])
+                    db.doc("users/" + auth.currentUser.uid)
+                    .set({
+                      displayName: auth.currentUser.displayName,
+                      username: (auth.currentUser.displayName.split(" ").join("")+randomNumGen),
+                      email: auth.currentUser.email,
+                      photoUrl: auth.currentUser.photoURL,
+                      emailVerified: auth.currentUser.emailVerified,
+                      userid: auth.currentUser.uid,
+                      time: new Date(),
+                    })
+                    db.doc("takenUsernames/" + auth.currentUser.displayName.split(" ").join("")+randomNumGen).set({
+                      username: (auth.currentUser.displayName.split(" ").join("")+randomNumGen),
+                    })
+                  }else {
+                    db.doc("users/" + auth.currentUser.uid)
+                    .set({
+                      displayName: auth.currentUser.displayName,
+                      username: auth.currentUser.displayName.split(" ").join(""),
+                      email: auth.currentUser.email,
+                      photoUrl: auth.currentUser.photoURL,
+                      emailVerified: auth.currentUser.emailVerified,
+                      userid: auth.currentUser.uid,
+                      time: new Date(),
+                    })
+                    db.doc("takenUsernames/" + auth.currentUser.displayName.split(" ").join("")).set({
+                      username: (auth.currentUser.displayName.split(" ").join("")),
+                    })
+                  }
+                })
+                .then(function () {
+                  //console.log("Value successfully written!");
+                })
+                .catch(function (error) {
+                  console.error("Error writing Value: ", error);
+                });
+            }
+          }
+        )
         .catch(function (error) {
           console.error("Error writing Value: ", error);
         });
@@ -70,30 +107,6 @@ function makeId(length) {
   return result.join("");
 }
 
-function toTime(date) {
-  let timestamp = date.toDate();
-  return `${timestamp.getDate()} ${
-    [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ][timestamp.getMonth()]
-  } ${timestamp.getFullYear()} ${
-    timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
-  }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
-    timestamp.getHours() > 11 ? "PM" : "AM"
-  }`;
-}
-
 function Timeline() {
   const [value, setValue] = React.useState("");
   const getValue = (event) => {
@@ -114,6 +127,23 @@ function Timeline() {
         console.error("Error writing Value: ", error);
       });
   };
+
+  const updateValue = (documetEdit, valueEdit, editValue) => {
+    db.collection("users")
+      .doc(documetEdit)
+      .update({
+        [valueEdit]: editValue,
+      })
+      .then(function () {
+        console.log("Document successfully updated!");
+      })
+      .catch(function (error) {
+        console.error("Error updating document: ", error);
+      });
+  };
+
+  // updateValue(auth.currentUser.uid, "username", "poggers")
+
   const [documents] = useGetData();
 
   return (
@@ -121,7 +151,7 @@ function Timeline() {
       Account settings
       <br />
       <button className="button special" onClick={SignOutBtn}>
-        Sign out 😯
+        Sign out
       </button>
     </div>
   );
@@ -130,10 +160,10 @@ function Timeline() {
 function SignIn() {
   return (
     <div>
-      <h2>😨You need to be signed in to access the rest of the web page!😔</h2>
+      <h2>You need to be signed in to access the rest of the web page!</h2>
       <br />
       <button className="button special" onClick={SignInBtn}>
-        Sign in 🔒
+        Sign in
       </button>
     </div>
   );

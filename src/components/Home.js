@@ -53,6 +53,38 @@ function makeId(length) {
 
 function toTime(date) {
   let timestamp = date.toDate();
+  let currentDate = new Date();
+  if (
+    timestamp.getDate() === currentDate.getDate() &&
+    timestamp.getDay === currentDate.getDay
+  ) {
+    return `${
+      timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
+    }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
+      timestamp.getHours() > 11 ? "PM" : "AM"
+    }`;
+  } else {
+    return `${timestamp.getDate()} ${
+      [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ][timestamp.getMonth()]
+    } ${timestamp.getFullYear()}`;
+  }
+}
+
+function toExactTime(date) {
+  let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
       "January",
@@ -173,7 +205,7 @@ function Timeline() {
               Username: {getDisplayName(documents.value.user)} Document:{" "}
               {documents.id} Value: {documents.value.value}
             </div> */}
-            <div className="w-96 max-w-sm">
+            <div className="max-w-4xl break-all">
               <div className="grid">
                 <div className="flex">
                   <img
@@ -183,7 +215,10 @@ function Timeline() {
                   />
                   <span className="pl-3 font-bold">
                     {getDisplayName(documents.value.user)}{" "}
-                    <span className="font-light opacity-70">@{getUserName(documents.value.user)} · 2h</span>
+                    <span className="font-light opacity-70">
+                      @{getUserName(documents.value.user)} ·{" "}
+                      {toTime(documents.value.time)}
+                    </span>
                   </span>
                 </div>
                 <span className="ml-16 -mt-6 mb-2">
