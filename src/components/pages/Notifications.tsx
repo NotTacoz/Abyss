@@ -13,7 +13,6 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import config from "../../firebase";
 import { useGetData } from "../hooks/useGetData";
 
 const auth = firebase.auth();
