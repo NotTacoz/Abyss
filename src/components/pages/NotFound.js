@@ -2,7 +2,7 @@
 import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
-import NotFoundImg from "./../img/404.png";
+import NotFoundImg from "./../../img/404.png";
 import { Helmet } from "react-helmet";
 
 class NotFoundPage extends React.Component {

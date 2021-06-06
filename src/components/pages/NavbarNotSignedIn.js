@@ -4,11 +4,11 @@
 import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { Route, NavLink } from "react-router-dom";
-import Home from "./../img/sidebarbuttons/Home.png";
-import Account from "./../img/sidebarbuttons/Account.png";
-import Notifications from "./../img/sidebarbuttons/Notifications.png";
-import Settings from "./../img/sidebarbuttons/Settings.png";
-import NewPost from "./../img/sidebarbuttons/NewPost.png";
+import Home from "./../../img/sidebarbuttons/Home.png";
+import Account from "./../../img/sidebarbuttons/Account.png";
+import Notifications from "./../../img/sidebarbuttons/Notifications.png";
+import Settings from "./../../img/sidebarbuttons/Settings.png";
+import NewPost from "./../../img/sidebarbuttons/NewPost.png";
 
 class NavbarNotSignedIn extends React.Component {
   render() {

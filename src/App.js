@@ -5,14 +5,14 @@
 // import logo from './logo.svg';
 import React from "react";
 import "./App.css";
-import Home from "./components/Home";
-import Account from "./components/Account";
-import NavBar from "./components/NavBar";
-import NotFoundPage from "./components/NotFound";
-import Notifications from "./components/Notifications";
-import Settings from "./components/Settings";
-import NewPost from "./components/NewPost";
-import NavbarNotSignedIn from "./components/NavbarNotSignedIn";
+import Home from "./components/pages/Home";
+import Account from "./components/pages/Account";
+import NavBar from "./components/pages/NavBar";
+import NotFoundPage from "./components/pages/NotFound";
+import Notifications from "./components/pages/Notifications";
+import Settings from "./components/pages/Settings";
+import NewPost from "./components/pages/NewPost";
+import NavbarNotSignedIn from "./components/pages/NavbarNotSignedIn";
 
 import $ from "jquery";
 import { Helmet } from "react-helmet";

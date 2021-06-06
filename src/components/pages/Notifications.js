@@ -13,7 +13,7 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import config from "../firebase";
+import config from "../../firebase";
 import { useGetData } from "../hooks/useGetData";
 
 const auth = firebase.auth();
@@ -25,17 +25,17 @@ const FireStoreData = () => {
   const [documents] = useGetData();
 };
 
-function NewPost() {
+function Notifications() {
   const [user] = useAuthState(auth);
 
   return (
     <div className="content">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Abyss | New</title>
+        <title>Abyss | Home</title>
       </Helmet>
 
-      <section>{user ? <Timeline /> : <SignIn />}</section>
+      <section>{user ? <Content /> : <SignIn />}</section>
     </div>
   );
 }
@@ -72,16 +72,14 @@ function toTime(date) {
   }`;
 }
 
-function Timeline() {
+function Content() {
   const [value, setValue] = React.useState("");
   const getValue = (event) => {
     setValue(event.target.value);
   };
 
   const addValue = () => {
-    document.getElementById("newPostInput").value = "";
-    if (value !== "") {
-      db.doc("values/" + makeId(10))
+    db.doc("values/" + makeId(10))
       .set({
         value: value,
         user: auth.currentUser.uid,
@@ -93,43 +91,14 @@ function Timeline() {
       .catch(function (error) {
         console.error("Error writing Value: ", error);
       });
-    }
   };
   const [documents] = useGetData();
 
-  var randomnum = Math.floor(Math.random() * 7);
-  var placeholdertext = "Write something here!";
-  if (randomnum === 0) {
-  } else if (randomnum === 1) {
-    placeholdertext = "What's happening?";
-  } else if (randomnum === 2) {
-    placeholdertext = "Hello World!";
-  } else if (randomnum === 3) {
-    placeholdertext = "Twitter looks different today...";
-  }
-
-  return (
-    <div className="">
-      <div className="inputdiv">
-        <button type="button" className="special" onClick={addValue}>
-          Post
-        </button>
-        {/* <input type="file" id="myFile" name="filename" /> */}
-        <br />
-        <input
-          id="newPostInput"
-          onBlur={getValue}
-          placeholder={placeholdertext}
-          className="w-96 h-12 pl-6"
-          type="text"
-        />
-      </div>
-    </div>
-  );
+  return <div className="">Notifications</div>;
 }
 
 function SignIn() {
   window.location.href = "/account";
 }
 
-export default NewPost;
+export default Notifications;

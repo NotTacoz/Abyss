@@ -62,9 +62,9 @@
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "a social media platform clone [Abyss Github](https://github.com/NotTacoz/Abyss).",
   "main": "craco.config.js",
   "keywords": [],
-  "author": "",
+  "author": "Tacoz",
   "license": "ISC"
 }

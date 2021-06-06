@@ -13,7 +13,7 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import config from "../firebase";
+import config from "../../firebase";
 import { useGetData } from "../hooks/useGetData";
 import { UserGetData } from "../hooks/UserGetData";
 import { userInfo } from "os";
