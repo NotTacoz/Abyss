@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import $ from "jquery";
 import { Helmet } from "react-helmet";
+import { RouteComponentProps } from "react-router";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -13,7 +13,6 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import config from "../../firebase";
 import { useGetData } from "../hooks/useGetData";
 
 const auth = firebase.auth();
@@ -25,14 +24,14 @@ const FireStoreData = () => {
   const [documents] = useGetData();
 };
 
-function Settings() {
+function Post() {
   const [user] = useAuthState(auth);
 
   return (
     <div className="content">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Abyss | Settings</title>
+        <title>Abyss | Post</title>
       </Helmet>
 
       <section>{user ? <Content /> : <SignIn />}</section>
@@ -94,11 +93,12 @@ function Content() {
   };
   const [documents] = useGetData();
 
-  return <div className="">Settings</div>;
+  return <div className="">content</div>;
 }
 
 function SignIn() {
   window.location.href = "/account";
+  return (<div></div>);
 }
 
-export default Settings;
+export default Post;

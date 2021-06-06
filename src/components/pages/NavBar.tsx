@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import { Route, NavLink } from "react-router-dom";
 import Home from "./../../img/sidebarbuttons/Home.png";
 import Account from "./../../img/sidebarbuttons/Account.png";

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React from "react";
+
 import $ from "jquery";
 import { Helmet } from "react-helmet";
 
@@ -14,6 +15,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
 
+
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -23,14 +25,14 @@ const FireStoreData = () => {
   const [documents] = useGetData();
 };
 
-function Name() {
+function Settings() {
   const [user] = useAuthState(auth);
 
   return (
     <div className="content">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Abyss | Home</title>
+        <title>Abyss | Settings</title>
       </Helmet>
 
       <section>{user ? <Content /> : <SignIn />}</section>
@@ -44,6 +46,30 @@ function makeId(length) {
     result.push("0123456789"[Math.floor(Math.random() * 10)]);
   }
   return result.join("");
+}
+
+function toTime(date) {
+  let timestamp = date.toDate();
+  return `${timestamp.getDate()} ${
+    [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ][timestamp.getMonth()]
+  } ${timestamp.getFullYear()} ${
+    timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
+  }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
+    timestamp.getHours() > 11 ? "PM" : "AM"
+  }`;
 }
 
 function Content() {
@@ -68,11 +94,7 @@ function Content() {
   };
   const [documents] = useGetData();
 
-  return (
-    <div className="">
-      content
-    </div>
-  );
+  return <div className="">Settings</div>;
 }
 
 function SignIn() {
@@ -80,4 +102,4 @@ function SignIn() {
   return (<div></div>);
 }
 
-export default Name;
+export default Settings;
