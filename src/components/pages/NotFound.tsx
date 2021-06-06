@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
 import NotFoundImg from "./../../img/404.png";
 import { Helmet } from "react-helmet";

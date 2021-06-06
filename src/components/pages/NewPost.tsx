@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import $ from "jquery";
 import { Helmet } from "react-helmet";
 
@@ -79,7 +78,7 @@ function Timeline() {
   };
 
   const addValue = () => {
-    document.getElementById("newPostInput").value = "";
+    (document.getElementById("newPostInput") as HTMLInputElement).value = "";
     if (value !== "") {
       db.doc("values/" + makeId(10))
       .set({
@@ -130,6 +129,7 @@ function Timeline() {
 
 function SignIn() {
   window.location.href = "/account";
+  return (<div></div>);
 }
 
 export default NewPost;

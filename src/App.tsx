@@ -1,8 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable space-before-function-paren */
-/* eslint-disable semi */
-// import logo from './logo.svg';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import "./App.css";
 import Home from "./components/pages/Home";

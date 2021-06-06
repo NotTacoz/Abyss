@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
-// eslint-disable-next-line no-unused-vars
+
 import $ from "jquery";
 import { Helmet } from "react-helmet";
 
@@ -99,6 +99,7 @@ function Content() {
 
 function SignIn() {
   window.location.href = "/account";
+  return (<div></div>);
 }
 
 export default Notifications;

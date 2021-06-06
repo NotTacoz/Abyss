@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
-// eslint-disable-next-line no-unused-vars
+
 import $ from "jquery";
 import { Helmet } from "react-helmet";
 
@@ -15,6 +15,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import config from "../../firebase";
 import { useGetData } from "../hooks/useGetData";
+
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -99,6 +100,7 @@ function Content() {
 
 function SignIn() {
   window.location.href = "/account";
+  return (<div></div>);
 }
 
 export default Settings;

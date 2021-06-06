@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import $ from "jquery";
 import { Helmet } from "react-helmet";
 

@@ -1,11 +1,10 @@
-/* eslint-disable semi */
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
+
 /*
 import * as firebase from 'firebase';
 
