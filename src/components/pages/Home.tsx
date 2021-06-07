@@ -3,6 +3,7 @@
 import React from "react";
 
 import firebase from "firebase/app";
+import { Route, Link } from "react-router-dom";
 
 import $ from "jquery";
 import { Helmet } from "react-helmet";
@@ -209,6 +210,35 @@ function Timeline() {
       <div>
         {documents.map((documents) => (
           <div key={documents.id}>
+            <Link to={"post/"+documents.id} className="noLink">
+              <div className="max-w-4xl break-all">
+                <div className="grid">
+                  <div className="flex">
+                    <img
+                      className="w-12 mt-1 rounded-full"
+                      src={getProfilePic(documents.value.user)}
+                      alt="pfp"
+                    />
+                    <span className="pl-3 font-bold">
+                      {getDisplayName(documents.value.user)}{" "}
+                      <span className="font-light opacity-70">
+                        @{getUserName(documents.value.user)} ·{" "}
+                        {toTime(documents.value.time)}
+                      </span>
+                    </span>
+                  </div>
+                  <span className="ml-16 -mt-6 mb-2">
+                    {documents.value.value}
+                  </span>
+                  {/* <img
+                  draggable="true"
+                  alt="ExamplePicture"
+                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
+                  className="rounded-3xl max-w-sm ml-16"
+                /> */}
+                </div>
+              </div>
+            </Link>
             {/* <div>
               <img
                 className="w-12 mt-1 rounded-full"
@@ -218,33 +248,6 @@ function Timeline() {
               Username: {getDisplayName(documents.value.user)} Document:{" "}
               {documents.id} Value: {documents.value.value}
             </div> */}
-            <div className="max-w-4xl break-all">
-              <div className="grid">
-                <div className="flex">
-                  <img
-                    className="w-12 mt-1 rounded-full"
-                    src={getProfilePic(documents.value.user)}
-                    alt="pfp"
-                  />
-                  <span className="pl-3 font-bold">
-                    {getDisplayName(documents.value.user)}{" "}
-                    <span className="font-light opacity-70">
-                      @{getUserName(documents.value.user)} ·{" "}
-                      {toTime(documents.value.time)}
-                    </span>
-                  </span>
-                </div>
-                <span className="ml-16 -mt-6 mb-2">
-                  {documents.value.value}
-                </span>
-                {/* <img
-                  draggable="true"
-                  alt="ExamplePicture"
-                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
-                  className="rounded-3xl max-w-sm ml-16"
-                /> */}
-              </div>
-            </div>
           </div>
         ))}
       </div>
