@@ -14,6 +14,9 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
 
+// basic notifications awesome!
+import toast, { Toaster } from "react-hot-toast";
+
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -152,6 +155,7 @@ function Timeline() {
       <button className="button special" onClick={SignOutBtn}>
         Sign out
       </button>
+      <Toaster />
     </div>
   );
 }
@@ -164,17 +168,26 @@ function SignIn() {
       <button className="button special" onClick={SignInBtn}>
         Sign in
       </button>
+      <Toaster />
     </div>
   );
 }
 
 function SignInBtn() {
   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(googleAuthProvider);
+  toast.promise(firebase.auth().signInWithPopup(googleAuthProvider), {
+    loading: "Logging in...",
+    success: <b>Logged In!</b>,
+    error: <b>Could not Log in.</b>,
+  });
 }
 
 function SignOutBtn() {
-  firebase.auth().signOut();
+  toast.promise(firebase.auth().signOut(), {
+    loading: "Logging out...",
+    success: <b>Logged Out!</b>,
+    error: <b>Could not Log out.</b>,
+  });
 }
 
 export default Account;

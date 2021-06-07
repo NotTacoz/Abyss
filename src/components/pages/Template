@@ -13,6 +13,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
+import { UserGetData } from "../hooks/UserGetData";
+
+import toast, { Toaster } from "react-hot-toast";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();

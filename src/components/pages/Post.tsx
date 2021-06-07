@@ -16,10 +16,13 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { UserGetData } from "../hooks/UserGetData";
 import { useGetData } from "../hooks/useGetData";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const db = firebase.firestore();
+
 
 function toTime(date) {
   let timestamp = date?.toDate();
@@ -190,7 +193,7 @@ function Post() {
 
   return (
     <div className="content">
-      <h1>loading post {id}</h1>
+      {/* <h1>loading post {id}</h1> */}
       <div>
         <div className="max-w-4xl break-all">
           <div className="grid">

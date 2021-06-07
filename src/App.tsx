@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import "./App.css";
 import Home from "./components/pages/Home";
 import Account from "./components/pages/Account";
 import NavBar from "./components/pages/NavBar";
@@ -24,6 +23,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 // eslint-disable-next-line no-unused-vars
 import { Redirect, Route, Switch, BrowserRouter, Link } from "react-router-dom";
+import "./App.css";
 
 const auth = firebase.auth();
 

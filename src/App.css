@@ -409,5 +409,5 @@ input:focus {
 .noLink:hover {
   color: white;
   text-decoration: none;
-  background-color: rgb(135, 35, 55);
+  background-color: rgb(35, 35, 55);
 }
