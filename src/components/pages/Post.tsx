@@ -22,19 +22,19 @@ const analytics = firebase.analytics();
 const db = firebase.firestore();
 
 function toTime(date) {
-  let timestamp = date.toDate();
+  let timestamp = date?.toDate();
   let currentDate = new Date();
   if (
-    timestamp.getDate() === currentDate.getDate() &&
-    timestamp.getDay === currentDate.getDay
+    timestamp?.getDate() === currentDate.getDate() &&
+    timestamp?.getDay === currentDate.getDay
   ) {
     return `Today at ${
-      timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
-    }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
-      timestamp.getHours() > 11 ? "PM" : "AM"
+      timestamp?.getHours() % 12 === 0 ? 12 : timestamp?.getHours() % 12
+    }:${timestamp?.getMinutes().toString().padStart(2, "0")} ${
+      timestamp?.getHours() > 11 ? "PM" : "AM"
     }`;
   } else {
-    return `${timestamp.getDate()} ${
+    return `${timestamp?.getDate()} ${
       [
         "January",
         "February",
@@ -48,8 +48,8 @@ function toTime(date) {
         "October",
         "November",
         "December",
-      ][timestamp.getMonth()]
-    } ${timestamp.getFullYear()}`;
+      ][timestamp?.getMonth()]
+    } ${timestamp?.getFullYear()}`;
   }
 }
 
@@ -79,92 +79,142 @@ function toExactTime(date) {
 
 function Post() {
   const { id } = useParams();
-    const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("");
 
-    const uid = auth.currentUser.uid;
+  const uid = auth.currentUser.uid;
 
-    const [userInfo] = UserGetData();
-    const [documents] = useGetData();
+  const [userInfo] = UserGetData();
+  const [documents] = useGetData();
 
-    var i;
+  console.log(documents);
+
+  var i;
+  // if (userInfo !== undefined) {
+  //   for (i = 0; i in userInfo; i++) {
+  //     if (userInfo[i].id === uid) {
+  //       // var SessionUserData = userInfo[i].value;
+  //     }
+  //   }
+  // }
+
+  function getUserName(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === uid) {
-          var SessionUserData = userInfo[i].value;
+        if (userInfo[i].id === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value.username;
         }
       }
     }
+  }
+  function getDisplayName(fuid) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i].id === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value.displayName;
+        }
+      }
+    }
+  }
+  function getProfilePic(fuid) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i].id === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value.photoUrl;
+        }
+      }
+    }
+  }
 
-    function getUserName(fuid) {
-      if (userInfo !== undefined) {
-        for (i = 0; i in userInfo; i++) {
-          if (userInfo[i].id === fuid) {
-            // console.log(userInfo[i].value)
-            return userInfo[i].value.username;
-          }
+  // class ValueInstance {
+  //   time: any;
+  //   user: any;
+  //   value: any;
+  //   constructor(time, user, value) {
+  //     this.time = time;
+  //     this.user = user;
+  //     this.value = value;
+  //   }
+  //   toString() {
+  //     return this.time + ", " + this.user + ", " + this.value;
+  //   }
+  // }
+
+  // var valueConverter = {
+  //   toFirestore: function (value) {
+  //     return {
+  //       time: value.name,
+  //       user: value.user,
+  //       value: value.value,
+  //     };
+  //   },
+  //   fromFirestore: function (snapshot, options) {
+  //     const data = snapshot.data(options);
+  //     return new ValueInstance(data.time, data.user, data.value);
+  //   },
+  // };
+
+  // function returningValueInfo() {
+  //   db.collection("values")
+  //     .doc(id)
+  //     .withConverter(valueConverter)
+  //     .get()
+  //     .then((doc) => {
+  //       if (doc.exists) {
+  //         var valuesInfo = doc.data();
+  //         console.log(valuesInfo);
+  //         return doc.data();
+  //       } else {
+  //         console.log("No such document!");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error getting document:", error);
+  //     });
+  // }
+
+  // const valuesInfo = returningValueInfo();
+
+  function getValueStuff() {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i].id === id) {
+          // console.log(userInfo[i].value)
+          return userInfo[i].value;
         }
       }
     }
-    function getDisplayName(fuid) {
-      if (userInfo !== undefined) {
-        for (i = 0; i in userInfo; i++) {
-          if (userInfo[i].id === fuid) {
-            // console.log(userInfo[i].value)
-            return userInfo[i].value.displayName;
-          }
-        }
-      }
-    }
-    function getProfilePic(fuid) {
-      if (userInfo !== undefined) {
-        for (i = 0; i in userInfo; i++) {
-          if (userInfo[i].id === fuid) {
-            // console.log(userInfo[i].value)
-            return userInfo[i].value.photoUrl;
-          }
-        }
-      }
-    }
+  }
+
+  const valuesInfo = getValueStuff();
 
   return (
     <div className="content">
       <h1>loading post {id}</h1>
       <div>
-        {documents.map((documents) => (
-          <div key={documents.id}>
-            <div className="max-w-4xl break-all">
-              <div className="grid">
-                <div className="flex">
-                  <img
-                    className="w-12 mt-1 rounded-full"
-                    src={getProfilePic(documents.value.user)}
-                    alt="pfp"
-                  />
-                  <span className="pl-3 font-bold">
-                    {getDisplayName(documents.value.user)}{" "}
-                    <span className="font-light opacity-70">
-                      @{getUserName(documents.value.user)} ·{" "}
-                      {toTime(documents.value.time)}
-                    </span>
-                  </span>
-                </div>
-                <span className="ml-16 -mt-6 mb-2">
-                  {documents.value.value}
+        <div className="max-w-4xl break-all">
+          <div className="grid">
+            <div className="flex">
+              <img
+                className="w-12 mt-1 rounded-full"
+                src={getProfilePic(valuesInfo?.user)}
+                alt="pfp"
+              />
+              <span className="pl-3 font-bold">
+                {getDisplayName(valuesInfo?.user)}{" "}
+                <span className="font-light opacity-70">
+                  @{getUserName(valuesInfo?.user)} · {toTime(valuesInfo?.time)}
                 </span>
-                {/* <img
-                  draggable="true"
-                  alt="ExamplePicture"
-                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
-                  className="rounded-3xl max-w-sm ml-16"
-                /> */}
-              </div>
+              </span>
             </div>
+            <span className="ml-16 -mt-6 mb-2">{valuesInfo?.value}</span>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
 }
-
 
 export default Post;
