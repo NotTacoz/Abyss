@@ -86,8 +86,6 @@ function Post() {
   const [userInfo] = UserGetData();
   const [documents] = useGetData();
 
-  console.log(documents);
-
   var i;
   // if (userInfo !== undefined) {
   //   for (i = 0; i in userInfo; i++) {
@@ -178,17 +176,17 @@ function Post() {
   // const valuesInfo = returningValueInfo();
 
   function getValueStuff() {
-    if (userInfo !== undefined) {
-      for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === id) {
-          // console.log(userInfo[i].value)
-          return userInfo[i].value;
-        }
+    for (i = 0; i in documents; i++) {
+      if (documents[i].id === id) {
+        // console.log(userInfo[i].value)
+        return documents[i].value;
       }
     }
   }
 
   const valuesInfo = getValueStuff();
+
+  // console.log(valuesInfo);
 
   return (
     <div className="content">
