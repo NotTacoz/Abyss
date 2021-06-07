@@ -18,26 +18,26 @@ html {
   justify-content: center;
 }
 
-a:link:not(.sidebarContent):not(.noLink) {
+a:link:not(.sidebarContent, .noLink) {
   color: #61dafb;
 }
 
-a:link:not(.sidebarContent):not(.noLink) {
-  color: #61dafb;
-  text-decoration: none;
-}
-
-a:visited:not(.sidebarContent):not(.noLink) {
+a:link:not(.sidebarContent, .noLink) {
   color: #61dafb;
   text-decoration: none;
 }
 
-a:hover:not(.sidebarContent):not(.noLink) {
+a:visited:not(.sidebarContent, .noLink) {
   color: #61dafb;
   text-decoration: none;
 }
 
-a:active:not(.sidebarContent):not(.noLink) {
+a:hover:not(.sidebarContent, .noLink) {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+a:active:not(.sidebarContent, .noLink) {
   color: #61dafb;
   text-decoration: none;
 }
@@ -409,5 +409,5 @@ input:focus {
 .noLink:hover {
   color: white;
   text-decoration: none;
-  background-color: rgb(35, 35, 52);
+  background-color: rgb(135, 35, 55);
 }
