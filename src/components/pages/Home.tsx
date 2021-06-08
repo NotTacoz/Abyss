@@ -211,7 +211,7 @@ function Timeline() {
         {documents.map((documents) => (
           <div key={documents.id}>
             <Link to={"post/"+documents.id} className="noLink">
-              <div className="max-w-4xl break-all">
+              <div className="max-w-4xl break-all noLink">
                 <div className="grid">
                   <div className="flex">
                     <img
@@ -236,6 +236,9 @@ function Timeline() {
                   src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
                   className="rounded-3xl max-w-sm ml-16"
                 /> */}
+                <div>
+                  like {documents.value.likes}
+                </div>
                 </div>
               </div>
             </Link>

@@ -14,6 +14,8 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -84,8 +86,11 @@ function Timeline() {
         value: value,
         user: auth.currentUser.uid,
         time: new Date(),
+        imgurl: "placeholder", // im too lazy
+        likes: 0,
       })
       .then(function () {
+        toast.success("Successfully posted!");
         //console.log("Value successfully written!");
       })
       .catch(function (error) {
@@ -112,6 +117,7 @@ function Timeline() {
         <button type="button" className="special" onClick={addValue}>
           Post
         </button>
+        <Toaster />
         {/* <input type="file" id="myFile" name="filename" /> */}
         <br />
         <input
