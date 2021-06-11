@@ -399,11 +399,14 @@ button.special:active,
 }
 
 input {
+  outline: 3px;
+  outline-color: white;
   background-color: rgba(25, 25, 45, 0);
 }
 
 input:focus {
   outline: none;
+  background-color: rgba(25, 25, 45, 0);
 }
 
 .noLink:hover {

@@ -13,6 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
+import { UserGetData } from "../hooks/UserGetData";
 
 // basic notifications awesome!
 import toast, { Toaster } from "react-hot-toast";
@@ -31,45 +32,60 @@ function Account() {
 
   const userInfo = () => {
     if (auth.currentUser != null) {
-      db.doc("users/" + auth.currentUser.uid).get()
+      db.doc("users/" + auth.currentUser.uid)
+        .get()
         .then(
           //console.log("Value successfully written!");
           (doc) => {
             if (doc.exists) {
               // do nothing :)
-            }else {
-              db.doc("takenUsernames/" + auth.currentUser.displayName.split(" ").join("")).get()
-              .then(
-                (doc) => {
+            } else {
+              db.doc(
+                "takenUsernames/" +
+                  auth.currentUser?.displayName?.split(" ").join("")
+              )
+                .get()
+                .then((doc) => {
                   if (doc.exists) {
-                    var randomNumGen = ("0123456789"[Math.floor(Math.random() * 15)])
-                    db.doc("users/" + auth.currentUser.uid)
-                    .set({
-                      displayName: auth.currentUser.displayName,
-                      username: (auth.currentUser.displayName.split(" ").join("")+randomNumGen),
-                      email: auth.currentUser.email,
-                      photoUrl: auth.currentUser.photoURL,
-                      emailVerified: auth.currentUser.emailVerified,
-                      userid: auth.currentUser.uid,
+                    var randomNumGen = "0123456789"[
+                      Math.floor(Math.random() * 15)
+                    ];
+                    db.doc("users/" + auth.currentUser?.uid).set({
+                      displayName: auth.currentUser?.displayName,
+                      username:
+                        auth.currentUser?.displayName?.split(" ").join("") +
+                        randomNumGen,
+                      email: auth.currentUser?.email,
+                      photoUrl: auth.currentUser?.photoURL,
+                      emailVerified: auth.currentUser?.emailVerified,
+                      userid: auth.currentUser?.uid,
                       time: new Date(),
-                    })
-                    db.doc("takenUsernames/" + auth.currentUser.displayName.split(" ").join("")+randomNumGen).set({
-                      username: (auth.currentUser.displayName.split(" ").join("")+randomNumGen),
-                    })
-                  }else {
-                    db.doc("users/" + auth.currentUser.uid)
-                    .set({
-                      displayName: auth.currentUser.displayName,
-                      username: auth.currentUser.displayName.split(" ").join(""),
-                      email: auth.currentUser.email,
-                      photoUrl: auth.currentUser.photoURL,
-                      emailVerified: auth.currentUser.emailVerified,
-                      userid: auth.currentUser.uid,
+                    });
+                    db.doc(
+                      "takenUsernames/" +
+                        auth.currentUser?.displayName?.split(" ").join("") +
+                        randomNumGen
+                    ).set({
+                      username:
+                        auth.currentUser?.displayName?.split(" ").join("") +
+                        randomNumGen,
+                    });
+                  } else {
+                    db.doc("users/" + auth.currentUser?.uid).set({
+                      displayName: auth.currentUser?.displayName,
+                      username: auth.currentUser?.displayName?.split(" ").join(""),
+                      email: auth.currentUser?.email,
+                      photoUrl: auth.currentUser?.photoURL,
+                      emailVerified: auth.currentUser?.emailVerified,
+                      userid: auth.currentUser?.uid,
                       time: new Date(),
-                    })
-                    db.doc("takenUsernames/" + auth.currentUser.displayName.split(" ").join("")).set({
-                      username: (auth.currentUser.displayName.split(" ").join("")),
-                    })
+                    });
+                    db.doc(
+                      "takenUsernames/" +
+                        auth.currentUser?.displayName?.split(" ").join("")
+                    ).set({
+                      username: auth.currentUser?.displayName?.split(" ").join(""),
+                    });
                   }
                 })
                 .then(function () {
@@ -100,7 +116,7 @@ function Account() {
   );
 }
 
-function makeId(length) {
+function makeId(length: number) {
   let result = [];
   for (let i = 0; i < length; i++) {
     result.push("0123456789"[Math.floor(Math.random() * 10)]);
@@ -110,16 +126,16 @@ function makeId(length) {
 
 function Timeline() {
   const [value, setValue] = React.useState("");
-  const getValue = (event) => {
+  const getValue = (event:any) => {
     setValue(event.target.value);
   };
 
   const addValue = () => {
-    setValue("")
+    setValue("");
     db.doc("values/" + makeId(10))
       .set({
         value: value,
-        user: auth.currentUser.uid,
+        user: auth.currentUser?.uid,
         time: new Date(),
       })
       .then(function () {
@@ -130,14 +146,34 @@ function Timeline() {
       });
   };
 
-  const updateValue = (documetEdit, valueEdit, editValue) => {
+  const [userInfo] = UserGetData();
+  const [documents] = useGetData();
+
+  var i;
+  if (userInfo !== undefined) {
+    for (i = 0; i in userInfo; i++) {
+      if (userInfo[i]['id'] === auth.currentUser?.uid) {
+        var SessionUserData = userInfo[i]['value'];
+      }
+    }
+  }
+
+  const updateValue = (documetEdit: string | undefined, valueEdit: string, editValue: string | undefined) => {
+    editValue = editValue?.split(" ").join("_");
+    firestore
+      .collection("takenUsernames")
+      .doc(SessionUserData['username'])
+      .delete();
+    firestore.collection("takenUsernames").doc(editValue).set({
+      username: editValue,
+    });
     db.collection("users")
       .doc(documetEdit)
       .update({
         [valueEdit]: editValue,
       })
       .then(function () {
-        console.log("Document successfully updated!");
+        // console.log("Document successfully updated!");
       })
       .catch(function (error) {
         console.error("Error updating document: ", error);
@@ -146,11 +182,76 @@ function Timeline() {
 
   // updateValue(auth.currentUser.uid, "username", "poggers")
 
-  const [documents] = useGetData();
+  function getUserName(fuid: string) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i]['id'] === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i]['value']['username'];
+        }
+      }
+    }
+  }
+  function getDisplayName(fuid: any) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i]['id'] === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i]['value']['displayName'];
+        }
+      }
+    }
+  }
+  function getProfilePic(fuid: any) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i]['id'] === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i]['value']['photoUrl'];
+        }
+      }
+    }
+  }
+
+  function changeUserName() {
+    if (
+      (document.getElementById("changeAccountUsername") as HTMLInputElement)
+        .value.length >= 3 &&
+      (document.getElementById("changeAccountUsername") as HTMLInputElement)
+        .value.length <= 22
+    ) {
+      updateValue(
+        auth.currentUser?.uid,
+        "username",
+        (document.getElementById("changeAccountUsername") as HTMLInputElement)
+          .value
+      );
+      (
+        document.getElementById("changeAccountUsername") as HTMLInputElement
+      ).value = "";
+    } else {
+      (
+        document.getElementById("changeAccountUsername") as HTMLInputElement
+      ).value = "name must be over 3 characters bruh";
+    }
+  }
 
   return (
     <div className="">
       Account settings
+      <br />
+      Change username:
+      <input
+        id="changeAccountUsername"
+        onBlur={getValue}
+        placeholder={"@" + getUserName(auth.currentUser!.uid)}
+        className="w-96 h-12 pl-6"
+        type="text"
+        autoComplete="off"
+      />
+      <button className="button" onClick={changeUserName}>
+        Change
+      </button>
       <br />
       <button className="button special" onClick={SignOutBtn}>
         Sign out
@@ -166,7 +267,7 @@ function SignIn() {
       <h2>You need to be signed in to access the rest of the web page!</h2>
       <br />
       <button className="button special" onClick={SignInBtn}>
-        Sign in
+        Sign in with google
       </button>
       <Toaster />
     </div>
