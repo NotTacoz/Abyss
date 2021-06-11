@@ -40,7 +40,7 @@ function Settings() {
   );
 }
 
-function makeId(length) {
+function makeId(length: number) {
   let result = [];
   for (let i = 0; i < length; i++) {
     result.push("0123456789"[Math.floor(Math.random() * 10)]);
@@ -48,7 +48,7 @@ function makeId(length) {
   return result.join("");
 }
 
-function toTime(date) {
+function toTime(date: { toDate: () => any; }) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
@@ -74,7 +74,7 @@ function toTime(date) {
 
 function Content() {
   const [value, setValue] = React.useState("");
-  const getValue = (event) => {
+  const getValue = (event: { target: any[] | Promise<any>; }) => {
     setValue(event.target.value);
   };
 
@@ -82,7 +82,7 @@ function Content() {
     db.doc("values/" + makeId(10))
       .set({
         value: value,
-        user: auth.currentUser.uid,
+        user: auth.currentUser?.uid,
         time: new Date(),
       })
       .then(function () {

@@ -30,7 +30,9 @@ export const config = {
   measurementId: "G-00DBVS0PXW",
 };
 
-firebase.initializeApp(config);
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
+}
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -210,9 +212,9 @@ function Timeline() {
       <div>
         {documents.map((documents) => (
           <div key={documents.id}>
-            <Link to={"post/"+documents.id} className="noLink">
-              <div className="max-w-4xl break-all noLink">
-                <div className="grid">
+            <div className="max-w-4xl break-all noLink">
+              <div className="grid">
+                <Link to={"post/" + documents.id} className="noLink">
                   <div className="flex">
                     <img
                       className="w-12 mt-1 rounded-full"
@@ -236,12 +238,13 @@ function Timeline() {
                   src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
                   className="rounded-3xl max-w-sm ml-16"
                 /> */}
+                </Link>
                 <div>
-                  like {documents.value.likes}
-                </div>
+                  like{" "}{documents.value.likes}
                 </div>
               </div>
-            </Link>
+            </div>
+
             {/* <div>
               <img
                 className="w-12 mt-1 rounded-full"
@@ -282,9 +285,15 @@ function Timeline() {
   );
 }
 
+function AddLikes() {
+  // if already liked, pass
+  // else if not yet liked, continue
+    //
+}
+
 function SignIn() {
   window.location.href = "/account";
-  return (<div></div>);
+  return <div></div>;
 }
 
 export default Home;
