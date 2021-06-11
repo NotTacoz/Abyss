@@ -152,8 +152,8 @@ function Timeline() {
   var i;
   if (userInfo !== undefined) {
     for (i = 0; i in userInfo; i++) {
-      if (userInfo[i].id === auth.currentUser?.uid) {
-        var SessionUserData = userInfo[i].value;
+      if (userInfo[i]['id'] === auth.currentUser?.uid) {
+        var SessionUserData = userInfo[i]['value'];
       }
     }
   }
@@ -162,7 +162,7 @@ function Timeline() {
     editValue = editValue?.split(" ").join("_");
     firestore
       .collection("takenUsernames")
-      .doc(SessionUserData.username)
+      .doc(SessionUserData['username'])
       .delete();
     firestore.collection("takenUsernames").doc(editValue).set({
       username: editValue,
@@ -185,9 +185,9 @@ function Timeline() {
   function getUserName(fuid: string) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === fuid) {
+        if (userInfo[i]['id'] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i].value.username;
+          return userInfo[i]['value']['username'];
         }
       }
     }
@@ -195,9 +195,9 @@ function Timeline() {
   function getDisplayName(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === fuid) {
+        if (userInfo[i]['id'] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i].value.displayName;
+          return userInfo[i]['value']['displayName'];
         }
       }
     }
@@ -205,9 +205,9 @@ function Timeline() {
   function getProfilePic(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === fuid) {
+        if (userInfo[i]['id'] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i].value.photoUrl;
+          return userInfo[i]['value']['photoUrl'];
         }
       }
     }

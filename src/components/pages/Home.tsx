@@ -59,7 +59,7 @@ function Home() {
   );
 }
 
-function makeId(length) {
+function makeId(length: number) {
   let result = [];
   for (let i = 0; i < length; i++) {
     result.push("0123456789"[Math.floor(Math.random() * 10)]);
@@ -67,7 +67,7 @@ function makeId(length) {
   return result.join("");
 }
 
-function toTime(date) {
+function toTime(date: { toDate: () => any; }) {
   let timestamp = date.toDate();
   let currentDate = new Date();
   if (
@@ -99,7 +99,7 @@ function toTime(date) {
   }
 }
 
-function toExactTime(date) {
+function toExactTime(date: { toDate: () => any; }) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
@@ -125,7 +125,7 @@ function toExactTime(date) {
 
 function Timeline() {
   const [value, setValue] = React.useState("");
-  const getValue = (event) => {
+  const getValue = (event:any) => {
     setValue(event.target.value);
   };
 
@@ -133,7 +133,7 @@ function Timeline() {
     db.doc("values/" + makeId(10))
       .set({
         value: value,
-        user: auth.currentUser.uid,
+        user: auth.currentUser?.uid,
         time: new Date(),
       })
       .then(function () {
@@ -160,7 +160,7 @@ function Timeline() {
   //     console.log("Error getting document:", error);
   //   });
 
-  const uid = auth.currentUser.uid;
+  const uid = auth.currentUser?.uid;
 
   const [userInfo] = UserGetData();
   const [documents] = useGetData();
@@ -168,38 +168,38 @@ function Timeline() {
   var i;
   if (userInfo !== undefined) {
     for (i = 0; i in userInfo; i++) {
-      if (userInfo[i].id === uid) {
-        var SessionUserData = userInfo[i].value;
+      if (userInfo[i]['id'] === uid) {
+        var SessionUserData = userInfo[i]['value'];
       }
     }
   }
 
-  function getUserName(fuid) {
+  function getUserName(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === fuid) {
+        if (userInfo[i]['id'] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i].value.username;
+          return userInfo[i]['value']['username'];
         }
       }
     }
   }
-  function getDisplayName(fuid) {
+  function getDisplayName(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === fuid) {
+        if (userInfo[i]['id'] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i].value.displayName;
+          return userInfo[i]['value']['displayName'];
         }
       }
     }
   }
-  function getProfilePic(fuid) {
+  function getProfilePic(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i].id === fuid) {
+        if (userInfo[i]['id'] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i].value.photoUrl;
+          return userInfo[i]['value']['photoUrl'];
         }
       }
     }
@@ -211,26 +211,26 @@ function Timeline() {
     <div className="">
       <div>
         {documents.map((documents) => (
-          <div key={documents.id}>
+          <div key={documents['id']}>
             <div className="max-w-4xl break-all noLink">
               <div className="grid">
-                <Link to={"post/" + documents.id} className="noLink">
+                <Link to={"post/" + documents['id']} className="noLink">
                   <div className="flex">
                     <img
                       className="w-12 mt-1 rounded-full"
-                      src={getProfilePic(documents.value.user)}
+                      src={getProfilePic(documents['value']['user'])}
                       alt="pfp"
                     />
                     <span className="pl-3 font-bold">
-                      {getDisplayName(documents.value.user)}{" "}
+                      {getDisplayName(documents['value']['user'])}{" "}
                       <span className="font-light opacity-70">
-                        @{getUserName(documents.value.user)} ·{" "}
-                        {toTime(documents.value.time)}
+                        @{getUserName(documents['value']['user'])} ·{" "}
+                        {toTime(documents['value']['time'])}
                       </span>
                     </span>
                   </div>
                   <span className="ml-16 -mt-6 mb-2">
-                    {documents.value.value}
+                    {documents['value']['value']}
                   </span>
                   {/* <img
                   draggable="true"
@@ -240,7 +240,7 @@ function Timeline() {
                 /> */}
                 </Link>
                 <div>
-                  like{" "}{documents.value.likes}
+                  like{" "}{documents['value']['likes']}
                 </div>
               </div>
             </div>
