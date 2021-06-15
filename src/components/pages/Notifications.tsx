@@ -73,7 +73,8 @@ function toTime(date: { toDate: () => any; }) {
 
 function Content() {
   const [value, setValue] = React.useState("");
-  const getValue = (event:any) => {
+
+  const getValue = (event) => {
     setValue(event.target.value);
   };
 

@@ -23,7 +23,6 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const db = firebase.firestore();
 
-
 function toTime(date: { toDate: () => any; }) {
   let timestamp = date?.toDate();
   let currentDate = new Date();
@@ -81,7 +80,7 @@ function toExactTime(date: { toDate: () => any; }) {
 }
 
 function Post() {
-  const {id} = useParams();
+  const { id } = useParams<{ id: string }>();
   const [value, setValue] = React.useState("");
 
   const uid = auth.currentUser?.uid;
