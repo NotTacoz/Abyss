@@ -17,6 +17,7 @@ import { UserGetData } from "../hooks/UserGetData";
 import { useGetData } from "../hooks/useGetData";
 
 import toast, { Toaster } from "react-hot-toast";
+import { createDocumentRegistry } from "typescript";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -55,6 +56,14 @@ function toTime(date) {
   }
 }
 
+function makeId(length: number) {
+  let result = [];
+  for (let i = 0; i < length; i++) {
+    result.push("0123456789"[Math.floor(Math.random() * 10)]);
+  }
+  return result.join("");
+}
+
 function toExactTime(date) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
@@ -82,6 +91,10 @@ function toExactTime(date) {
 function Post() {
   const { id } = useParams<{ id: string }>();
   const [value, setValue] = React.useState("");
+
+  const getValue = (event: any) => {
+    setValue(event.target.value);
+  };
 
   const uid = auth.currentUser.uid;
 
@@ -186,9 +199,36 @@ function Post() {
     }
   }
 
+  function commentOnPost() {
+    var commentValue = (
+      document.getElementById("newPostInput") as HTMLInputElement
+    ).value;
+    (document.getElementById("newPostInput") as HTMLInputElement).value = "";
+    db.collection("values").doc(id).collection("comments").doc(makeId(15)).set({
+      comment: commentValue,
+      user: auth.currentUser?.uid,
+      time: new Date(),
+      imgurl: "placeholder", // im too lazy
+      likes: 0,
+    });
+  }
+
+  const [comments, setComments] = React.useState([]);
+
+  db.collection("values")
+    .doc(id)
+    .collection("comments")
+    .onSnapshot((querySnapshot) => {
+      let arr = [];
+      querySnapshot.docs.map((doc) =>
+        arr.push({ id: doc.id, value: doc.data() })
+      );
+      setComments(arr);
+    });
+
   const valuesInfo = getValueStuff();
 
-  // console.log(valuesInfo);
+  // console.log(comments);
 
   return (
     <div className="content">
@@ -213,6 +253,58 @@ function Post() {
           </div>
         </div>
       </div>
+      <div className="inputdiv">
+        <Toaster />
+        {/* <input type="file" id="myFile" name="filename" /> */}
+        <br />
+        <img
+          className="w-12 rounded-full inline"
+          src={getProfilePic(auth.currentUser.uid)}
+          alt="pfp"
+        />
+        <input
+          id="newPostInput"
+          onBlur={getValue}
+          placeholder={"Comment your reply"}
+          className="w-96 h-12 pl-6"
+          type="text"
+          autoComplete="off"
+        />
+        <button type="button" className="special" onClick={commentOnPost}>
+          Post
+        </button>
+      </div>
+      {comments.map((comments) => (
+        <div key={comments["id"]}>
+          <div className="max-w-4xl break-all noLink">
+            <div className="grid">
+              <div className="flex">
+                <img
+                  className="w-12 mt-1 rounded-full"
+                  src={getProfilePic(comments["value"]["user"])}
+                  alt="pfp"
+                />
+                <span className="pl-3 font-bold">
+                  {getDisplayName(comments["value"]["user"])}{" "}
+                  <span className="font-light opacity-70">
+                    @{getUserName(comments["value"]["user"])} ·{" "}
+                    {toTime(comments["value"]["time"])}
+                  </span>
+                </span>
+              </div>
+              <span className="ml-16 -mt-6 mb-2">
+                {comments["value"]["comment"]}
+              </span>
+              {/* <img
+                  draggable="true"
+                  alt="ExamplePicture"
+                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
+                  className="rounded-3xl max-w-sm ml-16"
+                /> */}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -81,7 +81,8 @@ function Timeline() {
   const addValue = () => {
     (document.getElementById("newPostInput") as HTMLInputElement).value = "";
     if (value !== "") {
-      db.doc("values/" + makeId(10))
+      var randomid = makeId(10)
+      db.doc("values/" + randomid)
       .set({
         value: value,
         user: auth.currentUser?.uid,
@@ -126,6 +127,7 @@ function Timeline() {
           placeholder={placeholdertext}
           className="w-96 h-12 pl-6"
           type="text"
+          autoComplete="off"
         />
       </div>
     </div>

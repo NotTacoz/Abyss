@@ -67,8 +67,8 @@ function makeId(length: number) {
   return result.join("");
 }
 
-function toTime(date: { toDate: () => any; }) {
-  let timestamp = date.toDate();
+function toTime(date) {
+  let timestamp = date?.toDate();
   let currentDate = new Date();
   if (
     timestamp.getDate() === currentDate.getDate() &&
@@ -76,11 +76,11 @@ function toTime(date: { toDate: () => any; }) {
   ) {
     return `Today at ${
       timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
-    }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
-      timestamp.getHours() > 11 ? "PM" : "AM"
+    }:${timestamp?.getMinutes().toString().padStart(2, "0")} ${
+      timestamp?.getHours() > 11 ? "PM" : "AM"
     }`;
   } else {
-    return `${timestamp.getDate()} ${
+    return `${timestamp?.getDate()} ${
       [
         "January",
         "February",
@@ -94,8 +94,8 @@ function toTime(date: { toDate: () => any; }) {
         "October",
         "November",
         "December",
-      ][timestamp.getMonth()]
-    } ${timestamp.getFullYear()}`;
+      ][timestamp?.getMonth()]
+    } ${timestamp?.getFullYear()}`;
   }
 }
 
@@ -211,26 +211,26 @@ function Timeline() {
     <div className="">
       <div>
         {documents.map((documents) => (
-          <div key={documents['id']}>
+          <div key={documents["id"]}>
+            <Link to={"post/" + documents["id"]} className="noLink">
             <div className="max-w-4xl break-all noLink">
               <div className="grid">
-                <Link to={"post/" + documents['id']} className="noLink">
                   <div className="flex">
                     <img
                       className="w-12 mt-1 rounded-full"
-                      src={getProfilePic(documents['value']['user'])}
+                      src={getProfilePic(documents["value"]["user"])}
                       alt="pfp"
                     />
                     <span className="pl-3 font-bold">
-                      {getDisplayName(documents['value']['user'])}{" "}
+                      {getDisplayName(documents["value"]["user"])}{" "}
                       <span className="font-light opacity-70">
-                        @{getUserName(documents['value']['user'])} ·{" "}
-                        {toTime(documents['value']['time'])}
+                        @{getUserName(documents["value"]["user"])} ·{" "}
+                        {toTime(documents["value"]["time"])}
                       </span>
                     </span>
                   </div>
                   <span className="ml-16 -mt-6 mb-2">
-                    {documents['value']['value']}
+                    {documents["value"]["value"]}
                   </span>
                   {/* <img
                   draggable="true"
@@ -238,12 +238,9 @@ function Timeline() {
                   src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
                   className="rounded-3xl max-w-sm ml-16"
                 /> */}
-                </Link>
-                <div>
-                  like{" "}{documents['value']['likes']}
-                </div>
               </div>
             </div>
+            </Link>
 
             {/* <div>
               <img
