@@ -23,7 +23,7 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const db = firebase.firestore();
 
-function toTime(date: { toDate: () => any; }) {
+function toTime(date) {
   let timestamp = date?.toDate();
   let currentDate = new Date();
   if (
@@ -55,7 +55,7 @@ function toTime(date: { toDate: () => any; }) {
   }
 }
 
-function toExactTime(date: { toDate: () => any; }) {
+function toExactTime(date) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
@@ -83,7 +83,7 @@ function Post() {
   const { id } = useParams<{ id: string }>();
   const [value, setValue] = React.useState("");
 
-  const uid = auth.currentUser?.uid;
+  const uid = auth.currentUser.uid;
 
   const [userInfo] = UserGetData();
   const [documents] = useGetData();
@@ -97,32 +97,32 @@ function Post() {
   //   }
   // }
 
-  function getUserName(fuid: any) {
+  function getUserName(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i].id === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['username'];
+          return userInfo[i].value.username;
         }
       }
     }
   }
-  function getDisplayName(fuid: any) {
+  function getDisplayName(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i].id === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['displayName'];
+          return userInfo[i].value.displayName;
         }
       }
     }
   }
-  function getProfilePic(fuid: any) {
+  function getProfilePic(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i].id === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['photoUrl'];
+          return userInfo[i].value.photoUrl;
         }
       }
     }
@@ -179,9 +179,9 @@ function Post() {
 
   function getValueStuff() {
     for (i = 0; i in documents; i++) {
-      if (documents[i]['id'] === id) {
+      if (documents[i].id === id) {
         // console.log(userInfo[i].value)
-        return documents[i]['value'];
+        return documents[i].value;
       }
     }
   }
@@ -199,17 +199,17 @@ function Post() {
             <div className="flex">
               <img
                 className="w-12 mt-1 rounded-full"
-                src={getProfilePic(valuesInfo?['user']:)}
+                src={getProfilePic(valuesInfo?.user)}
                 alt="pfp"
               />
               <span className="pl-3 font-bold">
-                {getDisplayName(valuesInfo?['user'])}{" "}
+                {getDisplayName(valuesInfo?.user)}{" "}
                 <span className="font-light opacity-70">
-                  @{getUserName(valuesInfo?['user'])} · {toTime(valuesInfo?['time'])}
+                  @{getUserName(valuesInfo?.user)} · {toTime(valuesInfo?.time)}
                 </span>
               </span>
             </div>
-            <span className="ml-16 -mt-6 mb-2">{valuesInfo?['value']}</span>
+            <span className="ml-16 -mt-6 mb-2">{valuesInfo?.value}</span>
           </div>
         </div>
       </div>
