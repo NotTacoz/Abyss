@@ -23,8 +23,7 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const db = firebase.firestore();
 
-
-function toTime(date: { toDate: () => any; }) {
+function toTime(date) {
   let timestamp = date?.toDate();
   let currentDate = new Date();
   if (
@@ -56,7 +55,7 @@ function toTime(date: { toDate: () => any; }) {
   }
 }
 
-function toExactTime(date: { toDate: () => any; }) {
+function toExactTime(date) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
@@ -81,10 +80,10 @@ function toExactTime(date: { toDate: () => any; }) {
 }
 
 function Post() {
-  const id = useParams();
-  const [value, setValue] = React.useState<any[]>([]);
+  const { id } = useParams<{ id: string }>();
+  const [value, setValue] = React.useState("");
 
-  const uid = auth.currentUser?.uid;
+  const uid = auth.currentUser.uid;
 
   const [userInfo] = UserGetData();
   const [documents] = useGetData();
@@ -98,7 +97,7 @@ function Post() {
   //   }
   // }
 
-  function getUserName(fuid: any) {
+  function getUserName(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
         if (userInfo[i].id === fuid) {
@@ -108,7 +107,7 @@ function Post() {
       }
     }
   }
-  function getDisplayName(fuid: any) {
+  function getDisplayName(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
         if (userInfo[i].id === fuid) {
@@ -118,7 +117,7 @@ function Post() {
       }
     }
   }
-  function getProfilePic(fuid: any) {
+  function getProfilePic(fuid) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
         if (userInfo[i].id === fuid) {
