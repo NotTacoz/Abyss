@@ -204,27 +204,42 @@ function Post() {
       document.getElementById("newPostInput") as HTMLInputElement
     ).value;
     (document.getElementById("newPostInput") as HTMLInputElement).value = "";
-    db.collection("values").doc(id).collection("comments").doc(makeId(15)).set({
-      comment: commentValue,
-      user: auth.currentUser?.uid,
-      time: new Date(),
-      imgurl: "placeholder", // im too lazy
-      likes: 0,
-    });
+    db.collection("values")
+      .doc(id)
+      .collection("comments")
+      .doc(makeId(15))
+      .set({
+        comment: commentValue,
+        user: auth.currentUser?.uid,
+        time: new Date(),
+        imgurl: "placeholder", // im too lazy
+        likes: 0,
+      })
+      .then(function () {
+        toast.success("Successfully Commented!");
+        //console.log("Value successfully written!");
+      })
+      .catch(function (error) {
+        toast.success("Failed Commenting: ", error);
+        // console.error("Error writing Value: ", error);
+      });
   }
 
   const [comments, setComments] = React.useState([]);
 
-  db.collection("values")
-    .doc(id)
-    .collection("comments")
-    .onSnapshot((querySnapshot) => {
-      let arr = [];
-      querySnapshot.docs.map((doc) =>
-        arr.push({ id: doc.id, value: doc.data() })
-      );
-      setComments(arr);
-    });
+  React.useEffect(() => {
+    db.collection("values")
+      .doc(id)
+      .collection("comments")
+      .orderBy("time", "desc")
+      .onSnapshot((querySnapshot) => {
+        let arr = [];
+        querySnapshot.docs.map((doc) =>
+          arr.push({ id: doc.id, value: doc.data() })
+        );
+        setComments(arr);
+      });
+  }, [id]);
 
   const valuesInfo = getValueStuff();
 
@@ -254,7 +269,6 @@ function Post() {
         </div>
       </div>
       <div className="inputdiv">
-        <Toaster />
         {/* <input type="file" id="myFile" name="filename" /> */}
         <br />
         <img
@@ -271,9 +285,11 @@ function Post() {
           autoComplete="off"
         />
         <button type="button" className="special" onClick={commentOnPost}>
-          Post
+          Comment
         </button>
+        <Toaster />
       </div>
+      <br />
       {comments.map((comments) => (
         <div key={comments["id"]}>
           <div className="max-w-4xl break-all noLink">

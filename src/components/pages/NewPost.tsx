@@ -83,20 +83,21 @@ function Timeline() {
     if (value !== "") {
       var randomid = makeId(10)
       db.doc("values/" + randomid)
-      .set({
-        value: value,
-        user: auth.currentUser?.uid,
-        time: new Date(),
-        imgurl: "placeholder", // im too lazy
-        likes: 0,
-      })
-      .then(function () {
-        toast.success("Successfully posted!");
-        //console.log("Value successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing Value: ", error);
-      });
+        .set({
+          value: value,
+          user: auth.currentUser?.uid,
+          time: new Date(),
+          imgurl: "placeholder", // im too lazy
+          likes: 0,
+        })
+        .then(function () {
+          toast.success("Successfully posted!");
+          //console.log("Value successfully written!");
+        })
+        .catch(function (error) {
+          toast.success("Failed Posting: ", error);
+          // console.error("Error writing Value: ", error);
+        });
     }
   };
   const [documents] = useGetData();
