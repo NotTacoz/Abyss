@@ -94,7 +94,37 @@ function Content() {
   };
   const [documents] = useGetData();
 
-  return <div className="">Settings</div>;
+  const theme = localStorage.getItem("theme");
+
+  const body = document.body;
+
+  if (theme) {
+    body.classList.add(theme);
+  }
+
+  function setLightMode() {
+    body.classList.replace("dark", "light");
+    localStorage.setItem("theme", "light");
+  }
+
+  function setDarkMode() {
+    body.classList.replace("light", "dark");
+    localStorage.setItem("theme", "dark");
+  }
+
+  return (
+    <div className="">
+      Settings
+      <br />
+      <button className="button" onClick={setLightMode} id="light">
+        light
+      </button>
+      <br />
+      <button className="button" onClick={setDarkMode}  id="dark">
+        dark
+      </button>
+    </div>
+  );
 }
 
 function SignIn() {

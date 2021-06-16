@@ -3,13 +3,43 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 
-html {
-  background-color: rgba(30, 30, 50, 1);
+/* Themes */
+
+:root {
+  --dark0: rgb(0, 0, 0);
+  --dark30: rgb(30, 30, 50); /* dark bg */
+  --dark25: rgb(25, 25, 45); /* dark sidebar */
+  --light238: rgb(238, 238, 238); /* light bg */
+  --light255: rgb(255, 255, 255); /* light bg */
+  --red: rgb(239, 68, 68);
+}
+
+.light {
+  --bg: var(--light255);
+  --navbar: var(--light238);
+  --text: var(--dark0);
+  --filter: invert(100%);
+}
+
+.dark {
+  --bg: var(--dark30);
+  --navbar: var(--dark25);
+  --text: var(--light255);
+  --filter: none;
+}
+
+/* CSS */
+body {
   min-height: 100vh;
+  background-color: var(--bg);
   display: block;
   flex-direction: column;
-  color: white;
+  color: var(--text);
   font-family: 'Open Sans', sans-serif;
+}
+
+div.content {
+  background-color: var(--bg);
 }
 
 .Heading {
@@ -87,7 +117,7 @@ hr {
   height: 100%;
   overflow: auto;
   display: block;
-  background-color: rgba(25, 25, 45, 1);
+  background-color: var(--navbar);
   opacity: 1;
   transition: left 0.3s ease-in-out;
 }
@@ -98,34 +128,33 @@ div.transbox {
   opacity: 1;
 }
 
-.sidebar:img {
-  opacity: 50%;
+.sidebarIcon {
+  filter: var(--filter);
 }
 
 /* Sidebar links */
 .sidebarContent {
   display: flex;
-  color: rgb(220, 220, 220);
   padding: 16px;
   text-decoration: none;
   margin: 10px 25px 10px 25px;
   border-radius: 15px;
   font-weight: 500;
   font-size: 1.3em;
-  color: white;
+  color: var(--text);
   opacity: 0.85;
 }
 
 /* Active/current link */
 .activeContent {
-  background-color: rgb(239, 68, 68);
-  color: white;
+  background-color: var(--red);
+  color: var(--text);
   opacity: 1;
 }
 
 /* Links on mouse-over */
 .sidebarContent:hover {
-  color: white;
+  color: var(--text);
   opacity: 1;
   font-weight: 610;
   text-decoration-line: None;
@@ -137,14 +166,13 @@ div.content {
   padding: 0px;
   padding-left: 36px;
   padding-top: 12px;
-  background-color: rgba(30, 30, 50, 1);
-  color: white;
+  color: var(--text);
   justify-content: center;
 }
 
 .navbar {
   display: none;
-  background-color: rgba(25, 25, 45, 1);
+  background-color: var(--navbar);
 }
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
@@ -360,7 +388,7 @@ button.special:active,
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgba(30, 30, 50, 1);
+  background: var(--bg);
   display: initial;
 }
 
@@ -403,17 +431,21 @@ button.special:active,
 
 input {
   outline: 3px;
-  outline-color: white;
-  background-color: rgba(25, 25, 45, 0);
+  outline-color: var(--text);
+  background-color: var(--navbar);
 }
 
 input:focus {
   outline: none;
-  background-color: rgba(25, 25, 45, 0);
+  background-color: var(--navbar);
 }
 
 .noLink:hover {
-  color: white;
+  color: var(--text);
   text-decoration: none;
-  background-color: rgb(35, 35, 55);
+  outline: var(--navbar) solid 5px;
+}
+
+.text-whitee {
+  color: var(--text);
 }

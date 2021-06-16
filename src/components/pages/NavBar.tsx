@@ -16,7 +16,7 @@ class NavBar extends React.Component {
         <div className="sidebar">
           <div className="text-center mt-10 mb-12 z-10">
             <div className="inline-flex mb-8">
-              <h1 className="text-white">Abyss</h1>
+              <h1 className="text-whitee">Abyss</h1>
               <h1 className="text-red-500">Media</h1>
             </div>
             <div>
@@ -27,7 +27,7 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Home" src={Home} />
+                  <img className="h-8 pr-3 sidebarIcon" alt="Home" src={Home} />
                   <a className=""> Home</a>
                 </div>
               </NavLink>
@@ -38,7 +38,7 @@ class NavBar extends React.Component {
               >
                 <div className="inline-flex">
                   <img
-                    className="h-8 pr-3"
+                    className="h-8 pr-3 sidebarIcon"
                     alt="Notifications"
                     src={Notifications}
                   />
@@ -51,7 +51,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Settings" src={Settings} />
+                  <img
+                    className="h-8 pr-3 sidebarIcon"
+                    alt="Settings"
+                    src={Settings}
+                  />
                   <a className=""> Settings</a>
                 </div>
               </NavLink>
@@ -61,7 +65,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="Account" src={Account} />
+                  <img
+                    className="h-8 pr-3 sidebarIcon"
+                    alt="Account"
+                    src={Account}
+                  />
                   <a className=""> Account</a>
                 </div>
               </NavLink>
@@ -71,7 +79,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 pr-3" alt="NewPost" src={NewPost} />
+                  <img
+                    className="h-8 pr-3 sidebarIcon"
+                    alt="NewPost"
+                    src={NewPost}
+                  />
                   <a className=""> New Post</a>
                 </div>
               </NavLink>
@@ -88,7 +100,7 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Home" src={Home} />
+                  <img className="h-8 p-0 sidebarIcon" alt="Home" src={Home} />
                 </div>
               </NavLink>
               <NavLink
@@ -98,7 +110,7 @@ class NavBar extends React.Component {
               >
                 <div className="inline-flex">
                   <img
-                    className="h-8 p-0"
+                    className="h-8 p-0 sidebarIcon"
                     alt="Notifications"
                     src={Notifications}
                   />
@@ -110,7 +122,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="NewPost" src={NewPost} />
+                  <img
+                    className="h-8 p-0 sidebarIcon"
+                    alt="NewPost"
+                    src={NewPost}
+                  />
                 </div>
               </NavLink>
               <NavLink
@@ -119,7 +135,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Settings" src={Settings} />
+                  <img
+                    className="h-8 p-0 sidebarIcon"
+                    alt="Settings"
+                    src={Settings}
+                  />
                 </div>
               </NavLink>
               <NavLink
@@ -128,7 +148,11 @@ class NavBar extends React.Component {
                 activeClassName="activeContent"
               >
                 <div className="inline-flex">
-                  <img className="h-8 p-0" alt="Account" src={Account} />
+                  <img
+                    className="h-8 p-0 sidebarIcon"
+                    alt="Account"
+                    src={Account}
+                  />
                 </div>
               </NavLink>
             </div>

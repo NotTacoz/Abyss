@@ -37,6 +37,14 @@ function App() {
 }
 
 function Normal() {
+  const theme = localStorage.getItem("theme");
+
+  const body = document.body;
+
+  if (theme) {
+    body.classList.add(theme);
+  }
+  
   return (
     <BrowserRouter>
       <NavBar />
