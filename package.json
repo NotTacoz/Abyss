@@ -17,6 +17,7 @@
     "axios": "^0.21.1",
     "firebase": "^8.6.3",
     "jquery": "^3.6.0",
+    "material-ui": "^0.20.2",
     "node": "^15.14.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -74,5 +75,13 @@
   "main": "craco.config.js",
   "keywords": [],
   "author": "Tacoz",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NotTacoz/Abyss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NotTacoz/Abyss/issues"
+  },
+  "homepage": "https://github.com/NotTacoz/Abyss#readme"
 }

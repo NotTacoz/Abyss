@@ -4,6 +4,7 @@ import React from "react";
 
 import $ from "jquery";
 import { Helmet } from "react-helmet";
+import Switch from "@material-ui/core/Switch";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -14,6 +15,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
+import { checkPrime } from "crypto";
 
 
 const auth = firebase.auth();
@@ -112,17 +114,32 @@ function Content() {
     localStorage.setItem("theme", "dark");
   }
 
+  const [state, setState] = React.useState({
+    checkedA: undefined,
+    checkedB: undefined,
+  });
+
+  if (state['checkedA'] === true) {
+    setDarkMode();
+  } else if (state['checkedA'] === false) {
+    setLightMode();
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+
   return (
     <div className="">
-      Settings
+      Theme:
+      <Switch
+        checked={state.checkedA}
+        onChange={handleChange}
+        name="checkedA"
+        inputProps={{ "aria-label": "secondary checkbox" }}
+      />
       <br />
-      <button className="button" onClick={setLightMode} id="light">
-        light
-      </button>
-      <br />
-      <button className="button" onClick={setDarkMode}  id="dark">
-        dark
-      </button>
     </div>
   );
 }
