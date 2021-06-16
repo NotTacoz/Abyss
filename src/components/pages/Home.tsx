@@ -20,14 +20,15 @@ import { UserGetData } from "../hooks/UserGetData";
 // import { userInfo } from "os";
 
 export const config = {
-  apiKey: "AIzaSyCOETJBWJQ8dNQnJilsND5CoT79GBHKZUs",
-  authDomain: "genshin-mains.firebaseapp.com",
-  databaseURL: "https://genshin-mains-default-rtdb.firebaseio.com",
-  projectId: "genshin-mains",
-  storageBucket: "genshin-mains.appspot.com",
-  messagingSenderId: "82953203784",
-  appId: "1:82953203784:web:b825c166d63766c475287d",
-  measurementId: "G-00DBVS0PXW",
+  apiKey: "AIzaSyBWqu0h99Z4YJsebWVMw_m7-jA114FLSts",
+  authDomain: "abyss-media.firebaseapp.com",
+  databaseURL:
+    "https://abyss-media-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "abyss-media",
+  storageBucket: "abyss-media.appspot.com",
+  messagingSenderId: "639511696146",
+  appId: "1:639511696146:web:0687af67648ea8c77819cb",
+  measurementId: "G-QKQMM7JYHV",
 };
 
 if (!firebase.apps.length) {
