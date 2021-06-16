@@ -115,11 +115,7 @@ function Timeline() {
 
   return (
     <div className="">
-      <div className="inputdiv">
-        <button type="button" className="special" onClick={addValue}>
-          Post
-        </button>
-        <Toaster />
+      <div className="inputdiv inline">
         {/* <input type="file" id="myFile" name="filename" /> */}
         <br />
         <input
@@ -131,6 +127,10 @@ function Timeline() {
           autoComplete="off"
         />
       </div>
+      <button type="button" className="special" onClick={addValue}>
+        Post
+      </button>
+      <Toaster />
     </div>
   );
 }

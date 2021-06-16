@@ -73,7 +73,9 @@ function Account() {
                   } else {
                     db.doc("users/" + auth.currentUser?.uid).set({
                       displayName: auth.currentUser?.displayName,
-                      username: auth.currentUser?.displayName?.split(" ").join(""),
+                      username: auth.currentUser?.displayName
+                        ?.split(" ")
+                        .join(""),
                       email: auth.currentUser?.email,
                       photoUrl: auth.currentUser?.photoURL,
                       emailVerified: auth.currentUser?.emailVerified,
@@ -84,7 +86,9 @@ function Account() {
                       "takenUsernames/" +
                         auth.currentUser?.displayName?.split(" ").join("")
                     ).set({
-                      username: auth.currentUser?.displayName?.split(" ").join(""),
+                      username: auth.currentUser?.displayName
+                        ?.split(" ")
+                        .join(""),
                     });
                   }
                 })
@@ -126,7 +130,7 @@ function makeId(length: number) {
 
 function Timeline() {
   const [value, setValue] = React.useState("");
-  const getValue = (event:any) => {
+  const getValue = (event: any) => {
     setValue(event.target.value);
   };
 
@@ -152,31 +156,44 @@ function Timeline() {
   var i;
   if (userInfo !== undefined) {
     for (i = 0; i in userInfo; i++) {
-      if (userInfo[i]['id'] === auth.currentUser?.uid) {
-        var SessionUserData = userInfo[i]['value'];
+      if (userInfo[i]["id"] === auth.currentUser?.uid) {
+        var SessionUserData = userInfo[i]["value"];
       }
     }
   }
 
-  const updateValue = (documetEdit: string | undefined, valueEdit: string, editValue: string | undefined) => {
+  const updateValue = (
+    documetEdit: string | undefined,
+    valueEdit: string,
+    editValue: string | undefined
+  ) => {
     editValue = editValue?.split(" ").join("_");
     firestore
       .collection("takenUsernames")
-      .doc(SessionUserData['username'])
+      .doc(SessionUserData["username"])
       .delete();
-    firestore.collection("takenUsernames").doc(editValue).set({
-      username: editValue,
-    });
-    db.collection("users")
-      .doc(documetEdit)
-      .update({
-        [valueEdit]: editValue,
-      })
-      .then(function () {
-        // console.log("Document successfully updated!");
-      })
-      .catch(function (error) {
-        console.error("Error updating document: ", error);
+    db.doc("takenUsernames/" + editValue)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("its there!!");
+        } else {
+          firestore.collection("takenUsernames").doc(editValue).set({
+            username: editValue,
+          });
+          console.log("its not there!");
+          db.collection("users")
+            .doc(documetEdit)
+            .update({
+              [valueEdit]: editValue,
+            })
+            .then(function () {
+              // console.log("Document successfully updated!");
+            })
+            .catch(function (error) {
+              console.error("Error updating document: ", error);
+            });
+        }
       });
   };
 
@@ -185,9 +202,9 @@ function Timeline() {
   function getUserName(fuid: string) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i]["id"] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['username'];
+          return userInfo[i]["value"]["username"];
         }
       }
     }
@@ -195,9 +212,9 @@ function Timeline() {
   function getDisplayName(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i]["id"] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['displayName'];
+          return userInfo[i]["value"]["displayName"];
         }
       }
     }
@@ -205,9 +222,9 @@ function Timeline() {
   function getProfilePic(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i]["id"] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['photoUrl'];
+          return userInfo[i]["value"]["photoUrl"];
         }
       }
     }
@@ -232,7 +249,7 @@ function Timeline() {
     } else {
       (
         document.getElementById("changeAccountUsername") as HTMLInputElement
-      ).value = "name must be over 3 characters bruh";
+      ).value = "invalid username ;-;";
     }
   }
 

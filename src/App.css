@@ -350,6 +350,8 @@ button.special:active,
   background-color: rgb(206, 64, 73);
 }
 
+/* Scrollbar */
+
 /* width */
 ::-webkit-scrollbar {
   width: 8px;
@@ -394,7 +396,8 @@ button.special:active,
 }
 
 .inputdiv {
-  padding: 0px;
+  outline:rgb(55, 55, 75);
+  padding: 0px 20px 0px 20px;
   margin: 0px;
 }
 
