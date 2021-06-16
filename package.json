@@ -74,5 +74,13 @@
   "main": "craco.config.js",
   "keywords": [],
   "author": "Tacoz",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NotTacoz/Abyss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NotTacoz/Abyss/issues"
+  },
+  "homepage": "https://github.com/NotTacoz/Abyss#readme"
 }
