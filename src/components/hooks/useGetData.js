@@ -5,7 +5,8 @@ export const useGetData = () => {
   const [documents, setDocuments] = React.useState([]);
   const db = firebase.firestore();
   React.useEffect(() => {
-    db.collection("values").orderBy("time")
+    db.collection("values")
+      .orderBy("time", "desc")
       .onSnapshot((querySnapshot) => {
         let arr = [];
         querySnapshot.docs.map((doc) =>

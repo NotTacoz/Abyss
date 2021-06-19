@@ -253,23 +253,66 @@ function Timeline() {
     }
   }
 
+  function changeDisplayName() {
+    if (
+      (document.getElementById("changeAccountDisplayName") as HTMLInputElement)
+        .value.length >= 3 &&
+      (document.getElementById("changeAccountDisplayName") as HTMLInputElement)
+        .value.length <= 22
+    ) {
+      updateValue(
+        auth.currentUser?.uid,
+        "displayName",
+        (
+          document.getElementById(
+            "changeAccountDisplayName"
+          ) as HTMLInputElement
+        ).value
+      );
+      (
+        document.getElementById("changeAccountDisplayName") as HTMLInputElement
+      ).value = "";
+    } else {
+      (
+        document.getElementById("changeAccountDisplayName") as HTMLInputElement
+      ).value = "invalid display name ;-;";
+    }
+  }
+
   return (
     <div className="">
       Account settings
       <br />
-      Change username:
-      <input
-        id="changeAccountUsername"
-        onBlur={getValue}
-        placeholder={"@" + getUserName(auth.currentUser!.uid)}
-        className="w-96 h-12 pl-6"
-        type="text"
-        autoComplete="off"
-      />
-      <button className="button" onClick={changeUserName}>
-        Change
-      </button>
-      <br />
+      <div>
+        Change username:
+        <input
+          id="changeAccountUsername"
+          onBlur={getValue}
+          placeholder={"@" + getUserName(auth.currentUser!.uid)}
+          className="w-96 h-12 pl-6"
+          type="text"
+          autoComplete="off"
+        />
+        <button className="button" onClick={changeUserName}>
+          Change
+        </button>
+        <br />
+      </div>
+      <div>
+        Change display name:
+        <input
+          id="changeAccountDisplayName"
+          onBlur={getValue}
+          placeholder={getDisplayName(auth.currentUser!.uid)}
+          className="w-96 h-12 pl-6"
+          type="text"
+          autoComplete="off"
+        />
+        <button className="button" onClick={changeDisplayName}>
+          Change
+        </button>
+        <br />
+      </div>
       <button className="button special" onClick={SignOutBtn}>
         Sign out
       </button>
