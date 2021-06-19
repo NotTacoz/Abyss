@@ -232,7 +232,7 @@ function Timeline() {
 
   return (
     <div className="">
-      <div className="pl-8 pb-8">
+      <div className="pb-8">
         <div className="inputdiv inline">
           {/* <input type="file" id="myFile" name="filename" /> */}
           <br />

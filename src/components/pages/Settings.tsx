@@ -17,7 +17,6 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useGetData } from "../hooks/useGetData";
 import { checkPrime } from "crypto";
 
-
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
@@ -50,7 +49,7 @@ function makeId(length: number) {
   return result.join("");
 }
 
-function toTime(date: { toDate: () => any; }) {
+function toTime(date: { toDate: () => any }) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
@@ -114,21 +113,29 @@ function Content() {
     localStorage.setItem("theme", "dark");
   }
 
+  if (theme === "dark") {
+    var checkedATemp = true;
+    var checkedBTemp = false;
+  } else if (theme === "light") {
+    checkedATemp = false;
+    checkedBTemp = true;
+  }
+
+
   const [state, setState] = React.useState({
-    checkedA: undefined,
-    checkedB: undefined,
+    checkedA: checkedATemp,
+    checkedB: checkedBTemp,
   });
 
-  if (state['checkedA'] === true) {
+  if (state["checkedA"] === true) {
     setDarkMode();
-  } else if (state['checkedA'] === false) {
+  } else if (state["checkedA"] === false) {
     setLightMode();
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
-
 
   return (
     <div className="">
@@ -146,7 +153,7 @@ function Content() {
 
 function SignIn() {
   window.location.href = "/account";
-  return (<div></div>);
+  return <div></div>;
 }
 
 export default Settings;

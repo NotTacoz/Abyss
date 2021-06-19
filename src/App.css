@@ -173,7 +173,7 @@ div.transbox {
 div.content {
   margin-left: 280px;
   padding: 0px;
-  /* padding-left: 36px; */
+  padding-left: 36px;
   padding-top: 12px;
   color: var(--text);
   justify-content: center;
@@ -450,9 +450,9 @@ input:focus {
   background-color: var(--overlay);
 }
 
-.postMessageCard {
+/* .postMessageCard {
   padding-left: 36px;
-}
+} */
 
 .postMessageCard:hover {
   background-color: var(--overlay);
