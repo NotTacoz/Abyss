@@ -73,20 +73,6 @@ class NavBar extends React.Component {
                   <a className=""> Account</a>
                 </div>
               </NavLink>
-              <NavLink
-                to="/new"
-                className="sidebarContent"
-                activeClassName="activeContent"
-              >
-                <div className="inline-flex">
-                  <img
-                    className="h-8 pr-3 sidebarIcon"
-                    alt="NewPost"
-                    src={NewPost}
-                  />
-                  <a className=""> New Post</a>
-                </div>
-              </NavLink>
             </div>
           </div>
         </div>
@@ -113,19 +99,6 @@ class NavBar extends React.Component {
                     className="h-8 p-0 sidebarIcon"
                     alt="Notifications"
                     src={Notifications}
-                  />
-                </div>
-              </NavLink>
-              <NavLink
-                to="/new"
-                className="sidebarContent m-0 items-stretch"
-                activeClassName="activeContent"
-              >
-                <div className="inline-flex">
-                  <img
-                    className="h-8 p-0 sidebarIcon"
-                    alt="NewPost"
-                    src={NewPost}
                   />
                 </div>
               </NavLink>

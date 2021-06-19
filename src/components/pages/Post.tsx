@@ -276,7 +276,7 @@ function Post() {
           src={getProfilePic(auth.currentUser.uid)}
           alt="pfp"
         />
-        <input
+        <span className="pl-3"><input
           id="newPostInput"
           onBlur={getValue}
           placeholder={"Comment your reply"}
@@ -287,7 +287,7 @@ function Post() {
         <button type="button" className="special" onClick={commentOnPost}>
           Comment
         </button>
-        <Toaster />
+        <Toaster /></span> 
       </div>
       <br />
       {comments.map((comments) => (

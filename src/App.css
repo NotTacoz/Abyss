@@ -8,21 +8,30 @@
 :root {
   --dark0: rgb(0, 0, 0);
   --dark30: rgb(30, 30, 50); /* dark bg */
+  --dark28: rgb(28, 28, 28);
   --dark25: rgb(25, 25, 45); /* dark sidebar */
-  --light238: rgb(238, 238, 238); /* light bg */
+  --light220: rgb(220, 220, 223); /* light bg */
+  --light245: rgb(245, 245, 245);
   --light255: rgb(255, 255, 255); /* light bg */
   --red: rgb(239, 68, 68);
+  /* default */
+  --bg: var(--light255);
+  --navbar: var(--light220);
+  --text: var(--dark0);
+  --filter: invert(100%);
 }
 
 .light {
   --bg: var(--light255);
-  --navbar: var(--light238);
+  --overlay: var(--light245);
+  --navbar: var(--light220);
   --text: var(--dark0);
   --filter: invert(100%);
 }
 
 .dark {
   --bg: var(--dark30);
+  --overlay: var(--dark28);
   --navbar: var(--dark25);
   --text: var(--light255);
   --filter: none;
@@ -164,7 +173,7 @@ div.transbox {
 div.content {
   margin-left: 280px;
   padding: 0px;
-  padding-left: 36px;
+  /* padding-left: 36px; */
   padding-top: 12px;
   color: var(--text);
   justify-content: center;
@@ -424,26 +433,34 @@ button.special:active,
 }
 
 .inputdiv {
-  outline:rgb(55, 55, 75);
   padding: 0px 20px 0px 20px;
   margin: 0px;
+  padding: 0px 36px 6px 0px;
 }
 
 input {
-  outline: 3px;
+  outline: 1px;
   outline-color: var(--text);
-  background-color: var(--navbar);
+  background: var(--overlay);
+  border-radius: 10px;
 }
 
 input:focus {
   outline: none;
-  background-color: var(--navbar);
+  background-color: var(--overlay);
+}
+
+.postMessageCard {
+  padding-left: 36px;
+}
+
+.postMessageCard:hover {
+  background-color: var(--overlay);
 }
 
 .noLink:hover {
   color: var(--text);
   text-decoration: none;
-  outline: var(--navbar) solid 5px;
 }
 
 .text-whitee {

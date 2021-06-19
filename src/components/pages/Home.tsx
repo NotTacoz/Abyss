@@ -15,6 +15,8 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import { useGetData } from "../hooks/useGetData";
 import { UserGetData } from "../hooks/UserGetData";
 // import { userInfo } from "os";
@@ -131,19 +133,39 @@ function Timeline() {
   };
 
   const addValue = () => {
-    db.doc("values/" + makeId(10))
-      .set({
-        value: value,
-        user: auth.currentUser?.uid,
-        time: new Date(),
-      })
-      .then(function () {
-        //console.log("Value successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing Value: ", error);
-      });
+    (document.getElementById("newPostInput") as HTMLInputElement).value = "";
+    if (value !== "") {
+      var randomid = makeId(10);
+      db.doc("values/" + randomid)
+        .set({
+          value: value,
+          user: auth.currentUser?.uid,
+          time: new Date(),
+          imgurl: "placeholder", // im too lazy
+          likes: 0,
+        })
+        .then(function () {
+          toast.success("Successfully posted!");
+          //console.log("Value successfully written!");
+        })
+        .catch(function (error) {
+          toast.success("Failed Posting: ", error);
+          // console.error("Error writing Value: ", error);
+        });
+    }
   };
+
+  var randomnum = Math.floor(Math.random() * 7);
+  var placeholdertext = "Write something here!";
+  if (randomnum === 0) {
+  } else if (randomnum === 1) {
+    placeholdertext = "What's happening?";
+  } else if (randomnum === 2) {
+    placeholdertext = "Hello World!";
+  } else if (randomnum === 3) {
+    placeholdertext = "Twitter looks different today...";
+  }
+
 
   // db.doc("users/" + auth.currentUser.uid)
   //   .get()
@@ -210,37 +232,57 @@ function Timeline() {
 
   return (
     <div className="">
+      <div className="pl-8 pb-8">
+        <div className="inputdiv inline">
+          {/* <input type="file" id="myFile" name="filename" /> */}
+          <br />
+          <input
+            id="newPostInput"
+            onBlur={getValue}
+            placeholder={placeholdertext}
+            className="w-96 h-12 pl-6"
+            type="text"
+            autoComplete="off"
+          />
+        </div>
+        <button type="button" className="special" onClick={addValue}>
+          Post
+        </button>
+        <Toaster />
+      </div>
       <div>
         {documents.map((documents) => (
           <div key={documents["id"]}>
             <Link to={"post/" + documents["id"]} className="noLink">
-            <div className="max-w-4xl break-all noLink">
-              <div className="grid">
-                  <div className="flex">
-                    <img
-                      className="w-12 mt-1 rounded-full"
-                      src={getProfilePic(documents["value"]["user"])}
-                      alt="pfp"
-                    />
-                    <span className="pl-3 font-bold">
-                      {getDisplayName(documents["value"]["user"])}{" "}
-                      <span className="font-light opacity-70">
-                        @{getUserName(documents["value"]["user"])} ·{" "}
-                        {toTime(documents["value"]["time"])}
+              <div className="postMessageCard">
+                <div className="max-w-4xl break-all noLink">
+                  <div className="grid">
+                    <div className="flex">
+                      <img
+                        className="w-12 mt-1 rounded-full"
+                        src={getProfilePic(documents["value"]["user"])}
+                        alt="pfp"
+                      />
+                      <span className="pl-3 font-bold">
+                        {getDisplayName(documents["value"]["user"])}{" "}
+                        <span className="font-light opacity-70">
+                          @{getUserName(documents["value"]["user"])} ·{" "}
+                          {toTime(documents["value"]["time"])}
+                        </span>
                       </span>
+                    </div>
+                    <span className="ml-16 -mt-6 mb-2">
+                      {documents["value"]["value"]}
                     </span>
-                  </div>
-                  <span className="ml-16 -mt-6 mb-2">
-                    {documents["value"]["value"]}
-                  </span>
-                  {/* <img
+                    {/* <img
                   draggable="true"
                   alt="ExamplePicture"
                   src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
                   className="rounded-3xl max-w-sm ml-16"
                 /> */}
+                  </div>
+                </div>
               </div>
-            </div>
             </Link>
 
             {/* <div>

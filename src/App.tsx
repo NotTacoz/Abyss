@@ -6,7 +6,6 @@ import NavBar from "./components/pages/NavBar";
 import NotFoundPage from "./components/pages/NotFound";
 import Notifications from "./components/pages/Notifications";
 import Settings from "./components/pages/Settings";
-import NewPost from "./components/pages/NewPost";
 import NavbarNotSignedIn from "./components/pages/NavbarNotSignedIn";
 import Post from "./components/pages/Post";
 
@@ -53,7 +52,6 @@ function Normal() {
         <Route exact path="/account" component={Account} />
         <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/settings" component={Settings} />
-        <Route exact path="/new" component={NewPost} />
         <Route exact path="/post/:id" component={Post} />
         <Route component={NotFoundPage} />
       </Switch>
