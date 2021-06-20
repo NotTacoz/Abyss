@@ -102,7 +102,7 @@ function toTime(date) {
   }
 }
 
-function toExactTime(date: { toDate: () => any; }) {
+function toExactTime(date: { toDate: () => any }) {
   let timestamp = date.toDate();
   return `${timestamp.getDate()} ${
     [
@@ -128,31 +128,10 @@ function toExactTime(date: { toDate: () => any; }) {
 
 function Timeline() {
   const [value, setValue] = React.useState("");
-  const getValue = (event:any) => {
-    setValue(event.target.value);
-  };
+  const [fileurl, setFileurl] = React.useState(null);
 
-  const addValue = () => {
-    (document.getElementById("newPostInput") as HTMLInputElement).value = "";
-    if (value !== "") {
-      var randomid = makeId(10);
-      db.doc("values/" + randomid)
-        .set({
-          value: value,
-          user: auth.currentUser?.uid,
-          time: new Date(),
-          imgurl: "placeholder", // im too lazy
-          likes: 0,
-        })
-        .then(function () {
-          toast.success("Successfully posted!");
-          //console.log("Value successfully written!");
-        })
-        .catch(function (error) {
-          toast.success("Failed Posting: ", error);
-          // console.error("Error writing Value: ", error);
-        });
-    }
+  const getValue = (event: any) => {
+    setValue(event.target.value);
   };
 
   var randomnum = Math.floor(Math.random() * 7);
@@ -165,7 +144,6 @@ function Timeline() {
   } else if (randomnum === 3) {
     placeholdertext = "Twitter looks different today...";
   }
-
 
   // db.doc("users/" + auth.currentUser.uid)
   //   .get()
@@ -191,8 +169,8 @@ function Timeline() {
   var i;
   if (userInfo !== undefined) {
     for (i = 0; i in userInfo; i++) {
-      if (userInfo[i]['id'] === uid) {
-        var SessionUserData = userInfo[i]['value'];
+      if (userInfo[i]["id"] === uid) {
+        var SessionUserData = userInfo[i]["value"];
       }
     }
   }
@@ -200,9 +178,9 @@ function Timeline() {
   function getUserName(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i]["id"] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['username'];
+          return userInfo[i]["value"]["username"];
         }
       }
     }
@@ -210,9 +188,9 @@ function Timeline() {
   function getDisplayName(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i]["id"] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['displayName'];
+          return userInfo[i]["value"]["displayName"];
         }
       }
     }
@@ -220,15 +198,77 @@ function Timeline() {
   function getProfilePic(fuid: any) {
     if (userInfo !== undefined) {
       for (i = 0; i in userInfo; i++) {
-        if (userInfo[i]['id'] === fuid) {
+        if (userInfo[i]["id"] === fuid) {
           // console.log(userInfo[i].value)
-          return userInfo[i]['value']['photoUrl'];
+          return userInfo[i]["value"]["photoUrl"];
         }
       }
     }
   }
 
+  const addValue = () => {
+    var fileInput = document.getElementById("imgInput") as HTMLInputElement;
+    if (fileInput !== null){
+      if (fileInput.size !<= 1500000){
+        toast.error("Make sure your image is unedr 1.5mb!");
+        setValue("");
+        setFileurl(null);
+      }
+    }
+    (document.getElementById("newPostInput") as HTMLInputElement).value = "";
+    (document.getElementById("preview") as HTMLImageElement).src = null;
+    $("#imageInput").val(null);
+    // const imageValue = fileInput.files;
+    // console.log(imageValue);
+    if (value !== "" || fileurl !== null) {
+      var randomid = makeId(10);
+      db.doc("values/" + randomid)
+        .set({
+          value: value,
+          user: auth.currentUser?.uid,
+          time: new Date(),
+          imgurl: fileurl, // im too lazy
+          likes: 0,
+        })
+        .then(function () {
+          setValue("");
+          setFileurl(null);
+          toast.success("Successfully posted!");
+          //console.log("Value successfully written!");
+        })
+        .catch(function (error) {
+          toast.error("Failed Posting: ", error);
+          // console.error("Error writing Value: ", error);
+        });
+    } else {
+      toast.error("Failed Posting: Check your input and try again!");
+    }
+  };
+
   // console.log(getUserName(auth.currentUser.uid))
+
+  const previewImage = async (e) => {
+    // variables
+
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child(file?.name);
+
+    // preview
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const preview = document.getElementById("preview") as HTMLImageElement;
+      preview.src = reader.result as string;
+    };
+
+    // upload url to firestore
+
+    await fileRef.put(file);
+    
+    setFileurl(await fileRef.getDownloadURL());;
+  };
 
   return (
     <div className="">
@@ -244,11 +284,30 @@ function Timeline() {
             type="text"
             autoComplete="off"
           />
+          <button type="button" className="special" onClick={addValue}>
+            Post
+          </button>
+          <img id="preview" alt="" className="rounded-3xl max-w-sm" />
+          <input
+            type="file"
+            accept="image/*"
+            id="imageInput"
+            onChange={function (event) {
+              previewImage(event);
+            }}
+          />
+          <Toaster />
+          <br />
+          {/* <input
+            type="file"
+            accept="image/png, image/jpeg, image/gif, image/jpg"
+            onChange={function (event) {
+              var fileList = event.target.files;
+              console.log(fileList);
+              previewImage(event);
+            }}
+          /> */}
         </div>
-        <button type="button" className="special" onClick={addValue}>
-          Post
-        </button>
-        <Toaster />
       </div>
       <div>
         {documents.map((documents) => (
@@ -274,12 +333,12 @@ function Timeline() {
                     <span className="ml-16 -mt-6 mb-2">
                       {documents["value"]["value"]}
                     </span>
-                    {/* <img
-                  draggable="true"
-                  alt="ExamplePicture"
-                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
-                  className="rounded-3xl max-w-sm ml-16"
-                /> */}
+                    <img
+                      draggable="true"
+                      alt=""
+                      src={documents["value"]["imgurl"]}
+                      className="rounded-3xl max-w-sm ml-16"
+                    />
                   </div>
                 </div>
               </div>
@@ -328,7 +387,7 @@ function Timeline() {
 function AddLikes() {
   // if already liked, pass
   // else if not yet liked, continue
-    //
+  //
 }
 
 function SignIn() {

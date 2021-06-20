@@ -267,6 +267,12 @@ function Post() {
               </span>
             </div>
             <span className="ml-16 -mt-6 mb-2">{valuesInfo?.value}</span>
+            <img
+              draggable="true"
+              alt=""
+              src={valuesInfo?.imgurl}
+              className="rounded-3xl max-w-sm ml-16"
+            />
           </div>
         </div>
       </div>
@@ -278,18 +284,20 @@ function Post() {
           src={getProfilePic(auth.currentUser.uid)}
           alt="pfp"
         />
-        <span className="pl-3"><input
-          id="newPostInput"
-          onBlur={getValue}
-          placeholder={"Comment your reply"}
-          className="w-96 h-12 pl-6"
-          type="text"
-          autoComplete="off"
-        />
-        <button type="button" className="special" onClick={commentOnPost}>
-          Comment
-        </button>
-        <Toaster /></span> 
+        <span className="pl-3">
+          <input
+            id="newPostInput"
+            onBlur={getValue}
+            placeholder={"Comment your reply"}
+            className="w-96 h-12 pl-6"
+            type="text"
+            autoComplete="off"
+          />
+          <button type="button" className="special" onClick={commentOnPost}>
+            Comment
+          </button>
+          <Toaster />
+        </span>
       </div>
       <br />
       {comments.map((comments) => (
@@ -313,12 +321,6 @@ function Post() {
               <span className="ml-16 -mt-6 mb-2">
                 {comments["value"]["comment"]}
               </span>
-              {/* <img
-                  draggable="true"
-                  alt="ExamplePicture"
-                  src="https://pbs.twimg.com/media/E28O61HUYAEtfbf?format=jpg&name=4096x4096"
-                  className="rounded-3xl max-w-sm ml-16"
-                /> */}
             </div>
           </div>
         </div>

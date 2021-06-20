@@ -441,7 +441,7 @@ button.special:active,
 input {
   outline: 1px;
   outline-color: var(--text);
-  background: var(--overlay);
+  background-color: var(--overlay);
   border-radius: 10px;
 }
 
