@@ -176,12 +176,12 @@ function Timeline() {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("its there!!");
+          // console.log("its there!!");
         } else {
           firestore.collection("takenUsernames").doc(editValue).set({
             username: editValue,
           });
-          console.log("its not there!");
+          // console.log("its not there!");
           db.collection("users")
             .doc(documetEdit)
             .update({

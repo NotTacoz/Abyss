@@ -40,6 +40,14 @@ function Normal() {
 
   const body = document.body;
 
+  console.log(
+    "If you are seeing this 9/10 you are a developer."
+  );
+  console.log(
+    "If you want, check out my github repo for this project (and maybe star it? ✨🥺👉👈)"
+  );
+  console.log("⭐ https://github.com/NotTacoz/Abyss ⭐");
+
   if (theme) {
     body.classList.add(theme);
   }
