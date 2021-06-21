@@ -133,7 +133,7 @@ function toExactTime(date: { toDate: () => any }) {
 function Timeline() {
   const [value, setValue] = React.useState("");
   const [fileurl, setFileurl] = React.useState(null);
-  const [liked, setLiked] = React.useState({});
+  // const [liked, setLiked] = React.useState({});
 
   const getValue = (event: any) => {
     setValue(event.target.value);
@@ -277,19 +277,26 @@ function Timeline() {
 
   async function likeMessage(likedDocument) {
     // console.log(likedDocument);
-    setLiked({liked: false,});
-    // console.log(likedDocument)
+    var liked = ({})
     await db
       .collection("values")
       .doc(likedDocument["id"])
       .collection("likes")
       .doc(auth.currentUser.uid)
       .get()
-      .then((doc) => {
-        setLiked(doc.data());
-        // console.log("change", liked);
+      .then(async (doc) => {
+        if (doc.data() === undefined) {
+          liked = ({ liked: false });
+        } else if (doc.data()["liked"] === true) {
+          liked = ({ liked: true });
+        } else {
+          console.log("!!! error !!!");
+        }
       });
-    if (liked === undefined || liked["liked"] === undefined || liked["liked"] === false || liked === {}) {
+    console.log(liked, likedDocument);
+    if (liked === {}) {
+      toast.error("Failed Liking: Usestate is bad");
+    }else if (liked["liked"] === false) {
       const newLikes = likedDocument["value"]["likes"] + 1;
       db.collection("values")
         .doc(likedDocument["id"])
@@ -301,7 +308,6 @@ function Timeline() {
         .set({
           liked: true,
         });
-      setLiked({liked: true,});
     } else if (liked["liked"] === true) {
       const newLikes = likedDocument["value"]["likes"] - 1;
       db.collection("values")
@@ -311,10 +317,7 @@ function Timeline() {
         .doc(likedDocument["id"])
         .collection("likes")
         .doc(auth.currentUser.uid)
-        .set({
-          liked: false,
-        });
-      setLiked({ liked: false });
+        .delete();
     }
   }
 
