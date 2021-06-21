@@ -21,6 +21,10 @@ import { useGetData } from "../hooks/useGetData";
 import { UserGetData } from "../hooks/UserGetData";
 // import { userInfo } from "os";
 
+import Heart from "./../../img/msg/heart.png";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export const config = {
   apiKey: "AIzaSyBWqu0h99Z4YJsebWVMw_m7-jA114FLSts",
   authDomain: "abyss-media.firebaseapp.com",
@@ -129,6 +133,7 @@ function toExactTime(date: { toDate: () => any }) {
 function Timeline() {
   const [value, setValue] = React.useState("");
   const [fileurl, setFileurl] = React.useState(null);
+  // const [liked, setLiked] = React.useState({});
 
   const getValue = (event: any) => {
     setValue(event.target.value);
@@ -208,8 +213,8 @@ function Timeline() {
 
   const addValue = () => {
     var fileInput = document.getElementById("imgInput") as HTMLInputElement;
-    if (fileInput !== null){
-      if (fileInput.size !<= 1500000){
+    if (fileInput !== null) {
+      if (fileInput.size! <= 1500000) {
         toast.error("Make sure your image is unedr 1.5mb!");
         setValue("");
         setFileurl(null);
@@ -266,9 +271,55 @@ function Timeline() {
     // upload url to firestore
 
     await fileRef.put(file);
-    
-    setFileurl(await fileRef.getDownloadURL());;
+
+    setFileurl(await fileRef.getDownloadURL());
   };
+
+  async function likeMessage(likedDocument) {
+    // console.log(likedDocument);
+    var liked = ({})
+    await db
+      .collection("values")
+      .doc(likedDocument["id"])
+      .collection("likes")
+      .doc(auth.currentUser.uid)
+      .get()
+      .then(async (doc) => {
+        if (doc.data() === undefined) {
+          liked = ({ liked: false });
+        } else if (doc.data()["liked"] === true) {
+          liked = ({ liked: true });
+        } else {
+          console.log("!!! error !!!");
+        }
+      });
+    console.log(liked, likedDocument);
+    if (liked === {}) {
+      toast.error("Failed Liking: Usestate is bad");
+    }else if (liked["liked"] === false) {
+      const newLikes = likedDocument["value"]["likes"] + 1;
+      db.collection("values")
+        .doc(likedDocument["id"])
+        .update({ likes: newLikes });
+      db.collection("values")
+        .doc(likedDocument["id"])
+        .collection("likes")
+        .doc(auth.currentUser.uid)
+        .set({
+          liked: true,
+        });
+    } else if (liked["liked"] === true) {
+      const newLikes = likedDocument["value"]["likes"] - 1;
+      db.collection("values")
+        .doc(likedDocument["id"])
+        .update({ likes: newLikes });
+      db.collection("values")
+        .doc(likedDocument["id"])
+        .collection("likes")
+        .doc(auth.currentUser.uid)
+        .delete();
+    }
+  }
 
   return (
     <div className="">
@@ -343,16 +394,18 @@ function Timeline() {
                 </div>
               </div>
             </Link>
-
-            {/* <div>
-              <img
-                className="w-12 mt-1 rounded-full"
-                src={getProfilePic(documents.value.user)}
-                alt="pfpBob"
-              />
-              Username: {getDisplayName(documents.value.user)} Document:{" "}
-              {documents.id} Value: {documents.value.value}
-            </div> */}
+            <div className="flex">
+              <div
+                className="ml-16 likebutton"
+                onClick={() => {
+                  likeMessage(documents);
+                }}
+              >
+                <FontAwesomeIcon className="" icon={faHeart} />
+              </div>
+              <Toaster />
+              <span className="pl-2 -mt-1">{documents["value"]["likes"]}</span>
+            </div>
           </div>
         ))}
       </div>
