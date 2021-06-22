@@ -147,6 +147,7 @@ function Content() {
         inputProps={{ "aria-label": "secondary checkbox" }}
       />
       <br />
+      <span>If the theme dosen't change: reload the web page</span>
     </div>
   );
 }

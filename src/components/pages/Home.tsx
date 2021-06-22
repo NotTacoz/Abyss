@@ -275,9 +275,9 @@ function Timeline() {
     setFileurl(await fileRef.getDownloadURL());
   };
 
-  async function likeMessage(likedDocument) {
+  async function likeMessage(likedDocument: { [x: string]: string }) {
     // console.log(likedDocument);
-    var liked = ({})
+    var liked = {};
     await db
       .collection("values")
       .doc(likedDocument["id"])
@@ -286,17 +286,17 @@ function Timeline() {
       .get()
       .then(async (doc) => {
         if (doc.data() === undefined) {
-          liked = ({ liked: false });
+          liked = { liked: false };
         } else if (doc.data()["liked"] === true) {
-          liked = ({ liked: true });
+          liked = { liked: true };
         } else {
           console.log("!!! error !!!");
         }
       });
-    console.log(liked, likedDocument);
+    // console.log(liked, likedDocument);
     if (liked === {}) {
       toast.error("Failed Liking: Usestate is bad");
-    }else if (liked["liked"] === false) {
+    } else if (liked["liked"] === false) {
       const newLikes = likedDocument["value"]["likes"] + 1;
       db.collection("values")
         .doc(likedDocument["id"])
@@ -308,6 +308,8 @@ function Timeline() {
         .set({
           liked: true,
         });
+      document.getElementById("likebutton").className =
+        "ml-16 likebutton beenLiked";
     } else if (liked["liked"] === true) {
       const newLikes = likedDocument["value"]["likes"] - 1;
       db.collection("values")
@@ -318,38 +320,54 @@ function Timeline() {
         .collection("likes")
         .doc(auth.currentUser.uid)
         .delete();
+      document.getElementById("likebutton").className = "ml-16 likebutton";
     }
   }
 
   return (
     <div className="">
-      <div className="pb-8">
-        <div className="inputdiv inline">
-          {/* <input type="file" id="myFile" name="filename" /> */}
-          <br />
-          <input
-            id="newPostInput"
-            onBlur={getValue}
-            placeholder={placeholdertext}
-            className="w-96 h-12 pl-6"
-            type="text"
-            autoComplete="off"
-          />
-          <button type="button" className="special" onClick={addValue}>
-            Post
-          </button>
-          <img id="preview" alt="" className="rounded-3xl max-w-sm" />
-          <input
-            type="file"
-            accept="image/*"
-            id="imageInput"
-            onChange={function (event) {
-              previewImage(event);
-            }}
-          />
-          <Toaster />
-          <br />
-          {/* <input
+      {/* <div className="absolute ml-96 pl-28 pr-16">
+        <img
+          className="profileWallpaper rounded-lg object-cover w-full h-52"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapers13.com%2Fwp-content%2Fuploads%2F2016%2F04%2FLandscape-Water-House-LofotenMorningMoskenesoya-HD-Desktop-Wallpaper.jpg&f=1&nofb=1"
+          alt=""
+        />
+        <img
+          className="w-36 ml-2 -mt-12 rounded-full"
+          src={getProfilePic(uid)}
+          alt="pfp"
+        />
+        <h2 className="ml-3">{getDisplayName(uid)}</h2>
+        <span className="ml-3 opacity-70">@{getUserName(uid)}</span>
+      </div> */}
+      <div className="">
+        <div className="pb-8">
+          <div className="inputdiv inline">
+            {/* <input type="file" id="myFile" name="filename" /> */}
+            <br />
+            <input
+              id="newPostInput"
+              onBlur={getValue}
+              placeholder={placeholdertext}
+              className="w-96 h-12 pl-6"
+              type="text"
+              autoComplete="off"
+            />
+            <button type="button" className="special" onClick={addValue}>
+              Post
+            </button>
+            <img id="preview" alt="" className="rounded-3xl max-w-sm" />
+            <input
+              type="file"
+              accept="image/*"
+              id="imageInput"
+              onChange={function (event) {
+                previewImage(event);
+              }}
+            />
+            <Toaster />
+            <br />
+            {/* <input
             type="file"
             accept="image/png, image/jpeg, image/gif, image/jpg"
             onChange={function (event) {
@@ -358,59 +376,67 @@ function Timeline() {
               previewImage(event);
             }}
           /> */}
+          </div>
         </div>
-      </div>
-      <div>
-        {documents.map((documents) => (
-          <div key={documents["id"]}>
-            <Link to={"post/" + documents["id"]} className="noLink">
-              <div className="postMessageCard">
-                <div className="max-w-4xl break-all noLink">
-                  <div className="grid">
-                    <div className="flex">
-                      <img
-                        className="w-12 mt-1 rounded-full"
-                        src={getProfilePic(documents["value"]["user"])}
-                        alt="pfp"
-                      />
-                      <span className="pl-3 font-bold">
-                        {getDisplayName(documents["value"]["user"])}{" "}
-                        <span className="font-light opacity-70">
-                          @{getUserName(documents["value"]["user"])} ·{" "}
-                          {toTime(documents["value"]["time"])}
+        <div>
+          {documents.map((documents) => (
+            <div key={documents["id"]}>
+              <Link to={"post/" + documents["id"]} className="noLink">
+                <div className="postMessageCard">
+                  <div className="max-w-4xl break-all noLink">
+                    <div className="grid">
+                      <div className="flex">
+                        <Link
+                          to={"users/" + documents["value"]["user"]}
+                          className="noLink"
+                        >
+                          <img
+                            className="w-12 mt-1 rounded-full"
+                            src={getProfilePic(documents["value"]["user"])}
+                            alt="pfp"
+                          />
+                        </Link>
+                        <span className="pl-3 font-bold">
+                          {getDisplayName(documents["value"]["user"])}{" "}
+                          <span className="font-light opacity-70">
+                            @{getUserName(documents["value"]["user"])} ·{" "}
+                            {toTime(documents["value"]["time"])}
+                          </span>
                         </span>
+                      </div>
+                      <span className="ml-16 -mt-6 mb-2">
+                        {documents["value"]["value"]}
                       </span>
+                      <img
+                        draggable="true"
+                        alt=""
+                        src={documents["value"]["imgurl"]}
+                        className="rounded-3xl max-w-sm ml-16"
+                      />
                     </div>
-                    <span className="ml-16 -mt-6 mb-2">
-                      {documents["value"]["value"]}
-                    </span>
-                    <img
-                      draggable="true"
-                      alt=""
-                      src={documents["value"]["imgurl"]}
-                      className="rounded-3xl max-w-sm ml-16"
-                    />
                   </div>
                 </div>
+              </Link>
+              <div className="flex">
+                <div
+                  className="ml-16 likebutton"
+                  id="likebutton"
+                  onClick={() => {
+                    likeMessage(documents);
+                  }}
+                >
+                  <FontAwesomeIcon className="" icon={faHeart} />
+                </div>
+                <Toaster />
+                <span className="pl-2 -mt-1">
+                  {documents["value"]["likes"]}
+                </span>
               </div>
-            </Link>
-            <div className="flex">
-              <div
-                className="ml-16 likebutton"
-                onClick={() => {
-                  likeMessage(documents);
-                }}
-              >
-                <FontAwesomeIcon className="" icon={faHeart} />
-              </div>
-              <Toaster />
-              <span className="pl-2 -mt-1">{documents["value"]["likes"]}</span>
             </div>
-          </div>
-        ))}
-      </div>
-      {/* mockup */}
-      {/* <div className="absolute w-96 max-w-sm">
+          ))}
+        </div>
+        {/* mockup */}
+        {/* <div className="absolute w-96 max-w-sm">
         <div className="grid">
           <div className="flex">
             <img
@@ -433,6 +459,7 @@ function Timeline() {
           />
         </div>
       </div> */}
+      </div>
     </div>
   );
 }

@@ -172,6 +172,7 @@ div.transbox {
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
   margin-left: 280px;
+  margin-right: 0px;
   padding: 0px;
   padding-left: 36px;
   padding-top: 12px;

@@ -3,7 +3,7 @@
 import React from "react";
 
 import firebase from "firebase/app";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, useParams } from "react-router-dom";
 
 import $ from "jquery";
 import { Helmet } from "react-helmet";
@@ -51,7 +51,7 @@ const FireStoreData = () => {
   const [userInfo] = UserGetData();
 };
 
-function Home() {
+function Users() {
   const [user] = useAuthState(auth);
 
   return (
@@ -61,7 +61,7 @@ function Home() {
         <title>Abyss | Home</title>
       </Helmet>
 
-      <section>{user ? <Timeline /> : <SignIn />}</section>
+      <section>{user ? <Content /> : <SignIn />}</section>
     </div>
   );
 }
@@ -130,12 +130,15 @@ function toExactTime(date: { toDate: () => any }) {
   }`;
 }
 
-function Timeline() {
+function Content() {
+  const uid = useParams<{ userid: string }>()["userid"];
   const [value, setValue] = React.useState("");
-  
+
   const getValue = (event: any) => {
     setValue(event.target.value);
   };
+
+  // console.log(uid);
 
   var randomnum = Math.floor(Math.random() * 7);
   var placeholdertext = "Write something here!";
@@ -191,47 +194,55 @@ function Timeline() {
     }
   }
 
-  const addValue = () => {
-    var fileInput = document.getElementById("imgInput") as HTMLInputElement;
-    if (fileInput !== null) {
-      if (fileInput.size! <= 1500000) {
-        toast.error("Make sure your image is unedr 1.5mb!");
-        setValue("");
-        setFileurl(null);
-      }
-    }
-    (document.getElementById("newPostInput") as HTMLInputElement).value = "";
-    (document.getElementById("preview") as HTMLImageElement).src = null;
-    $("#imageInput").val(null);
-    // const imageValue = fileInput.files;
-    // console.log(imageValue);
-    if (value !== "" || fileurl !== null) {
-      var randomid = makeId(10);
-      db.doc("values/" + randomid)
-        .set({
-          value: value,
-          user: auth.currentUser?.uid,
-          time: new Date(),
-          imgurl: fileurl, // im too lazy
-          likes: 0,
-        })
-        .then(function () {
-          setValue("");
-          setFileurl(null);
-          toast.success("Successfully posted!");
-          //console.log("Value successfully written!");
-        })
-        .catch(function (error) {
-          toast.error("Failed Posting: ", error);
-          // console.error("Error writing Value: ", error);
-        });
+  function toTime(date) {
+    let timestamp = date?.toDate();
+    let currentDate = new Date();
+    if (
+      timestamp.getDate() === currentDate.getDate() &&
+      timestamp.getDay === currentDate.getDay
+    ) {
+      return `Today at ${
+        timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
+      }:${timestamp?.getMinutes().toString().padStart(2, "0")} ${
+        timestamp?.getHours() > 11 ? "PM" : "AM"
+      }`;
     } else {
-      toast.error("Failed Posting: Check your input and try again!");
+      return `${timestamp?.getDate()} ${
+        [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ][timestamp?.getMonth()]
+      } ${timestamp?.getFullYear()}`;
     }
-  };
+  }
 
   return (
-   <div></div>
+    <div>
+      <div>
+        <img
+          className="profileWallpaper rounded-lg object-cover w-1/2 h-52"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapers13.com%2Fwp-content%2Fuploads%2F2016%2F04%2FLandscape-Water-House-LofotenMorningMoskenesoya-HD-Desktop-Wallpaper.jpg&f=1&nofb=1"
+          alt=""
+        />
+        <img
+          className="w-36 ml-2 -mt-12 rounded-full"
+          src={getProfilePic(uid)}
+          alt="pfp"
+        />
+        <h2 className="ml-3">{getDisplayName(uid)}</h2>
+        <span className="ml-3 opacity-70">@{getUserName(uid)}</span>
+      </div>
+    </div>
   );
 }
 
@@ -240,4 +251,4 @@ function SignIn() {
   return <div></div>;
 }
 
-export default Home;
+export default Users;

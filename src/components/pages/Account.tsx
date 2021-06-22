@@ -3,6 +3,7 @@
 import React from "react";
 import $ from "jquery";
 import { Helmet } from "react-helmet";
+import { useParams } from "react-router-dom";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -197,6 +198,29 @@ function Timeline() {
       });
   };
 
+  const updateOtherValue = (
+    documetEdit: string | undefined,
+    valueEdit: string,
+    editValue: string | undefined
+  ) => {
+    editValue = editValue?.split(" ").join("_");
+    firestore.collection("takenUsernames").doc(editValue).set({
+      username: editValue,
+    });
+    // console.log("its not there!");
+    db.collection("users")
+      .doc(documetEdit)
+      .update({
+        [valueEdit]: editValue,
+      })
+      .then(function () {
+        // console.log("Document successfully updated!");
+      })
+      .catch(function (error) {
+        console.error("Error updating document: ", error);
+      });
+  };
+
   // updateValue(auth.currentUser.uid, "username", "poggers")
 
   function getUserName(fuid: string) {
@@ -260,7 +284,7 @@ function Timeline() {
       (document.getElementById("changeAccountDisplayName") as HTMLInputElement)
         .value.length <= 22
     ) {
-      updateValue(
+      updateOtherValue(
         auth.currentUser?.uid,
         "displayName",
         (

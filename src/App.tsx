@@ -8,6 +8,7 @@ import Notifications from "./components/pages/Notifications";
 import Settings from "./components/pages/Settings";
 import NavbarNotSignedIn from "./components/pages/NavbarNotSignedIn";
 import Post from "./components/pages/Post";
+import Users from "./components/pages/Users";
 
 import $ from "jquery";
 import { Helmet } from "react-helmet";
@@ -61,6 +62,7 @@ function Normal() {
         <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/post/:id" component={Post} />
+        <Route exact path="/users/:userid" component={Users} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
