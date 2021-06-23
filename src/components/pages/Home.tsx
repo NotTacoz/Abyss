@@ -23,6 +23,7 @@ import { UserGetData } from "../hooks/UserGetData";
 
 import Heart from "./../../img/msg/heart.png";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const config = {
@@ -133,6 +134,7 @@ function toExactTime(date: { toDate: () => any }) {
 function Timeline() {
   const [value, setValue] = React.useState("");
   const [fileurl, setFileurl] = React.useState(null);
+  const [lengthofmsg, setLengthofmsg] = React.useState(0);
   // const [liked, setLiked] = React.useState({});
 
   const getValue = (event: any) => {
@@ -209,6 +211,25 @@ function Timeline() {
         }
       }
     }
+  }
+  
+  function getCommentLength(documentid: any) {
+    let listthing = [];
+    
+    db.collection("values")
+      .doc(documentid)
+      .collection("comments")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          listthing.push(doc.data());
+          // setLengthofmsg(listthing.length);
+        });
+      });
+
+    // console.log(listthing.length);
+
+    if (listthing.length > 0 ) {return listthing.length;}
   }
 
   const addValue = () => {
@@ -308,8 +329,8 @@ function Timeline() {
         .set({
           liked: true,
         });
-      document.getElementById("likebutton").className =
-        "ml-16 likebutton beenLiked";
+      // document.getElementById("likebutton").className =
+      //   "ml-16 likebutton beenLiked";
     } else if (liked["liked"] === true) {
       const newLikes = likedDocument["value"]["likes"] - 1;
       db.collection("values")
@@ -320,7 +341,7 @@ function Timeline() {
         .collection("likes")
         .doc(auth.currentUser.uid)
         .delete();
-      document.getElementById("likebutton").className = "ml-16 likebutton";
+      // document.getElementById("likebutton").className = "ml-16 likebutton";
     }
   }
 
@@ -381,8 +402,8 @@ function Timeline() {
         <div>
           {documents.map((documents) => (
             <div key={documents["id"]}>
-              <Link to={"post/" + documents["id"]} className="noLink">
-                <div className="postMessageCard">
+              <div className="postMessageCard">
+                <Link to={"post/" + documents["id"]} className="noLink">
                   <div className="max-w-4xl break-all noLink">
                     <div className="grid">
                       <div className="flex">
@@ -415,22 +436,28 @@ function Timeline() {
                       />
                     </div>
                   </div>
+                </Link>
+                <div className="flex">
+                  <div
+                    className="ml-16 likebutton"
+                    id="likebutton"
+                    onClick={() => {
+                      likeMessage(documents);
+                    }}
+                  >
+                    <FontAwesomeIcon className="" icon={faHeart} />
+                  </div>
+                  <Toaster />
+                  <span className="pl-2 -mt-1">
+                    {documents["value"]["likes"]}
+                  </span>
+                  <div className="ml-4 -mt-1">
+                    <FontAwesomeIcon icon={faComments} />
+                    <span className="pl-2 -mt-1">
+                      {getCommentLength(documents["id"])}
+                    </span>
+                  </div>
                 </div>
-              </Link>
-              <div className="flex">
-                <div
-                  className="ml-16 likebutton"
-                  id="likebutton"
-                  onClick={() => {
-                    likeMessage(documents);
-                  }}
-                >
-                  <FontAwesomeIcon className="" icon={faHeart} />
-                </div>
-                <Toaster />
-                <span className="pl-2 -mt-1">
-                  {documents["value"]["likes"]}
-                </span>
               </div>
             </div>
           ))}
@@ -476,3 +503,7 @@ function SignIn() {
 }
 
 export default Home;
+function componentDidMount() {
+  throw new Error("Function not implemented.");
+}
+
