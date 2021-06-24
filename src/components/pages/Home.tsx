@@ -47,11 +47,6 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const db = firebase.firestore();
 
-const FireStoreData = () => {
-  const [documents] = useGetData();
-  const [userInfo] = UserGetData();
-};
-
 function Home() {
   const [user] = useAuthState(auth);
 

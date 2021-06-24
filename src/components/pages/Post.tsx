@@ -199,34 +199,6 @@ function Post() {
     }
   }
 
-  function commentOnPost() {
-    var commentValue = (
-      document.getElementById("newPostInput") as HTMLInputElement
-    ).value;
-    if (commentValue !== ""){
-      (document.getElementById("newPostInput") as HTMLInputElement).value = "";
-      db.collection("values")
-        .doc(id)
-        .collection("comments")
-        .doc(makeId(15))
-        .set({
-          comment: commentValue,
-          user: auth.currentUser?.uid,
-          time: new Date(),
-          imgurl: "placeholder", // im too lazy
-          likes: 0,
-        })
-        .then(function () {
-          toast.success("Successfully Commented!");
-          //console.log("Value successfully written!");
-        })
-        .catch(function (error) {
-          toast.success("Failed Commenting: ", error);
-          // console.error("Error writing Value: ", error);
-        });
-    }
-  }
-
   const [comments, setComments] = React.useState([]);
 
   React.useEffect(() => {
@@ -244,6 +216,43 @@ function Post() {
   }, [id]);
 
   const valuesInfo = getValueStuff();
+
+  function commentOnPost() {
+    var commentValue = (
+      document.getElementById("newPostInput") as HTMLInputElement
+    ).value;
+    const randomid = makeId(15);
+    if (commentValue !== "") {
+      (document.getElementById("newPostInput") as HTMLInputElement).value = "";
+      db.collection("values")
+        .doc(id)
+        .collection("comments")
+        .doc(randomid)
+        .set({
+          comment: commentValue,
+          user: auth.currentUser?.uid,
+          time: new Date(),
+        })
+        .then(function () {
+          toast.success("Successfully Commented!");
+          //console.log("Value successfully written!");
+        })
+        .catch(function (error) {
+          toast.success("Failed Commenting: ", error);
+          // console.error("Error writing Value: ", error);
+        });
+    }
+    db.collection("users")
+      .doc(valuesInfo?.user)
+      .collection("notifications")
+      .doc(randomid)
+      .set({
+        comment: commentValue,
+        user: auth.currentUser?.uid,
+        time: new Date(),
+      });
+  }
+
 
   // console.log(comments);
 

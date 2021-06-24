@@ -14,15 +14,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { useGetData } from "../hooks/useGetData";
+import { UserGetData } from "../hooks/UserGetData";
 
 const auth = firebase.auth();
-const firestore = firebase.firestore();
-const analytics = firebase.analytics();
 const db = firebase.firestore();
-
-const FireStoreData = () => {
-  const [documents] = useGetData();
-};
 
 function Notifications() {
   const [user] = useAuthState(auth);
@@ -39,67 +34,119 @@ function Notifications() {
   );
 }
 
-function makeId(length: number) {
-  let result = [];
-  for (let i = 0; i < length; i++) {
-    result.push("0123456789"[Math.floor(Math.random() * 10)]);
+function toTime(date) {
+  let timestamp = date?.toDate();
+  let currentDate = new Date();
+  if (
+    timestamp.getDate() === currentDate.getDate() &&
+    timestamp.getDay === currentDate.getDay
+  ) {
+    return `Today at ${
+      timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
+    }:${timestamp?.getMinutes().toString().padStart(2, "0")} ${
+      timestamp?.getHours() > 11 ? "PM" : "AM"
+    }`;
+  } else {
+    return `${timestamp?.getDate()} ${
+      [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ][timestamp?.getMonth()]
+    } ${timestamp?.getFullYear()}`;
   }
-  return result.join("");
-}
-
-function toTime(date: { toDate: () => any; }) {
-  let timestamp = date.toDate();
-  return `${timestamp.getDate()} ${
-    [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ][timestamp.getMonth()]
-  } ${timestamp.getFullYear()} ${
-    timestamp.getHours() % 12 === 0 ? 12 : timestamp.getHours() % 12
-  }:${timestamp.getMinutes().toString().padStart(2, "0")} ${
-    timestamp.getHours() > 11 ? "PM" : "AM"
-  }`;
 }
 
 function Content() {
-  const [value, setValue] = React.useState("");
+  const [documents, setDocuments] = React.useState([]);
+  const [userInfo] = UserGetData();
 
-  const getValue = (event) => {
-    setValue(event.target.value);
-  };
-
-  const addValue = () => {
-    db.doc("values/" + makeId(10))
-      .set({
-        value: value,
-        user: auth.currentUser?.uid,
-        time: new Date(),
-      })
-      .then(function () {
-        //console.log("Value successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing Value: ", error);
+  React.useEffect(() => {
+    db.collection("users")
+      .doc(auth.currentUser.uid)
+      .collection("notifications")
+      .orderBy("time", "desc")
+      .onSnapshot((querySnapshot) => {
+        let arr = [];
+        querySnapshot.docs.map((doc) =>
+          arr.push({ id: doc.id, value: doc.data() })
+        );
+        setDocuments(arr);
       });
-  };
-  const [documents] = useGetData();
+  });
 
-  return <div className="">Notifications</div>;
+  // console.log(documents)
+
+  var i;
+
+  function getUserName(fuid: any) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i]["id"] === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i]["value"]["username"];
+        }
+      }
+    }
+  }
+  function getDisplayName(fuid: any) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i]["id"] === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i]["value"]["displayName"];
+        }
+      }
+    }
+  }
+  function getProfilePic(fuid: any) {
+    if (userInfo !== undefined) {
+      for (i = 0; i in userInfo; i++) {
+        if (userInfo[i]["id"] === fuid) {
+          // console.log(userInfo[i].value)
+          return userInfo[i]["value"]["photoUrl"];
+        }
+      }
+    }
+  }
+
+  return (
+    <div className="">
+      <div>
+        {documents.map((documents) => (
+          <div key={documents["id"]}>
+            <div className="inline-flex">
+              <img
+                className="w-12 mt-1 rounded-full"
+                src={getProfilePic(documents["value"]["user"])}
+                alt="pfp"
+              />{" "}
+              <span className="mt-3 ml-2">
+                {getDisplayName(documents["value"]["user"])} @
+                {getUserName(documents["value"]["user"])}{" | "}
+                {toTime(documents["value"]["time"])} Replied to your post:{" "}
+                {documents["value"]["comment"]}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function SignIn() {
   window.location.href = "/account";
-  return (<div></div>);
+  return <div></div>;
 }
 
 export default Notifications;
