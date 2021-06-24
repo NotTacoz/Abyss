@@ -133,6 +133,51 @@ function toExactTime(date: { toDate: () => any }) {
 function Content() {
   const uid = useParams<{ userid: string }>()["userid"];
   const [value, setValue] = React.useState("");
+  const [followers, setFollowers] = React.useState([]);
+  const [following, setFollowing] = React.useState([]);
+  const [isfollowing, setIsfollowing] = React.useState(false);
+
+  React.useEffect(() => {
+    db.collection("users")
+      .doc(uid)
+      .collection("followers")
+      .onSnapshot((response) => {
+        const fetchedCinemas = [];
+        response.docs.forEach((document) => {
+          const fetchedCinema = {
+            id: document.id,
+            ...document.data(),
+          };
+          fetchedCinemas.push(fetchedCinema);
+        });
+        setFollowers(fetchedCinemas);
+      });
+    db.collection("users")
+      .doc(uid)
+      .collection("following")
+      .onSnapshot((response) => {
+        const fetchedCinemas = [];
+        response.docs.forEach((document) => {
+          const fetchedCinema = {
+            id: document.id,
+            ...document.data(),
+          };
+          fetchedCinemas.push(fetchedCinema);
+        });
+        setFollowing(fetchedCinemas);
+      });
+    db.collection("users")
+      .doc(uid)
+      .collection("followers")
+      .doc(auth.currentUser.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          setIsfollowing(true);
+        }else {
+          setIsfollowing(false);
+        }
+      });
+  }, [uid]);
 
   const getValue = (event: any) => {
     setValue(event.target.value);
@@ -226,12 +271,56 @@ function Content() {
     }
   }
 
+  function followPerson() {
+    db.collection("users")
+      .doc(uid)
+      .collection("followers")
+      .doc(auth.currentUser.uid)
+      .set({
+        user: auth.currentUser?.uid,
+        time: new Date(),
+      })
+      .then(function () {
+        // toast.success("Successfully Followed!");
+        //console.log("Value successfully written!");
+      });
+    db.collection("users")
+      .doc(auth.currentUser.uid)
+      .collection("following")
+      .doc(uid)
+      .set({
+        user: uid,
+        time: new Date(),
+      })
+      .then(function () {
+        toast.success("Successfully Followed!");
+        //console.log("Value successfully written!");
+      });
+  }
+
+  function unfollowPerson() {
+    db.collection("users")
+      .doc(uid)
+      .collection("followers")
+      .doc(auth.currentUser.uid).delete()
+    db.collection("users")
+      .doc(auth.currentUser.uid)
+      .collection("following")
+      .doc(uid)
+      .delete()
+  }
+
+  // if (auth.currentUser.uid === uid) {
+  //   document.getElementById("follow").style.display = "none";
+  //   document.getElementById("unfollow").style.display = "none";
+  // }
+
   return (
     <div>
       <div>
         <img
           className="profileWallpaper rounded-lg object-cover w-1/2 h-52"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapers13.com%2Fwp-content%2Fuploads%2F2016%2F04%2FLandscape-Water-House-LofotenMorningMoskenesoya-HD-Desktop-Wallpaper.jpg&f=1&nofb=1"
+          src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.osxdaily.com%2Fwp-content%2Fuploads%2F2017%2F06%2Fmacos-high-sierra-default-wallpaper-fall-mountain-scene-1.jpg&f=1&nofb=1"
           alt=""
         />
         <img
@@ -239,8 +328,49 @@ function Content() {
           src={getProfilePic(uid)}
           alt="pfp"
         />
-        <h2 className="ml-3">{getDisplayName(uid)}</h2>
+        <div className="inline-flex">
+          <h2 className="ml-3">{getDisplayName(uid)}</h2>
+          {auth.currentUser.uid === uid ? (
+            <div></div>
+          ) : (
+            <div>
+              {isfollowing ? (
+                <div>
+                  <button
+                    type="button"
+                    className="special ml-72 -mt-20 rounded-full"
+                    onClick={unfollowPerson}
+                    id="unfollow"
+                  >
+                    Unfollow
+                  </button>
+                  <Toaster />
+                </div>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    className="special ml-72 -mt-20 rounded-full"
+                    onClick={followPerson}
+                    id="follow"
+                  >
+                    Follow
+                  </button>
+                  <Toaster />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        <br />
         <span className="ml-3 opacity-70">@{getUserName(uid)}</span>
+        <br />
+        <div className="ml-3 mt-2">
+          <span>{following.length}</span>{" "}
+          <span className="opacity-70">Following</span>
+          <span className="ml-3">{followers.length}</span>{" "}
+          <span className="opacity-70">Followers</span>
+        </div>
       </div>
     </div>
   );
